@@ -41,9 +41,13 @@ public class Status : MonoBehaviour
 		}
 	}
 	
-	public void TakeDamage()
+	public void TakeDamage(int damageTaken)
 	{
-		currentHP = 0;
+		currentHP -= damageTaken;
+		if (currentHP < 0)
+		{
+			currentHP = 0;
+		}
 	}
 	
 	void PlayerDead ()

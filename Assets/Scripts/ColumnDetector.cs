@@ -47,6 +47,11 @@ public class ColumnDetector : MonoBehaviour
 		}
 	}
 	
+	void removeObjects()
+	{
+		
+	}
+	
 	void OnTriggerExit (Collider other)
 	{
 		if (other.gameObject.CompareTag ("Destructable")) {

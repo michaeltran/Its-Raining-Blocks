@@ -5,14 +5,11 @@ public class SquishDetection : MonoBehaviour
 {
 	
 	private CharacterController controller;
-	private GameObject player;
-	
 	
 	// Use this for initialization
 	void Start ()
 	{
-		player = GameObject.FindGameObjectWithTag ("Player");
-		controller = player.GetComponent<CharacterController> ();
+		controller = GetComponent<CharacterController> ();
 	}
 	
 	// Update is called once per frame
@@ -25,6 +22,19 @@ public class SquishDetection : MonoBehaviour
 	void CheckSquashed ()
 	{
 		RaycastHit[] hits = null;
+		hits = Physics.RaycastAll (new Vector3 (transform.position.x, transform.position.y, transform.position.z), transform.up, 1.2f);
+		
+		if (hits.Length > 0 && controller.isGrounded) {
+			// You're dead
+			Status status = (Status)this.gameObject.GetComponent ("Status");
+			status.TakeDamage (100);
+		}
+	}
+	
+	/*
+	void CheckSquashed ()
+	{
+		RaycastHit[] hits = null;
 		hits = Physics.RaycastAll (new Vector3 (transform.position.x, transform.position.y, transform.position.z), -transform.up, 1.2f);
 		
 		if (hits.Length > 0 && controller.isGrounded) {
@@ -32,9 +42,10 @@ public class SquishDetection : MonoBehaviour
 				if (hit.transform.gameObject == player) {
 					// Squashed!!
 					Status status = (Status)player.GetComponent ("Status");
-					status.TakeDamage ();
+					//status.TakeDamage ();
 				}
 			}
 		}
 	}
+	*/
 }

@@ -117,18 +117,8 @@ public class CharacterMovement : MonoBehaviour
 	{
 		anim.Play ("jump");
 	}
-	/*
-	void CheckSquashed ()
-	{
-		RaycastHit[] hits = null;
-		hits = Physics.RaycastAll (new Vector3 (transform.position.x, transform.position.y, transform.position.z), transform.up, 1.2f);
-		
-		if (hits.Length > 0 && controller.isGrounded) {
-			// You're dead
-			PlayerDead ();
-		}
-	}
 	
+	/*
 	void PlayerDead ()
 	{
 		gameOver.SetActive (true);

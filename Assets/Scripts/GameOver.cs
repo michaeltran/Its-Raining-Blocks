@@ -10,7 +10,6 @@ public class GameOver : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		//this.gameObject.SetActive(false);
 		originalPosition = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
 		hidingPosition = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z + 20);
 		this.gameObject.transform.position = hidingPosition;
@@ -19,12 +18,10 @@ public class GameOver : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-	
 	}
 	
 	public void LevelReset ()
 	{
-		//this.gameObject.SetActive(true);
 		this.gameObject.transform.position = originalPosition;
 		Invoke ("DoReset", resetAfterDeathTime);
 	}
