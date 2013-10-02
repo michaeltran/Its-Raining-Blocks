@@ -15,6 +15,10 @@ public class SquishDetection : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		if(controller.isGrounded)
+		{
+		}
+		
 		CheckSquashed ();
 	
 	}
@@ -25,6 +29,7 @@ public class SquishDetection : MonoBehaviour
 		hits = Physics.RaycastAll (new Vector3 (transform.position.x, transform.position.y, transform.position.z), transform.up, 1.2f);
 		
 		if (hits.Length > 0 && controller.isGrounded) {
+			Debug.Log("Dead Bro");
 			// You're dead
 			Status status = (Status)this.gameObject.GetComponent ("Status");
 			status.TakeDamage (100);
