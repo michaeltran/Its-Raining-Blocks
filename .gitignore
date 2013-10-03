@@ -1,10 +1,35 @@
-# Unity .gitignore file.
-.DS_Store
+# =============== #
+# Unity Generated #
+# =============== #
+Temp/
+Obj/
+UnityGenerated/
 Library
 Library/*
-*.csproj
-*.sln
+
+# ===================================== #
+# Visual Studio / MonoDevelop Generated #
+# ===================================== #
+ExportedObj/
+*.svd
 *.userprefs
-Temp
+*.csproj
 *.pidb
+*.suo
+*.sln
+*.user
+*.unityproj
+*.booproj
+
+# ============ #
+# OS Generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
 Build
