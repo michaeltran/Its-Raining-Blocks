@@ -4,20 +4,22 @@ using System.Collections;
 public class Status : MonoBehaviour
 {
 	
-	public int currentHP;
+	private int currentHP;
 	private int maxHP;
 	private int currentMP;
 	private int maxMP;
 	private bool isDead;
 	
 	private GameObject vitalBar;
-	
+	private GameObject manaBar;
 	private GameObject gameOver;
 	
 	// Use this for initialization
 	void Start ()
 	{
 		gameOver = GameObject.FindGameObjectWithTag ("GameOver");
+		vitalBar = GameObject.FindGameObjectWithTag ("VitalBar");
+		manaBar = GameObject.FindGameObjectWithTag ("ManaBar");
 		
 		maxHP = 100;
 		currentHP = 100;
@@ -26,8 +28,6 @@ public class Status : MonoBehaviour
 		currentMP = 100;
 		
 		isDead = false;
-		
-		vitalBar = GameObject.FindGameObjectWithTag ("VitalBar");
 	}
 	
 	// Update is called once per frame
@@ -35,16 +35,25 @@ public class Status : MonoBehaviour
 	{
 		CheckAlive();
 		CalculateVitalBar();
+		CalculateManaBar();
 	}
 	
 	void CalculateVitalBar () {
 		VitalBarBasic vit = (VitalBarBasic)vitalBar.gameObject.GetComponent ("VitalBarBasic");
 
 		int x = currentHP / maxHP;
-		
 		string str = currentHP + "/" + maxHP;
 		
 		vit.UpdateDisplay(x, str);
+	}
+	
+	void CalculateManaBar() {
+		ManaBarBasic mana = (ManaBarBasic)manaBar.gameObject.GetComponent ("ManaBarBasic");
+		
+		int x = currentMP / maxMP;
+		string str = currentMP + "/" + maxMP;
+		
+		mana.UpdateDisplay(x, str);
 	}
 	
 	void CheckAlive()
