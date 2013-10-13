@@ -26,7 +26,7 @@ public class SquishDetection : MonoBehaviour
 	void CheckSquashed ()
 	{
 		RaycastHit[] hits = null;
-		hits = Physics.RaycastAll (new Vector3 (transform.position.x, transform.position.y, transform.position.z), transform.up, 1.2f);
+		hits = Physics.RaycastAll (new Vector3 (transform.position.x, transform.position.y, transform.position.z), transform.up, 1.3f);
 		
 		if (hits.Length > 0 && controller.isGrounded) {
 			Debug.Log("Squish Detected");
