@@ -10,6 +10,8 @@ public class Status : MonoBehaviour
 	private int maxMP;
 	private bool isDead;
 	
+	private GameObject vitalBar;
+	
 	private GameObject gameOver;
 	
 	// Use this for initialization
@@ -24,12 +26,25 @@ public class Status : MonoBehaviour
 		currentMP = 100;
 		
 		isDead = false;
+		
+		vitalBar = GameObject.FindGameObjectWithTag ("VitalBar");
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
 		CheckAlive();
+		CalculateVitalBar();
+	}
+	
+	void CalculateVitalBar () {
+		VitalBarBasic vit = (VitalBarBasic)vitalBar.gameObject.GetComponent ("VitalBarBasic");
+
+		int x = currentHP / maxHP;
+		
+		string str = currentHP + "/" + maxHP;
+		
+		vit.UpdateDisplay(x, str);
 	}
 	
 	void CheckAlive()

@@ -29,8 +29,8 @@ public class SquishDetection : MonoBehaviour
 		hits = Physics.RaycastAll (new Vector3 (transform.position.x, transform.position.y, transform.position.z), transform.up, 1.2f);
 		
 		if (hits.Length > 0 && controller.isGrounded) {
-			Debug.Log("Dead Bro");
-			// You're dead
+			Debug.Log("Squish Detected");
+			// Take DMG from block
 			Status status = (Status)this.gameObject.GetComponent ("Status");
 			status.TakeDamage (100);
 		}
