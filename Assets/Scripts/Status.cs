@@ -41,7 +41,7 @@ public class Status : MonoBehaviour
 	void CalculateVitalBar () {
 		VitalBarBasic vit = (VitalBarBasic)vitalBar.gameObject.GetComponent ("VitalBarBasic");
 
-		int x = currentHP / maxHP;
+		float x = (float)currentHP / (float)maxHP;
 		string str = currentHP + "/" + maxHP;
 		
 		vit.UpdateDisplay(x, str);
@@ -50,7 +50,7 @@ public class Status : MonoBehaviour
 	void CalculateManaBar() {
 		ManaBarBasic mana = (ManaBarBasic)manaBar.gameObject.GetComponent ("ManaBarBasic");
 		
-		int x = currentMP / maxMP;
+		float x = (float)currentMP / (float)maxMP;
 		string str = currentMP + "/" + maxMP;
 		
 		mana.UpdateDisplay(x, str);
@@ -72,6 +72,21 @@ public class Status : MonoBehaviour
 		{
 			currentHP = 0;
 		}
+	}
+	
+	public bool requestMana(int amount)
+	{
+		bool requestFullfilled;
+		if(amount > currentMP)
+		{
+			requestFullfilled = false;
+		}
+		else
+		{
+			currentMP -= amount;
+			requestFullfilled = true;
+		}
+		return requestFullfilled;
 	}
 	
 	void PlayerDead ()

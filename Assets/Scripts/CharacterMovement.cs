@@ -69,13 +69,18 @@ public class CharacterMovement : MonoBehaviour
 		} //Air Controls
 		else if (!controller.isGrounded) {
 			velocity.x = Input.GetAxis ("Horizontal");
+			velocity = transform.TransformDirection (velocity);
 			velocity.x *= walkingSpeed;
 		}
 		
 		if(controller.collisionFlags == CollisionFlags.Above)
 		{
-			velocity.y = 0;
-			velocity.y -= afterHitForceDown;
+			//velocity.y = 0;
+			//velocity.y -= afterHitForceDown;
+			if(velocity.y > 0)
+			{
+				velocity.y = -velocity.y;
+			}
 		}
 		
 		
