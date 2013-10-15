@@ -21,7 +21,7 @@ public class ManaBarBasic : MonoBehaviour
 	
 	public void UpdateDisplay (float x)
 	{
-		_slider.sliderValue = x;
+		_slider.value = x;
 	}
 	
 	public void UpdateDisplay(float x, string str){

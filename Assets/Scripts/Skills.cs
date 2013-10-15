@@ -7,13 +7,18 @@ public class Skills : MonoBehaviour {
 	private float originalFixedDeltaTime;
 	private float slowMotionSpeed = 0.25f;
 	private Status status;
+	private GrayscaleEffect grayscaleEffect;
+	private GameObject camera;
+	
 	
 	// Use this for initialization
 	void Start () {
 		originalTimeScale = Time.timeScale;
 		originalFixedDeltaTime = Time.fixedDeltaTime;
 		
-		status = (Status)this.gameObject.GetComponent ("Status");
+		status = (Status)this.gameObject.GetComponent<Status>();
+		camera = GameObject.FindGameObjectWithTag ("MainCamera");
+		grayscaleEffect = (GrayscaleEffect)camera.gameObject.GetComponent<GrayscaleEffect>();
 	}
 	
 	// Update is called once per frame
@@ -29,12 +34,14 @@ public class Skills : MonoBehaviour {
 	void TimeSlowStart() {
 		if(status.requestMana(50))
 		{
+			grayscaleEffect.effectAmount = 1;
 			Time.timeScale = slowMotionSpeed;
 			Time.fixedDeltaTime = Time.timeScale * 0.02f;
 			Invoke ("TimeSlowEnd", 2f);
 		}
 	}
 	void TimeSlowEnd() {
+		grayscaleEffect.effectAmount = 0;
 		Time.timeScale = originalTimeScale;
 		Time.fixedDeltaTime = originalFixedDeltaTime;
 	}

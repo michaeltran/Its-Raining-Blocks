@@ -22,10 +22,10 @@ public class Status : MonoBehaviour
 		manaBar = GameObject.FindGameObjectWithTag ("ManaBar");
 		
 		maxHP = 100;
-		currentHP = 100;
+		currentHP = 50;
 		
 		maxMP = 100;
-		currentMP = 100;
+		currentMP = maxMP;
 		
 		isDead = false;
 	}
@@ -71,6 +71,24 @@ public class Status : MonoBehaviour
 		if (currentHP < 0)
 		{
 			currentHP = 0;
+		}
+	}
+	
+	public void Heal(int amountHealed)
+	{
+		currentHP += amountHealed;
+		if (currentHP > maxHP)
+		{
+			currentHP = maxHP;
+		}
+	}
+	
+	public void HealMana(int amountHealed)
+	{
+		currentMP += amountHealed;
+		if (currentMP > maxMP)
+		{
+			currentMP = maxMP;
 		}
 	}
 	

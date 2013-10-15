@@ -13,8 +13,11 @@ public class GlobalSpawner : MonoBehaviour
 	public float startTime = 2f;
 	public float rateOfSpawn = 2f; //in seconds
 	public GameObject prefabSpawner;
-	private GameObject[] spawners;
 	public GameObject test;
+	public GameObject[] healthPotions;
+	public GameObject[] manaPotions;
+	
+	private GameObject[] spawners;
 	private Queue<GameObject> objectQueue = new Queue<GameObject>();
 	
 	// Use this for initialization
@@ -24,13 +27,19 @@ public class GlobalSpawner : MonoBehaviour
 		spawners = GameObject.FindGameObjectsWithTag ("Spawner");
 		
 		InvokeRepeating ("SpawnABlock", 2f, 0.25f);
+		InvokeRepeating ("addHealthPotionToSpawn", 5f, 5f);
+		InvokeRepeating ("addManaPotionToSpawn", 2.5f, 5f);
 		addToQueue (test);
 	}
 	
-	// Update is called once per frame
-	void Update ()
+	void addHealthPotionToSpawn ()
 	{
+		addToQueue (healthPotions[0]);
+	}
 	
+	void addManaPotionToSpawn ()
+	{
+		addToQueue (manaPotions[0]);
 	}
 	
 	void CreateSpawners ()
