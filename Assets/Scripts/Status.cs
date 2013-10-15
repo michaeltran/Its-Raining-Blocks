@@ -4,24 +4,28 @@ using System.Collections;
 public class Status : MonoBehaviour
 {
 	
-	public int currentHP;
+	private int currentHP;
 	private int maxHP;
 	private int currentMP;
 	private int maxMP;
 	private bool isDead;
 	
+	private GameObject vitalBar;
+	private GameObject manaBar;
 	private GameObject gameOver;
 	
 	// Use this for initialization
 	void Start ()
 	{
 		gameOver = GameObject.FindGameObjectWithTag ("GameOver");
+		vitalBar = GameObject.FindGameObjectWithTag ("VitalBar");
+		manaBar = GameObject.FindGameObjectWithTag ("ManaBar");
 		
 		maxHP = 100;
-		currentHP = 100;
+		currentHP = 50;
 		
 		maxMP = 100;
-		currentMP = 100;
+		currentMP = maxMP;
 		
 		isDead = false;
 	}
@@ -30,6 +34,26 @@ public class Status : MonoBehaviour
 	void Update ()
 	{
 		CheckAlive();
+		CalculateVitalBar();
+		CalculateManaBar();
+	}
+	
+	void CalculateVitalBar () {
+		VitalBarBasic vit = (VitalBarBasic)vitalBar.gameObject.GetComponent ("VitalBarBasic");
+
+		float x = (float)currentHP / (float)maxHP;
+		string str = currentHP + "/" + maxHP;
+		
+		vit.UpdateDisplay(x, str);
+	}
+	
+	void CalculateManaBar() {
+		ManaBarBasic mana = (ManaBarBasic)manaBar.gameObject.GetComponent ("ManaBarBasic");
+		
+		float x = (float)currentMP / (float)maxMP;
+		string str = currentMP + "/" + maxMP;
+		
+		mana.UpdateDisplay(x, str);
 	}
 	
 	void CheckAlive()
@@ -48,6 +72,39 @@ public class Status : MonoBehaviour
 		{
 			currentHP = 0;
 		}
+	}
+	
+	public void Heal(int amountHealed)
+	{
+		currentHP += amountHealed;
+		if (currentHP > maxHP)
+		{
+			currentHP = maxHP;
+		}
+	}
+	
+	public void HealMana(int amountHealed)
+	{
+		currentMP += amountHealed;
+		if (currentMP > maxMP)
+		{
+			currentMP = maxMP;
+		}
+	}
+	
+	public bool requestMana(int amount)
+	{
+		bool requestFullfilled;
+		if(amount > currentMP)
+		{
+			requestFullfilled = false;
+		}
+		else
+		{
+			currentMP -= amount;
+			requestFullfilled = true;
+		}
+		return requestFullfilled;
 	}
 	
 	void PlayerDead ()
