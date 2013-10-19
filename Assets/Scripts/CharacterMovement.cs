@@ -35,60 +35,68 @@ public class CharacterMovement : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		float currentTime = Time.realtimeSinceStartup;
-		float deltaTime = currentTime - previousFrameTime;
-		previousFrameTime = currentTime;
-		
-		//Ground Controls
-		if (controller.isGrounded) {
-			velocity = new Vector3 (Input.GetAxis ("Horizontal"), 0, 0);
-			velocity = transform.TransformDirection (velocity);
-			velocity *= walkingSpeed;
+		//if(!Pause.Instance.IsPaused)
+		//{
+			float currentTime = Time.realtimeSinceStartup;
+			float deltaTime = currentTime - previousFrameTime;
+			previousFrameTime = currentTime;
 			
-			//Animation Control
-			if (Input.GetAxis ("Horizontal") > 0) {
-				PlayWalkingAnimation ();
-				moveDirection = 1;
-			} else if (Input.GetAxis ("Horizontal") < 0) {
-				PlayWalkingAnimation ();
-				moveDirection = 0;
-			} else {
-				PlayIdleAnimation ();
+			//Ground Controls
+			if (controller.isGrounded) {
+				velocity = new Vector3 (Input.GetAxis ("Horizontal"), 0, 0);
+				velocity = transform.TransformDirection (velocity);
+				velocity *= walkingSpeed;
+				
+				//Animation Control
+				if (Input.GetAxis ("Horizontal") > 0) {
+					PlayWalkingAnimation ();
+					moveDirection = 1;
+				} else if (Input.GetAxis ("Horizontal") < 0) {
+					PlayWalkingAnimation ();
+					moveDirection = 0;
+				} else {
+					PlayIdleAnimation ();
+				}
+				
+				
+				if (Input.GetButtonDown ("Jump") && !Input.GetButton ("Fire1")) {
+					velocity.y = jumpSpeed;
+					PlayJumpAnimation ();
+				} //Super Jump Skill
+				else if (Input.GetButtonDown ("Jump") && Input.GetButton ("Fire1")) {
+					velocity.y = jumpSpeed + 10f;
+					PlayJumpAnimation ();
+					//TODO: Deduct Mana when Used.
+				}
+			} //Air Controls
+			else if (!controller.isGrounded) {
+				velocity.x = Input.GetAxis ("Horizontal");
+				velocity = transform.TransformDirection (velocity);
+				velocity.x *= walkingSpeed;
 			}
 			
-			
-			if (Input.GetButtonDown ("Jump") && !Input.GetButton ("Fire1")) {
-				velocity.y = jumpSpeed;
-				PlayJumpAnimation ();
-			} //Super Jump Skill
-			else if (Input.GetButtonDown ("Jump") && Input.GetButton ("Fire1")) {
-				velocity.y = jumpSpeed + 10f;
-				PlayJumpAnimation ();
-				//TODO: Deduct Mana when Used.
-			}
-		} //Air Controls
-		else if (!controller.isGrounded) {
-			velocity.x = Input.GetAxis ("Horizontal");
-			velocity = transform.TransformDirection (velocity);
-			velocity.x *= walkingSpeed;
-		}
-		
-		if(controller.collisionFlags == CollisionFlags.Above)
-		{
-			//velocity.y = 0;
-			//velocity.y -= afterHitForceDown;
-			if(velocity.y > 0)
+			if(controller.collisionFlags == CollisionFlags.Above)
 			{
-				velocity.y = -velocity.y;
+				//velocity.y = 0;
+				//velocity.y -= afterHitForceDown;
+				if(velocity.y > 0)
+				{
+					velocity.y = -velocity.y/2;
+				}
 			}
+			
+			
+			SetDirection();
+		
+			ApplyGravity (deltaTime);
+		
+			if(Pause.Instance.IsPaused)
+		{
+			velocity = Vector3.zero;
 		}
-		
-		
-		SetDirection();
-	
-		ApplyGravity (deltaTime);
-		
-		controller.Move (velocity * deltaTime);
+			
+			controller.Move (velocity * deltaTime);
+		//}
 	}
 	
 	void SetDirection ()

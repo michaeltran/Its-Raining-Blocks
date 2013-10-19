@@ -27,7 +27,26 @@ public class Skills : MonoBehaviour {
 		{
 			TimeSlowStart ();
 		}
+		if(Input.GetKeyDown (KeyCode.Escape))
+		{
+			doThePause ();
+		}
 	}
+	
+	#region Pause
+	void doThePause() {
+		Pause.Instance.IsPaused = !Pause.Instance.IsPaused;
+		if(Pause.Instance.IsPaused)
+		{
+			Time.timeScale = 0f;
+		}
+		else
+		{
+			Time.timeScale = originalTimeScale;
+		}
+	}
+	#endregion
+	
 	
 	#region TimeSlow Skill
 	//This skill slows down time.

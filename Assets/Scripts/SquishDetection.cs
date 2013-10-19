@@ -28,7 +28,7 @@ public class SquishDetection : MonoBehaviour
 		RaycastHit[] hits = null;
 		hits = Physics.RaycastAll (new Vector3 (transform.position.x, transform.position.y, transform.position.z), transform.up, 1.3f);
 		
-		if (hits.Length > 0 && controller.isGrounded) {
+		if (hits.Length > 0 && controller.isGrounded && hits[0].collider.tag == "Destructable") {
 			Debug.Log("Squish Detected");
 			// Take DMG from block
 			Status status = (Status)this.gameObject.GetComponent ("Status");
