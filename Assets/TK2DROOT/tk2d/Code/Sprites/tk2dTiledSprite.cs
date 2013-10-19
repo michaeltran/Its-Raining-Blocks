@@ -167,6 +167,9 @@ public class tk2dTiledSprite : tk2dBaseSprite
 		mesh.uv = meshUvs;
 		mesh.triangles = meshIndices;
 		mesh.RecalculateBounds();
+		//
+		mesh.RecalculateNormals();
+		//
 		mesh.bounds = AdjustedMeshBounds( mesh.bounds, renderLayer );
 		
 		GetComponent<MeshFilter>().mesh = mesh;
