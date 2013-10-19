@@ -25,7 +25,7 @@ public class Skills : MonoBehaviour {
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.Alpha1))
 		{
-			TimeSlowStart ();
+			//TimeSlowStart ();
 		}
 		if(Input.GetKeyDown (KeyCode.Escape))
 		{
@@ -67,5 +67,14 @@ public class Skills : MonoBehaviour {
 	#endregion
 	
 	#region FireBall Skill
+	void FireBall() {
+		Debug.Log ("Fireball Skill Activated");
+	}
+	#endregion
+	
+	#region Thunder Skill
+	void Thunder() {
+		Debug.Log ("Thunder Skill Activated");
+	}
 	#endregion
 }

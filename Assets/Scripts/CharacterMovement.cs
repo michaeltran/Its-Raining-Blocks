@@ -91,9 +91,9 @@ public class CharacterMovement : MonoBehaviour
 			ApplyGravity (deltaTime);
 		
 			if(Pause.Instance.IsPaused)
-		{
-			velocity = Vector3.zero;
-		}
+			{
+				velocity = Vector3.zero;
+			}
 			
 			controller.Move (velocity * deltaTime);
 		//}
