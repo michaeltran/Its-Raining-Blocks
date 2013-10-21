@@ -3,6 +3,9 @@ using System.Collections;
 
 public class Skills : MonoBehaviour {
 	
+	public GameObject fireBall;
+	public GameObject thunder;
+	
 	private float originalTimeScale;
 	private float originalFixedDeltaTime;
 	private float slowMotionSpeed = 0.25f;
@@ -23,10 +26,6 @@ public class Skills : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKeyDown(KeyCode.Alpha1))
-		{
-			//TimeSlowStart ();
-		}
 		if(Input.GetKeyDown (KeyCode.Escape))
 		{
 			doThePause ();
@@ -68,13 +67,23 @@ public class Skills : MonoBehaviour {
 	
 	#region FireBall Skill
 	void FireBall() {
-		Debug.Log ("Fireball Skill Activated");
+		if(status.requestMana(10))
+		{
+			//Play spell cast animation here.
+			Vector3 startPosition = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y+2.5f, this.gameObject.transform.position.z);
+			Instantiate(fireBall, startPosition, fireBall.transform.rotation);
+		}
 	}
 	#endregion
 	
 	#region Thunder Skill
 	void Thunder() {
-		Debug.Log ("Thunder Skill Activated");
+		if(status.requestMana (20))
+		{
+			//Play spell cast animation here.
+			Vector3 startPosition = new Vector3(this.gameObject.transform.position.x, thunder.transform.position.y, this.gameObject.transform.position.z);
+			Instantiate (thunder, startPosition, thunder.transform.rotation);
+		}
 	}
 	#endregion
 }

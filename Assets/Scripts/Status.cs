@@ -22,7 +22,7 @@ public class Status : MonoBehaviour
 		manaBar = GameObject.FindGameObjectWithTag ("ManaBar");
 		
 		maxHP = 100;
-		currentHP = 50;
+		currentHP = maxHP;
 		
 		maxMP = 100;
 		currentMP = maxMP;
