@@ -27,7 +27,7 @@ public class SquishDetection : MonoBehaviour
 		if (hits.Length > 0 && controller.isGrounded && hits[0].collider.tag == "Destructable") {
 			// Take DMG from block
 			Status status = (Status)this.gameObject.GetComponent ("Status");
-			status.TakeDamage (10);
+			status.TakeDamage (40);
 			Instantiate(Poof, this.gameObject.transform.position, Quaternion.identity);
 			Vector3 startPosition = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y+40, this.gameObject.transform.position.z);
 			this.gameObject.transform.position = startPosition;

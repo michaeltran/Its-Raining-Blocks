@@ -6,7 +6,7 @@ public class VitalBarBasic : MonoBehaviour
 	public UILabel label;
 	
 	private UISlider _slider;
-	private bool _displayText = true;
+	public bool _displayText = true;
 	
 	void Awake ()
 	{

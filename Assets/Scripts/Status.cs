@@ -4,10 +4,12 @@ using System.Collections;
 public class Status : MonoBehaviour
 {
 	
-	private int currentHP;
-	private int maxHP;
-	private int currentMP;
-	private int maxMP;
+	private float currentHP;
+	private float maxHP;
+	private float _HPRegeneration;
+	private float currentMP;
+	private float maxMP;
+	private float _MPRegeneration;
 	private bool isDead;
 	
 	private GameObject vitalBar;
@@ -21,11 +23,13 @@ public class Status : MonoBehaviour
 		vitalBar = GameObject.FindGameObjectWithTag ("VitalBar");
 		manaBar = GameObject.FindGameObjectWithTag ("ManaBar");
 		
-		maxHP = 100;
+		maxHP = 100f;
 		currentHP = maxHP;
+		_HPRegeneration = 0.5f;
 		
-		maxMP = 100;
+		maxMP = 100f;
 		currentMP = maxMP;
+		_MPRegeneration = 1f;
 		
 		isDead = false;
 	}
@@ -34,15 +38,35 @@ public class Status : MonoBehaviour
 	void Update ()
 	{
 		CheckAlive();
+		if(!isDead)
+		{
+			HPRegeneration ();
+			MPRegeneration ();
+		}
 		CalculateVitalBar();
 		CalculateManaBar();
+		
+	}
+	
+	void HPRegeneration() {
+		if(currentHP < maxHP)
+		{
+			currentHP += _HPRegeneration * Time.deltaTime;
+		}
+	}
+	
+	void MPRegeneration() {
+		if(currentMP < maxMP)
+		{
+			currentMP += _MPRegeneration * Time.deltaTime;
+		}
 	}
 	
 	void CalculateVitalBar () {
 		VitalBarBasic vit = (VitalBarBasic)vitalBar.gameObject.GetComponent ("VitalBarBasic");
 
 		float x = (float)currentHP / (float)maxHP;
-		string str = currentHP + "/" + maxHP;
+		string str = (int)currentHP + "/" + maxHP;
 		
 		vit.UpdateDisplay(x, str);
 	}
@@ -51,7 +75,7 @@ public class Status : MonoBehaviour
 		ManaBarBasic mana = (ManaBarBasic)manaBar.gameObject.GetComponent ("ManaBarBasic");
 		
 		float x = (float)currentMP / (float)maxMP;
-		string str = currentMP + "/" + maxMP;
+		string str = (int)currentMP + "/" + maxMP;
 		
 		mana.UpdateDisplay(x, str);
 	}
