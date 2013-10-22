@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 public class GlobalSpawner : MonoBehaviour
 {
-
+	
 	public int numberOfSpawners;
 	public float startTime = 2f;
 	public float rateOfSpawn = 2f; //in seconds
@@ -17,6 +17,7 @@ public class GlobalSpawner : MonoBehaviour
 	public GameObject[] healthPotions;
 	public GameObject[] manaPotions;
 	
+	private bool spawnStuff = true;
 	private GameObject[] spawners;
 	private Queue<GameObject> objectQueue = new Queue<GameObject>();
 	
@@ -29,7 +30,7 @@ public class GlobalSpawner : MonoBehaviour
 		InvokeRepeating ("SpawnABlock", 2f, 0.25f);
 		InvokeRepeating ("addHealthPotionToSpawn", 5f, 5f);
 		InvokeRepeating ("addManaPotionToSpawn", 2.5f, 5f);
-		addToQueue (test);
+		//addToQueue (test);
 	}
 	
 	void addHealthPotionToSpawn ()
@@ -58,12 +59,20 @@ public class GlobalSpawner : MonoBehaviour
 	
 	void SpawnABlock ()
 	{
-		int randomIndex = Random.Range (0, spawners.Length);
-		BlockSpawner other = (BlockSpawner)spawners [randomIndex].GetComponent (typeof(BlockSpawner));
-		if (objectQueue.Count > 0) {
-			other.LaunchBlock (objectQueue.Dequeue());
-		} else {
-			other.LaunchBlock ();
+		if (spawnStuff)
+		{
+			int randomIndex = Random.Range (0, spawners.Length);
+			BlockSpawner other = (BlockSpawner)spawners [randomIndex].GetComponent (typeof(BlockSpawner));
+			if (objectQueue.Count > 0) {
+				other.LaunchBlock (objectQueue.Dequeue());
+			} else {
+				other.LaunchBlock ();
+			}
 		}
+	}
+	
+	void setSpawnStuff (bool temp)
+	{
+		spawnStuff = temp;
 	}
 }

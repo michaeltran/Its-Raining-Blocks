@@ -3,20 +3,25 @@ using System.Collections;
 
 public class EnemyStatus : MonoBehaviour {
 	public ParticleSystem Poof;
+	public ParticleSystem GetHitAnimation;
+	public AudioClip GetHitSound;
+	public AudioClip DeathSound;
 	
 	private float currentHP;
 	private float maxHP;
 	private float _HPRegeneration;
 	private bool isDead;
 	
+	private GameObject gameOver;
 	private GameObject vitalBar;
 	
 	// Use this for initialization
 	void Start ()
 	{
 		vitalBar = GameObject.FindGameObjectWithTag ("EnemyVitalBar");
+		gameOver = GameObject.FindGameObjectWithTag ("GameOver");
 		
-		maxHP = 100f;
+		maxHP = 150f;
 		currentHP = maxHP;
 		_HPRegeneration = 0.5f;
 		
@@ -54,25 +59,32 @@ public class EnemyStatus : MonoBehaviour {
 		if(currentHP < 1)
 		{
 			isDead = true;
-			Debug.Log ("Enemy downnn");
+			
 			Instantiate(Poof, this.gameObject.transform.position, Quaternion.identity);
 			
+			AudioSource.PlayClipAtPoint (DeathSound, transform.position);
+			
+			ChangeScene ();
 			Destroy(this.gameObject);
 		}
 	}
 	
-	void GGNORE()
-	{
-		
-	}
-	
 	public void TakeDamage(int damageTaken)
 	{
+		AudioSource.PlayClipAtPoint(GetHitSound, transform.position);
 		currentHP -= damageTaken;
 		if (currentHP < 0)
 		{
 			currentHP = 0;
 		}
+		else{
+			Instantiate(GetHitAnimation, this.gameObject.transform.position, Quaternion.identity);
+		}
+	}
+	
+	public void ChangeScene()
+	{
+		gameOver.gameObject.SendMessage ("LevelWin");
 	}
 	
 }

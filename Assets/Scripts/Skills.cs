@@ -67,7 +67,7 @@ public class Skills : MonoBehaviour {
 	
 	#region FireBall Skill
 	void FireBall() {
-		if(status.requestMana(10))
+		if(status.requestMana(15))
 		{
 			//Play spell cast animation here.
 			Vector3 startPosition = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y+2.5f, this.gameObject.transform.position.z);
@@ -78,7 +78,7 @@ public class Skills : MonoBehaviour {
 	
 	#region Thunder Skill
 	void Thunder() {
-		if(status.requestMana (20))
+		if(status.requestMana (30))
 		{
 			//Play spell cast animation here.
 			Vector3 startPosition = new Vector3(this.gameObject.transform.position.x, thunder.transform.position.y, this.gameObject.transform.position.z);

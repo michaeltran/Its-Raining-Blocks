@@ -3,32 +3,41 @@ using System.Collections;
 
 public class GameOver : MonoBehaviour
 {
-	private float resetAfterDeathTime = 2.5f;
+	public float resetAfterDeathTime = 2.5f;
+	public float transitionToResultTime = 2.5f;
 	private Vector3 originalPosition;
 	private Vector3 hidingPosition;
+	private GameObject globalSpawner;
 	
-	// Use this for initialization
 	void Start ()
 	{
+		globalSpawner = GameObject.FindGameObjectWithTag ("GlobalSpawner");
 		originalPosition = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
 		hidingPosition = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z + 20);
 		this.gameObject.transform.position = hidingPosition;
 	}
 	
-	// Update is called once per frame
-	void Update ()
-	{
-	}
-	
 	public void LevelReset ()
 	{
 		this.gameObject.transform.position = originalPosition;
+		globalSpawner.gameObject.SendMessage ("setSpawnStuff", false);
 		Invoke ("DoReset", resetAfterDeathTime);
 	}
 	
 	void DoReset()
 	{
 		Application.LoadLevel(Application.loadedLevel);
+	}
+	
+	public void LevelWin ()
+	{
+		globalSpawner.gameObject.SendMessage ("setSpawnStuff", false);
+		Invoke ("DoWin", transitionToResultTime);
+	}
+	
+	void DoWin()
+	{
+		Application.LoadLevel ("Results");
 	}
 	
 }

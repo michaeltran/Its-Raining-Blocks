@@ -3,14 +3,18 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour {
 	
+	public AudioClip Sound;
 	public float speed = 10f;
+	public int damageDealt = 10;
 	public ParticleSystem Poof;
+	
 	
 	private float _speed;
 	private bool _didDamage;
 
 	// Use this for initialization
 	void Start () {
+		AudioSource.PlayClipAtPoint(Sound, transform.position);
 		_speed = 10f;
 		_didDamage = false;
 	}
@@ -26,7 +30,7 @@ public class Projectile : MonoBehaviour {
 		if(other.gameObject.CompareTag ("Enemy") && !_didDamage)
 		{
 			_didDamage = true;
-			other.gameObject.SendMessage ("TakeDamage", 50);
+			other.gameObject.SendMessage ("TakeDamage", damageDealt);
 			Instantiate(Poof, other.transform.position, Quaternion.identity);
 			//Destroy(this.gameObject);
 		}
