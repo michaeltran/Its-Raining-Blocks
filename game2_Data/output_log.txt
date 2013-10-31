@@ -1,26 +1,26 @@
 Initialize engine version: 4.2.1f4 (4d30acc925c2)
 GfxDevice: creating device client; threaded=1
 Direct3D:
-    Version:  Direct3D 9.0c [nvd3dum.dll 9.18.13.1106]
-    Renderer: NVIDIA GeForce GTX 550 Ti
-    Vendor:   NVIDIA
-    VRAM:     977 MB (via DXGI)
-    Caps:     Shader=30 DepthRT=1 NativeDepth=1 NativeShadow=1 DF16=0 DF24=0 INTZ=1 RAWZ=0 NULL=1 RESZ=0 SlowINTZ=0
+    Version:  Direct3D 9.0c [igdumd32.dll 8.15.10.2653]
+    Renderer: Intel(R) HD Graphics 4000
+    Vendor:   Intel
+    VRAM:     880 MB (via DXGI)
+    Caps:     Shader=30 DepthRT=1 NativeDepth=1 NativeShadow=1 DF16=1 DF24=1 INTZ=1 RAWZ=0 NULL=1 RESZ=1 SlowINTZ=0
 Begin MonoManager ReloadAssembly
-Platform assembly: D:\Chris\ShadyBiz SourceControl\game2_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading D:\Chris\ShadyBiz SourceControl\game2_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: D:\Chris\ShadyBiz SourceControl\game2_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
-Loading D:\Chris\ShadyBiz SourceControl\game2_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
-Platform assembly: D:\Chris\ShadyBiz SourceControl\game2_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading D:\Chris\ShadyBiz SourceControl\game2_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: D:\Chris\ShadyBiz SourceControl\game2_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
-Loading D:\Chris\ShadyBiz SourceControl\game2_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
-- Completed reload, in  0.064 seconds
-desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+Platform assembly: C:\Users\Chris\Documents\ShadyBizProject\game2_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Chris\Documents\ShadyBizProject\game2_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Chris\Documents\ShadyBizProject\game2_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\Chris\Documents\ShadyBizProject\game2_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\Chris\Documents\ShadyBizProject\game2_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Chris\Documents\ShadyBizProject\game2_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Chris\Documents\ShadyBizProject\game2_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
+Loading C:\Users\Chris\Documents\ShadyBizProject\game2_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
+- Completed reload, in  0.048 seconds
+desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
-Platform assembly: D:\Chris\ShadyBiz SourceControl\game2_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: D:\Chris\ShadyBiz SourceControl\game2_Data\Managed\System.dll (this message is harmless)
+Platform assembly: C:\Users\Chris\Documents\ShadyBizProject\game2_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Chris\Documents\ShadyBizProject\game2_Data\Managed\System.dll (this message is harmless)
 Tilemap IceStageTileMap is still in edit mode. Please fix.Building overhead will be significant.
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
@@ -29,13 +29,231 @@ Squish Detected
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-UnloadTime: 6.343062 ms
+UnloadTime: 9.056436 ms
 Tilemap IceStageTileMap is still in edit mode. Please fix.Building overhead will be significant.
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
 Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
-Unloading 4 unused Assets to reduce memory usage. Loaded Objects now: 1091.
-Total: 1.715608 ms (FindLiveObjects: 0.071373 ms CreateObjectMapping: 0.025283 ms MarkObjects: 0.642365 ms  DeleteObjects: 0.023176 ms)
+Unloading 10 unused Assets to reduce memory usage. Loaded Objects now: 1140.
+Total: 1.007821 ms (FindLiveObjects: 0.062398 ms CreateObjectMapping: 0.017241 ms MarkObjects: 0.428170 ms  DeleteObjects: 0.063630 ms)
+
+Squish Detected
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+UnloadTime: 5.012013 ms
+Tilemap IceStageTileMap is still in edit mode. Please fix.Building overhead will be significant.
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 1162.
+Total: 0.916276 ms (FindLiveObjects: 0.051314 ms CreateObjectMapping: 0.019704 ms MarkObjects: 0.412981 ms  DeleteObjects: 0.057883 ms)
+
+Squish Detected
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+UnloadTime: 3.239397 ms
+Tilemap IceStageTileMap is still in edit mode. Please fix.Building overhead will be significant.
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 6 unused Assets to reduce memory usage. Loaded Objects now: 1105.
+Total: 0.915455 ms (FindLiveObjects: 0.044746 ms CreateObjectMapping: 0.018473 ms MarkObjects: 0.458959 ms  DeleteObjects: 0.037357 ms)
+
+Squish Detected
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+UnloadTime: 3.196703 ms
+Tilemap IceStageTileMap is still in edit mode. Please fix.Building overhead will be significant.
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 4 unused Assets to reduce memory usage. Loaded Objects now: 1092.
+Total: 0.885487 ms (FindLiveObjects: 0.057472 ms CreateObjectMapping: 0.020115 ms MarkObjects: 0.416675 ms  DeleteObjects: 0.020525 ms)
+
+Squish Detected
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+UnloadTime: 8.202970 ms
+Tilemap IceStageTileMap is still in edit mode. Please fix.Building overhead will be significant.
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 11 unused Assets to reduce memory usage. Loaded Objects now: 1178.
+Total: 1.628114 ms (FindLiveObjects: 0.111660 ms CreateObjectMapping: 0.034894 ms MarkObjects: 0.674481 ms  DeleteObjects: 0.078408 ms)
+
+Squish Detected
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+UnloadTime: 4.460688 ms
+Tilemap IceStageTileMap is still in edit mode. Please fix.Building overhead will be significant.
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 10 unused Assets to reduce memory usage. Loaded Objects now: 1147.
+Total: 0.916276 ms (FindLiveObjects: 0.061167 ms CreateObjectMapping: 0.020525 ms MarkObjects: 0.418317 ms  DeleteObjects: 0.066503 ms)
+
+Squish Detected
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+UnloadTime: 3.110905 ms
+Tilemap IceStageTileMap is still in edit mode. Please fix.Building overhead will be significant.
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 6 unused Assets to reduce memory usage. Loaded Objects now: 1099.
+Total: 0.927360 ms (FindLiveObjects: 0.045567 ms CreateObjectMapping: 0.020525 ms MarkObjects: 0.457317 ms  DeleteObjects: 0.038999 ms)
+
+Squish Detected
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+UnloadTime: 3.734892 ms
+Tilemap IceStageTileMap is still in edit mode. Please fix.Building overhead will be significant.
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 1120.
+Total: 0.906834 ms (FindLiveObjects: 0.049672 ms CreateObjectMapping: 0.022578 ms MarkObjects: 0.425707 ms  DeleteObjects: 0.034483 ms)
+
+Squish Detected
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Squish Detected
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+UnloadTime: 3.812480 ms
+Tilemap IceStageTileMap is still in edit mode. Please fix.Building overhead will be significant.
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 1117.
+Total: 1.256184 ms (FindLiveObjects: 0.057883 ms CreateObjectMapping: 0.024220 ms MarkObjects: 0.532441 ms  DeleteObjects: 0.039820 ms)
+
+Squish Detected
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+UnloadTime: 3.161809 ms
+Tilemap IceStageTileMap is still in edit mode. Please fix.Building overhead will be significant.
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 1100.
+Total: 0.931875 ms (FindLiveObjects: 0.046799 ms CreateObjectMapping: 0.021757 ms MarkObjects: 0.464706 ms  DeleteObjects: 0.035715 ms)
+
+Squish Detected
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Squish Detected
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+UnloadTime: 5.174989 ms
+Tilemap IceStageTileMap is still in edit mode. Please fix.Building overhead will be significant.
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 20 unused Assets to reduce memory usage. Loaded Objects now: 1169.
+Total: 0.965127 ms (FindLiveObjects: 0.048441 ms CreateObjectMapping: 0.024631 ms MarkObjects: 0.438433 ms  DeleteObjects: 0.099345 ms)
+
+Squish Detected
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+UnloadTime: 4.845754 ms
+Tilemap IceStageTileMap is still in edit mode. Please fix.Building overhead will be significant.
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 1159.
+Total: 0.971696 ms (FindLiveObjects: 0.048441 ms CreateObjectMapping: 0.023810 ms MarkObjects: 0.451159 ms  DeleteObjects: 0.062809 ms)
+
+Squish Detected
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+UnloadTime: 3.879805 ms
+Tilemap IceStageTileMap is still in edit mode. Please fix.Building overhead will be significant.
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 1127.
+Total: 0.901497 ms (FindLiveObjects: 0.048441 ms CreateObjectMapping: 0.023810 ms MarkObjects: 0.419138 ms  DeleteObjects: 0.047209 ms)
+
+Squish Detected
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+UnloadTime: 2.635935 ms
+Tilemap IceStageTileMap is still in edit mode. Please fix.Building overhead will be significant.
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 1088.
+Total: 0.893287 ms (FindLiveObjects: 0.044746 ms CreateObjectMapping: 0.024220 ms MarkObjects: 0.409286 ms  DeleteObjects: 0.032020 ms)
+
+Squish Detected
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+UnloadTime: 2.631420 ms
+Tilemap IceStageTileMap is still in edit mode. Please fix.Building overhead will be significant.
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 1085.
+Total: 0.930644 ms (FindLiveObjects: 0.045567 ms CreateObjectMapping: 0.024220 ms MarkObjects: 0.418728 ms  DeleteObjects: 0.034072 ms)
+
+Squish Detected
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+UnloadTime: 3.298511 ms
+Tilemap IceStageTileMap is still in edit mode. Please fix.Building overhead will be significant.
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 1108.
+Total: 0.941317 ms (FindLiveObjects: 0.046388 ms CreateObjectMapping: 0.025041 ms MarkObjects: 0.458138 ms  DeleteObjects: 0.042283 ms)
 
