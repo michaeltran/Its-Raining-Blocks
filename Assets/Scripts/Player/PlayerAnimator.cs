@@ -2,10 +2,11 @@
 using System.Collections;
 
 public class PlayerAnimator : MonoBehaviour {
-
+	
 	public RaycastCharacterController controller;
 	public tk2dSpriteAnimator playerSprite;
 	
+	private float tSoundEnd;
 	private int currentDirection;
 	private string suffix = "";
 	

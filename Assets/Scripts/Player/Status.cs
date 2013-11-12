@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Status : MonoBehaviour
 {
+	public AudioClip PlayerDeathSound;
 	
 	private float currentHP;
 	private float maxHP;
@@ -134,6 +135,9 @@ public class Status : MonoBehaviour
 	void PlayerDead ()
 	{
 		Time.fixedDeltaTime = Time.timeScale * 0.02f;
+		
+		AudioSource.PlayClipAtPoint (PlayerDeathSound, transform.position);
+		
 		GameOver gg = (GameOver)gameOver.GetComponent ("GameOver");
 		gg.LevelReset ();
 		

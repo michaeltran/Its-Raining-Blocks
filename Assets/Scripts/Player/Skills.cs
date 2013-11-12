@@ -5,6 +5,7 @@ public class Skills : MonoBehaviour {
 	
 	public GameObject fireBall;
 	public GameObject thunder;
+	public AudioClip TimeSlowSound;
 	
 	private float originalTimeScale;
 	private float originalFixedDeltaTime;
@@ -50,8 +51,9 @@ public class Skills : MonoBehaviour {
 	#region TimeSlow Skill
 	//This skill slows down time.
 	void TimeSlowStart() {
-		if(status.requestMana(50))
+		if(status.requestMana(25))
 		{
+			AudioSource.PlayClipAtPoint (TimeSlowSound, transform.position);
 			grayscaleEffect.effectAmount = 1;
 			Time.timeScale = slowMotionSpeed;
 			Time.fixedDeltaTime = Time.timeScale * 0.02f;

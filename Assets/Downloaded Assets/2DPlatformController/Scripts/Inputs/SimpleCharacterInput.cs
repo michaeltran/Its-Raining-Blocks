@@ -6,7 +6,7 @@ using System.Collections;
 /// </summary>
 public class SimpleCharacterInput : RaycastCharacterInput
 {
-
+	public AudioClip JumpSound;
 	public bool alwaysRun;
 
 	void Update ()
@@ -41,6 +41,7 @@ public class SimpleCharacterInput : RaycastCharacterInput
 		if (Input.GetKey(KeyCode.Space) ) {
 			jumpButtonHeld = true;
 			if (Input.GetKeyDown(KeyCode.Space)) {
+				AudioSource.PlayClipAtPoint (JumpSound, transform.position);
 				jumpButtonDown = true;		
 			} else {
 				jumpButtonDown = false;		

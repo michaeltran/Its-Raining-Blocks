@@ -3,6 +3,7 @@ using System.Collections;
 
 public class SquishDetection : MonoBehaviour
 {
+	public AudioClip SquishSound;
 	public ParticleSystem Poof;
 	
 	// Update is called once per frame
@@ -19,6 +20,7 @@ public class SquishDetection : MonoBehaviour
 		
 		if (hits.Length > 0 && CheckGrounded () && hits[0].collider.tag == "Destructable") {
 			// Take DMG from block
+			AudioSource.PlayClipAtPoint (SquishSound, transform.position);
 			Status status = (Status)this.gameObject.GetComponent ("Status");
 			status.TakeDamage (40);
 			Instantiate(Poof, this.gameObject.transform.position, Quaternion.identity);
