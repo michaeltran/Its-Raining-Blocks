@@ -29,9 +29,9 @@ public class HPPotion : MonoBehaviour
     void OnTriggerEnter (Collider other)
     {
         // If the colliding gameobject is the player...
-        if(other.gameObject == player)
+        if(other.gameObject.tag == "PlayerCollider")
         {
-            //AudioSource.PlayClipAtPoint(potionGrab, transform.position);
+            AudioSource.PlayClipAtPoint(potionGrab, transform.position);
             
 			status.Heal(25);
 			
