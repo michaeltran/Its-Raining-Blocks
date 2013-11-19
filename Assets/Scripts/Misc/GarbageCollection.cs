@@ -3,19 +3,11 @@ using System.Collections;
 
 public class GarbageCollection : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+	public float timeToDestroy = 5f;
 	
 	public void DestroyObject()
 	{
-		Invoke("_DestroyObject", 5);
+		Invoke("_DestroyObject", timeToDestroy);
 	}
 	
 	void _DestroyObject()
