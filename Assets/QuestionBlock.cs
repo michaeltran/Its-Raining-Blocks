@@ -22,7 +22,6 @@ public class QuestionBlock : MonoBehaviour {
 				_bumped = true;
 				// REMEMBER TO CHECK GROUNDED LATA
 				// DISABLE GRAVITY HERE
-				//other.gameObject.SendMessage ("TakeDamage", 50);
 				sprite.Play("question_block_bump");
 
 				Invoke("DestroyObject", 0.3f);
