@@ -16,7 +16,7 @@ public class GlobalSpawner : MonoBehaviour
 	public GameObject[] specialBlock;
 	public GameObject[] healthPotions;
 	public GameObject[] manaPotions;
-	
+	public GameObject[] explosives;
 	private bool spawnStuff = true;
 	private GameObject[] spawners;
 	private Queue<GameObject> objectQueue = new Queue<GameObject>();
@@ -31,8 +31,13 @@ public class GlobalSpawner : MonoBehaviour
 		//InvokeRepeating ("addHealthPotionToSpawn", 5f, 5f);
 		//InvokeRepeating ("addManaPotionToSpawn", 2.5f, 5f);
 		InvokeRepeating ("addSpecialBlockToSpawn", 2.5f, 5f);
+		InvokeRepeating ("spawnExplosive", 1f, 3f);
 	}
-	
+	void spawnExplosive()
+	{ // 0- Bomb, 1- Bunker Buster, 2-Napalm
+		int random = Random.Range(0,3);
+		addToQueue (explosives[random]);	
+	}
 	void addSpecialBlockToSpawn ()
 	{
 		int randomIndex = Random.Range (0, specialBlock.Length);

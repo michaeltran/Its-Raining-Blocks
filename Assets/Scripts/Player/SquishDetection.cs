@@ -28,7 +28,6 @@ public class SquishDetection : MonoBehaviour
 			this.gameObject.transform.position = startPosition;
 		}
 	}
-	
 	bool CheckGrounded ()
 	{
 		RaycastHit[] hits = null;
