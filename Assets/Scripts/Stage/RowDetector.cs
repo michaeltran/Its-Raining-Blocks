@@ -8,17 +8,6 @@ public class RowDetector : MonoBehaviour
 	private int objects;
 	private List<GameObject> objectsInTrigger = new List<GameObject> ();
 	
-	// Use this for initialization
-	void Start ()
-	{
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-	
-	}
-	
 	void OnTriggerEnter (Collider other)
 	{
 		objects++;

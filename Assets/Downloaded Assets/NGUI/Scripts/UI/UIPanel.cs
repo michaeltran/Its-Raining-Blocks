@@ -77,6 +77,7 @@ public class UIPanel : MonoBehaviour
 	[HideInInspector][SerializeField] UIDrawCall.Clipping mClipping = UIDrawCall.Clipping.None;
 	[HideInInspector][SerializeField] Vector4 mClipRange = Vector4.zero;
 	[HideInInspector][SerializeField] Vector2 mClipSoftness = new Vector2(40f, 40f);
+	[HideInInspector][SerializeField] int mDepth = 0;
 
 	// Whether a full rebuild of geometry buffers is required
 	static bool mFullRebuild = false;
@@ -148,6 +149,53 @@ public class UIPanel : MonoBehaviour
 				}
 			}
 		}
+	}
+
+	/// <summary>
+	/// Panels can have their own depth value that will change the order with which everything they manage gets drawn.
+	/// </summary>
+
+	public int depth
+	{
+		get
+		{
+			return mDepth;
+		}
+		set
+		{
+			if (mDepth != value)
+			{
+				mDepth = value;
+				mFullRebuild = true;
+
+				for (int i = 0; i < UIDrawCall.list.size; ++i)
+				{
+					UIDrawCall dc = UIDrawCall.list[i];
+					if (dc != null) dc.isDirty = true;
+				}
+
+				for (int i = 0; i < UIWidget.list.size; ++i)
+					UIWidget.list[i].MarkAsChangedLite();
+#if UNITY_EDITOR
+				UnityEditor.EditorUtility.SetDirty(this);
+#endif
+				list.Sort(CompareFunc);
+			}
+		}
+	}
+
+	/// <summary>
+	/// Function that can be used to depth-sort panels.
+	/// </summary>
+
+	static public int CompareFunc (UIPanel a, UIPanel b)
+	{
+		if (a != null && b != null)
+		{
+			if (a.mDepth < b.mDepth) return -1;
+			if (a.mDepth > b.mDepth) return 1;
+		}
+		return 0;
 	}
 
 	/// <summary>
@@ -309,16 +357,6 @@ public class UIPanel : MonoBehaviour
 	static public void SetDirty () { mFullRebuild = true; }
 
 	/// <summary>
-	/// Mark the appropriate draw call as dirty.
-	/// </summary>
-
-	static public void SetDirty (int renderQueue)
-	{
-		if (renderQueue < UIDrawCall.list.size && UIDrawCall.list[renderQueue] != null)
-			UIDrawCall.list[renderQueue].isDirty = true;
-	}
-
-	/// <summary>
 	/// Get a draw call at the specified index position.
 	/// </summary>
 
@@ -329,7 +367,7 @@ public class UIPanel : MonoBehaviour
 			UIDrawCall dc = UIDrawCall.list.buffer[index];
 
 			// If the material and texture match, keep using the same draw call
-			if (dc != null && dc.panel == this && dc.material == mat && dc.mainTexture == mat.mainTexture) return dc;
+			if (dc != null && dc.panel == this && dc.baseMaterial == mat && dc.mainTexture == mat.mainTexture) return dc;
 
 			// Otherwise we need to destroy all the draw calls that follow
 			for (int i = UIDrawCall.list.size; i > index; )
@@ -352,9 +390,10 @@ public class UIPanel : MonoBehaviour
 		
 		// Create the draw call
 		UIDrawCall drawCall = go.AddComponent<UIDrawCall>();
-		drawCall.material = mat;
+		drawCall.baseMaterial = mat;
 		drawCall.renderQueue = UIDrawCall.list.size;
 		drawCall.panel = this;
+		//Debug.Log("Added DC " + mat.name + " as " + UIDrawCall.list.size);
 		UIDrawCall.list.Add(drawCall);
 		return drawCall;
 	}
@@ -388,6 +427,7 @@ public class UIPanel : MonoBehaviour
 	{
 		mFullRebuild = true;
 		list.Add(this);
+		list.Sort(CompareFunc);
 	}
 
 	/// <summary>
@@ -551,6 +591,7 @@ public class UIPanel : MonoBehaviour
 	{
 		if (dc != null)
 		{
+			//Debug.Log("Destroyed DC " + dc.material.name + " as " + dc.renderQueue);
 			UIDrawCall.list.RemoveAt(index);
 			NGUITools.DestroyImmediate(dc.gameObject);
 		}
@@ -602,16 +643,9 @@ public class UIPanel : MonoBehaviour
 			{
 				changed = true;
 				if (mFullRebuild) continue;
-				int index = w.renderQueue;
-
-				if (index < 0)
-				{
-					mFullRebuild = true;
-				}
-				else if (index < UIDrawCall.list.size && UIDrawCall.list[index] != null)
-				{
-					UIDrawCall.list[index].isDirty = true;
-				}
+				UIDrawCall dc = w.drawCall;
+				if (dc != null) dc.isDirty = true;
+				else mFullRebuild = true;
 			}
 		}
 
@@ -626,14 +660,14 @@ public class UIPanel : MonoBehaviour
 	public void Refresh ()
 	{
 		mFullRebuild = true;
-		list[0].LateUpdate();
+		if (list.size > 0) list[0].LateUpdate();
 	}
 
 	/// <summary>
 	/// Calculate the offset needed to be constrained within the panel's bounds.
 	/// </summary>
 
-	public Vector3 CalculateConstrainOffset (Vector2 min, Vector2 max)
+	public virtual Vector3 CalculateConstrainOffset (Vector2 min, Vector2 max)
 	{
 		float offsetX = clipRange.z * 0.5f;
 		float offsetY = clipRange.w * 0.5f;
@@ -756,6 +790,7 @@ public class UIPanel : MonoBehaviour
 		int index = 0;
 		UIPanel pan = null;
 		Material mat = null;
+		UIDrawCall dc = null;
 
 		for (int i = 0; i < UIWidget.list.size; )
 		{
@@ -767,12 +802,15 @@ public class UIPanel : MonoBehaviour
 				continue;
 			}
 
-			if (w.isVisible)
+			if (w.isVisible && w.hasVertices)
 			{
 				if (pan != w.panel || mat != w.material)
 				{
 					if (pan != null && mat != null && mVerts.size != 0)
-						pan.SubmitDrawCall(index++, mat);
+					{
+						pan.SubmitDrawCall(dc);
+						dc = null;
+					}
 
 					pan = w.panel;
 					mat = w.material;
@@ -780,30 +818,27 @@ public class UIPanel : MonoBehaviour
 
 				if (pan != null && mat != null)
 				{
-					w.renderQueue = index;
+					if (dc == null) dc = pan.GetDrawCall(index++, mat);
+					w.drawCall = dc;
 					if (pan.generateNormals) w.WriteToBuffers(mVerts, mUvs, mCols, mNorms, mTans);
 					else w.WriteToBuffers(mVerts, mUvs, mCols, null, null);
 				}
 			}
-			else w.renderQueue = -1;
+			else w.drawCall = null;
 			++i;
 		}
 
 		if (mVerts.size != 0)
-			pan.SubmitDrawCall(index, mat);
+			pan.SubmitDrawCall(dc);
 	}
 
 	/// <summary>
 	/// Submit the draw call using the current geometry.
 	/// </summary>
 
-	void SubmitDrawCall (int index, Material mat)
+	void SubmitDrawCall (UIDrawCall dc)
 	{
-		UIDrawCall dc = GetDrawCall(index, mat);
-		dc.renderQueue = index;
 		dc.Set(mVerts, generateNormals ? mNorms : null, generateNormals ? mTans : null, mUvs, mCols);
-		dc.mainTexture = mat.mainTexture;
-
 		mVerts.Clear();
 		mNorms.Clear();
 		mTans.Clear();
@@ -831,17 +866,14 @@ public class UIPanel : MonoBehaviour
 					continue;
 				}
 
-				if (w.renderQueue == dc.renderQueue)
+				if (w.drawCall == dc)
 				{
 					if (w.isVisible && w.hasVertices)
 					{
 						if (dc.panel.generateNormals) w.WriteToBuffers(mVerts, mUvs, mCols, mNorms, mTans);
 						else w.WriteToBuffers(mVerts, mUvs, mCols, null, null);
 					}
-					else
-					{
-						w.renderQueue = -1;
-					}
+					else w.drawCall = null;
 				}
 				++i;
 			}
@@ -885,34 +917,31 @@ public class UIPanel : MonoBehaviour
 		GameObject go = UnityEditor.Selection.activeGameObject;
 		bool selected = (go != null) && (NGUITools.FindInParents<UIPanel>(go) == this);
 
-		//if (selected || clip)
+		if (size.x == 0f) size.x = mScreenWidth;
+		if (size.y == 0f) size.y = mScreenHeight;
+
+		if (!clip)
 		{
-			if (size.x == 0f) size.x = mScreenWidth;
-			if (size.y == 0f) size.y = mScreenHeight;
+			UIRoot root = NGUITools.FindInParents<UIRoot>(cachedGameObject);
+			if (root != null) size *= root.GetPixelSizeAdjustment(mScreenHeight);
+		}
 
-			if (!clip)
+		Transform t = clip ? transform : (mCam != null ? mCam.transform : null);
+
+		if (t != null)
+		{
+			Vector3 pos = clip ? new Vector3(mClipRange.x, mClipRange.y) : Vector3.zero;
+			Gizmos.matrix = t.localToWorldMatrix;
+
+			if (selected)
 			{
-				UIRoot root = NGUITools.FindInParents<UIRoot>(cachedGameObject);
-				if (root != null) size *= root.GetPixelSizeAdjustment(mScreenHeight);
+				Gizmos.color = new Color(1f, 0f, 0.5f);
+				Gizmos.DrawWireCube(pos, size);
 			}
-
-			Transform t = clip ? transform : (mCam != null ? mCam.transform : null);
-
-			if (t != null)
+			else
 			{
-				Vector3 pos = clip ? new Vector3(mClipRange.x, mClipRange.y) : Vector3.zero;
-				Gizmos.matrix = t.localToWorldMatrix;
-
-				if (selected)
-				{
-					Gizmos.color = new Color(1f, 0f, 0.5f);
-					Gizmos.DrawWireCube(pos, size);
-				}
-				else
-				{
-					Gizmos.color = new Color(0.5f, 0f, 0.5f);
-					Gizmos.DrawWireCube(pos, size);
-				}
+				Gizmos.color = new Color(0.5f, 0f, 0.5f);
+				Gizmos.DrawWireCube(pos, size);
 			}
 		}
 	}

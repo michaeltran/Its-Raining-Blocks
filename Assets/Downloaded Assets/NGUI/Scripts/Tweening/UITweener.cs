@@ -106,7 +106,7 @@ public abstract class UITweener : MonoBehaviour
 	bool mStarted = false;
 	float mStartTime = 0f;
 	float mDuration = 0f;
-	float mAmountPerDelta = 1f;
+	float mAmountPerDelta = 1000f;
 	float mFactor = 0f;
 
 	/// <summary>
@@ -130,7 +130,7 @@ public abstract class UITweener : MonoBehaviour
 	/// Tween factor, 0-1 range.
 	/// </summary>
 
-	public float tweenFactor { get { return mFactor; } }
+	public float tweenFactor { get { return mFactor; } set { mFactor = Mathf.Clamp01(value); } }
 
 	/// <summary>
 	/// Direction that the tween is currently playing in.
@@ -298,7 +298,20 @@ public abstract class UITweener : MonoBehaviour
 	/// Play the tween.
 	/// </summary>
 
+	[System.Obsolete("Use PlayForward() instead")]
 	public void Play () { Play(true); }
+
+	/// <summary>
+	/// Play the tween forward.
+	/// </summary>
+
+	public void PlayForward () { Play(true); }
+
+	/// <summary>
+	/// Play the tween in reverse.
+	/// </summary>
+	
+	public void PlayReverse () { Play(false); }
 
 	/// <summary>
 	/// Manually activate the tweening process, reversing it if necessary.
