@@ -40,10 +40,10 @@ public class ChatInput : MonoBehaviour
 	{
 		if (Input.GetKeyUp(KeyCode.Return))
 		{
-			if (!mIgnoreNextEnter && !mInput.selected)
+			if (!mIgnoreNextEnter && !mInput.isSelected)
 			{
 				mInput.label.maxLineCount = 1;
-				mInput.selected = true;
+				mInput.isSelected = true;
 			}
 			mIgnoreNextEnter = false;
 		}
@@ -58,13 +58,13 @@ public class ChatInput : MonoBehaviour
 		if (textList != null)
 		{
 			// It's a good idea to strip out all symbols as we don't want user input to alter colors, add new lines, etc
-			string text = NGUITools.StripSymbols(mInput.value);
+			string text = NGUIText.StripSymbols(mInput.value);
 
 			if (!string.IsNullOrEmpty(text))
 			{
 				textList.Add(text);
 				mInput.value = "";
-				mInput.selected = false;
+				mInput.isSelected = false;
 			}
 		}
 		mIgnoreNextEnter = true;

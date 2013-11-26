@@ -43,7 +43,7 @@ public class UIFontInspector : Editor
 
 	public override bool HasPreviewGUI () { return mView != View.Nothing; }
 
-	void OnSelectFont (MonoBehaviour obj)
+	void OnSelectFont (Object obj)
 	{
 		// Undo doesn't work correctly in this case... so I won't bother.
 		//NGUIEditorTools.RegisterUndo("Font Change");
@@ -55,7 +55,7 @@ public class UIFontInspector : Editor
 		if (mReplacement == null) mType = FontType.Normal;
 	}
 
-	void OnSelectAtlas (MonoBehaviour obj)
+	void OnSelectAtlas (Object obj)
 	{
 		if (mFont != null)
 		{
@@ -71,10 +71,10 @@ public class UIFontInspector : Editor
 
 		foreach (UILabel lbl in labels)
 		{
-			if (UIFont.CheckIfRelated(lbl.font, mFont))
+			if (UIFont.CheckIfRelated(lbl.bitmapFont, mFont))
 			{
-				lbl.font = null;
-				lbl.font = mFont;
+				lbl.bitmapFont = null;
+				lbl.bitmapFont = mFont;
 			}
 		}
 	}
@@ -118,7 +118,7 @@ public class UIFontInspector : Editor
 
 		if (mType == FontType.Reference)
 		{
-			ComponentSelector.Draw<UIFont>(mFont.replacement, OnSelectFont);
+			ComponentSelector.Draw<UIFont>(mFont.replacement, OnSelectFont, true);
 
 			GUILayout.Space(6f);
 			EditorGUILayout.HelpBox("You can have one font simply point to " +
@@ -160,15 +160,15 @@ public class UIFontInspector : Editor
 			}
 
 			GUILayout.BeginHorizontal();
-			int size = EditorGUILayout.IntField("Size", mFont.dynamicFontSize, GUILayout.Width(120f));
+			int size = EditorGUILayout.IntField("Default Size", mFont.defaultSize, GUILayout.Width(120f));
 			FontStyle style = (FontStyle)EditorGUILayout.EnumPopup(mFont.dynamicFontStyle);
 			GUILayout.Space(18f);
 			GUILayout.EndHorizontal();
 
-			if (size != mFont.dynamicFontSize)
+			if (size != mFont.defaultSize)
 			{
 				NGUIEditorTools.RegisterUndo("Font change", mFont);
-				mFont.dynamicFontSize = size;
+				mFont.defaultSize = size;
 			}
 
 			if (style != mFont.dynamicFontStyle)
@@ -182,13 +182,13 @@ public class UIFontInspector : Editor
 		{
 			NGUIEditorTools.DrawSeparator();
 
-			ComponentSelector.Draw<UIAtlas>(mFont.atlas, OnSelectAtlas);
+			ComponentSelector.Draw<UIAtlas>(mFont.atlas, OnSelectAtlas, true);
 
 			if (mFont.atlas != null)
 			{
 				if (mFont.bmFont.isValid)
 				{
-					NGUIEditorTools.AdvancedSpriteField(mFont.atlas, mFont.spriteName, SelectSprite, false);
+					NGUIEditorTools.DrawAdvancedSpriteField(mFont.atlas, mFont.spriteName, SelectSprite, false);
 				}
 				EditorGUILayout.Space();
 			}
@@ -215,7 +215,7 @@ public class UIFontInspector : Editor
 				{
 					NGUIEditorTools.RegisterUndo("Import Font Data", mFont);
 					BMFontReader.Load(mFont.bmFont, NGUITools.GetHierarchy(mFont.gameObject), data.bytes);
-					mFont.MarkAsDirty();
+					mFont.MarkAsChanged();
 					resetWidthHeight = true;
 					Debug.Log("Imported " + mFont.bmFont.glyphCount + " characters");
 				}
@@ -223,58 +223,54 @@ public class UIFontInspector : Editor
 
 			if (mFont.bmFont.isValid)
 			{
-				Color green = new Color(0.4f, 1f, 0f, 1f);
 				Texture2D tex = mFont.texture;
 
-				if (tex != null)
+				if (tex != null && mFont.atlas == null)
 				{
-					if (mFont.atlas == null)
+					// Pixels are easier to work with than UVs
+					Rect pixels = NGUIMath.ConvertToPixels(mFont.uvRect, tex.width, tex.height, false);
+
+					// Automatically set the width and height of the rectangle to be the original font texture's dimensions
+					if (resetWidthHeight)
 					{
-						// Pixels are easier to work with than UVs
-						Rect pixels = NGUIMath.ConvertToPixels(mFont.uvRect, tex.width, tex.height, false);
-
-						// Automatically set the width and height of the rectangle to be the original font texture's dimensions
-						if (resetWidthHeight)
-						{
-							pixels.width = mFont.texWidth;
-							pixels.height = mFont.texHeight;
-						}
-
-						// Font sprite rectangle
-						GUI.backgroundColor = green;
-						pixels = EditorGUILayout.RectField("Pixel Rect", pixels);
-						GUI.backgroundColor = Color.white;
-
-						// Create a button that can make the coordinates pixel-perfect on click
-						GUILayout.BeginHorizontal();
-						{
-							Rect corrected = NGUIMath.MakePixelPerfect(pixels);
-
-							if (corrected == pixels)
-							{
-								GUI.color = Color.grey;
-								GUILayout.Button("Make Pixel-Perfect");
-								GUI.color = Color.white;
-							}
-							else if (GUILayout.Button("Make Pixel-Perfect"))
-							{
-								pixels = corrected;
-								GUI.changed = true;
-							}
-						}
-						GUILayout.EndHorizontal();
-
-						// Convert the pixel coordinates back to UV coordinates
-						Rect uvRect = NGUIMath.ConvertToTexCoords(pixels, tex.width, tex.height);
-
-						if (mFont.uvRect != uvRect)
-						{
-							NGUIEditorTools.RegisterUndo("Font Pixel Rect", mFont);
-							mFont.uvRect = uvRect;
-						}
-						//NGUIEditorTools.DrawSeparator();
-						EditorGUILayout.Space();
+						pixels.width = mFont.texWidth;
+						pixels.height = mFont.texHeight;
 					}
+
+					// Font sprite rectangle
+					GUI.backgroundColor = new Color(0.4f, 1f, 0f, 1f);
+					pixels = EditorGUILayout.RectField("Pixel Rect", pixels);
+					GUI.backgroundColor = Color.white;
+
+					// Create a button that can make the coordinates pixel-perfect on click
+					GUILayout.BeginHorizontal();
+					{
+						Rect corrected = NGUIMath.MakePixelPerfect(pixels);
+
+						if (corrected == pixels)
+						{
+							GUI.color = Color.grey;
+							GUILayout.Button("Make Pixel-Perfect");
+							GUI.color = Color.white;
+						}
+						else if (GUILayout.Button("Make Pixel-Perfect"))
+						{
+							pixels = corrected;
+							GUI.changed = true;
+						}
+					}
+					GUILayout.EndHorizontal();
+
+					// Convert the pixel coordinates back to UV coordinates
+					Rect uvRect = NGUIMath.ConvertToTexCoords(pixels, tex.width, tex.height);
+
+					if (mFont.uvRect != uvRect)
+					{
+						NGUIEditorTools.RegisterUndo("Font Pixel Rect", mFont);
+						mFont.uvRect = uvRect;
+					}
+					//NGUIEditorTools.DrawSeparator();
+					EditorGUILayout.Space();
 				}
 			}
 		}
@@ -348,7 +344,7 @@ public class UIFontInspector : Editor
 
 						GUILayout.BeginHorizontal();
 						GUILayout.Label(sym.sequence, GUILayout.Width(40f));
-						if (NGUIEditorTools.SimpleSpriteField(mFont.atlas, sym.spriteName, ChangeSymbolSprite))
+						if (NGUIEditorTools.DrawSpriteField(mFont.atlas, sym.spriteName, ChangeSymbolSprite))
 							mSelectedSymbol = sym;
 
 						if (GUILayout.Button("Edit", GUILayout.Width(40f)))
@@ -368,7 +364,7 @@ public class UIFontInspector : Editor
 							mSymbolSequence = sym.sequence;
 							mSymbolSprite = sym.spriteName;
 							symbols.Remove(sym);
-							mFont.MarkAsDirty();
+							mFont.MarkAsChanged();
 						}
 						GUI.backgroundColor = Color.white;
 						GUILayout.EndHorizontal();
@@ -383,7 +379,7 @@ public class UIFontInspector : Editor
 
 					GUILayout.BeginHorizontal();
 					mSymbolSequence = EditorGUILayout.TextField(mSymbolSequence, GUILayout.Width(40f));
-					NGUIEditorTools.SimpleSpriteField(mFont.atlas, mSymbolSprite, SelectSymbolSprite);
+					NGUIEditorTools.DrawSpriteField(mFont.atlas, mSymbolSprite, SelectSymbolSprite);
 
 					bool isValid = !string.IsNullOrEmpty(mSymbolSequence) && !string.IsNullOrEmpty(mSymbolSprite);
 					GUI.backgroundColor = isValid ? Color.green : Color.grey;
@@ -392,7 +388,7 @@ public class UIFontInspector : Editor
 					{
 						NGUIEditorTools.RegisterUndo("Add symbol", mFont);
 						mFont.AddSymbol(mSymbolSequence, mSymbolSprite);
-						mFont.MarkAsDirty();
+						mFont.MarkAsChanged();
 						mSymbolSequence = "";
 						mSymbolSprite = "";
 					}
@@ -432,7 +428,7 @@ public class UIFontInspector : Editor
 			NGUIEditorTools.RegisterUndo("Change symbol", mFont);
 			mSelectedSymbol.spriteName = spriteName;
 			Repaint();
-			mFont.MarkAsDirty();
+			mFont.MarkAsChanged();
 		}
 	}
 
@@ -450,25 +446,13 @@ public class UIFontInspector : Editor
 		{
 			Material m = (mUseShader ? mFont.material : null);
 
-			if (mView == View.Font)
+			if (mView == View.Font && mFont.sprite != null)
 			{
-				Rect outer = new Rect(mFont.uvRect);
-				Rect uv = outer;
-
-				outer = NGUIMath.ConvertToPixels(outer, tex.width, tex.height, true);
-
-				NGUIEditorTools.DrawSprite(tex, rect, outer, outer, uv, Color.white, m);
+				NGUIEditorTools.DrawSprite(tex, rect, mFont.sprite, Color.white, m);
 			}
 			else
 			{
-				Rect outer = new Rect(0f, 0f, 1f, 1f);
-				Rect inner = new Rect(mFont.uvRect);
-				Rect uv = outer;
-
-				outer = NGUIMath.ConvertToPixels(outer, tex.width, tex.height, true);
-				inner = NGUIMath.ConvertToPixels(inner, tex.width, tex.height, true);
-
-				NGUIEditorTools.DrawSprite(tex, rect, outer, inner, uv, Color.white, m);
+				NGUIEditorTools.DrawTexture(tex, rect, new Rect(0f, 0f, 1f, 1f), Color.white, m);
 			}
 		}
 	}

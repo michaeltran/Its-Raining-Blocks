@@ -10,6 +10,12 @@ using System.Collections.Generic;
 [CustomEditor(typeof(UIPanel))]
 public class UIPanelInspector : Editor
 {
+	enum Visibility
+	{
+		Visible,
+		Hidden,
+	}
+
 	/// <summary>
 	/// Handles & interaction.
 	/// </summary>
@@ -24,7 +30,7 @@ public class UIPanelInspector : Editor
 			{
 				if (e.keyCode == KeyCode.Escape)
 				{
-					Tools.current = Tool.Move;
+					UnityEditor.Tools.current = Tool.Move;
 					Selection.activeGameObject = null;
 					e.Use();
 				}
@@ -49,6 +55,40 @@ public class UIPanelInspector : Editor
 		{
 			NGUIEditorTools.RegisterUndo("Panel Alpha", panel);
 			panel.alpha = alpha;
+		}
+
+		GUILayout.BeginHorizontal();
+		{
+			EditorGUILayout.PrefixLabel("Depth");
+
+			int depth = panel.depth;
+			if (GUILayout.Button("Back", GUILayout.Width(60f))) --depth;
+			depth = EditorGUILayout.IntField(depth, GUILayout.MinWidth(20f));
+			if (GUILayout.Button("Forward", GUILayout.Width(68f))) ++depth;
+
+			if (panel.depth != depth)
+			{
+				NGUIEditorTools.RegisterUndo("Panel Depth", panel);
+				panel.depth = depth;
+
+				if (UIPanelTool.instance != null)
+					UIPanelTool.instance.Repaint();
+			}
+		}
+		GUILayout.EndHorizontal();
+
+		int matchingDepths = 0;
+
+		for (int i = 0; i < UIPanel.list.size; ++i)
+		{
+			UIPanel p = UIPanel.list[i];
+			if (p != null && panel.depth == p.depth)
+				++matchingDepths;
+		}
+
+		if (matchingDepths > 1)
+		{
+			EditorGUILayout.HelpBox(matchingDepths + " panels are sharing the depth value of " + panel.depth, MessageType.Info);
 		}
 
 		GUILayout.BeginHorizontal();
@@ -91,6 +131,12 @@ public class UIPanelInspector : Editor
 		{
 			EditorGUILayout.HelpBox("Only mark the panel as 'static' if you know FOR CERTAIN that the widgets underneath will not move, rotate, or scale. Doing this improves performance, but moving widgets around will have no effect.", MessageType.Warning);
 		}
+
+		GUILayout.BeginHorizontal();
+		if (NGUISettings.showAllDCs != EditorGUILayout.Toggle("Show All", NGUISettings.showAllDCs, GUILayout.Width(100f)))
+			NGUISettings.showAllDCs = !NGUISettings.showAllDCs;
+		GUILayout.Label("Show all draw calls");
+		GUILayout.EndHorizontal();
 
 		if (panel.showInPanelTool != EditorGUILayout.Toggle("Panel Tool", panel.showInPanelTool))
 		{
@@ -176,33 +222,37 @@ public class UIPanelInspector : Editor
 		{
 			UIDrawCall dc = UIDrawCall.list[i];
 
-			if (dc.panel != panel) continue;
+			if (dc.panel != panel)
+			{
+				if (!NGUISettings.showAllDCs) continue;
+				if (dc.showDetails) GUI.color = new Color(0.85f, 0.85f, 0.85f);
+				else GUI.contentColor = new Color(0.85f, 0.85f, 0.85f);
+			}
+			else GUI.contentColor = Color.white;
 
 			string key = dc.keyName;
-			bool wasOn = EditorPrefs.GetBool(key, true);
-			bool shouldBeOn = NGUIEditorTools.DrawHeader(key + " of " + UIDrawCall.list.size, key);
-			
-			if (wasOn != shouldBeOn)
-			{
-				dc.isActive = shouldBeOn;
-				UnityEditor.EditorUtility.SetDirty(panel);
-			}
+			string name = key + " of " + UIDrawCall.list.size;
+			if (!dc.isActive) name = name + " (HIDDEN)";
+			else if (dc.panel != panel) name = name + " (" + dc.panel.name + ")";
 
-			if (shouldBeOn)
+			if (NGUIEditorTools.DrawHeader(name, key))
 			{
+				GUI.color = (dc.panel == panel) ? Color.white : new Color(0.8f, 0.8f, 0.8f);
+
 				NGUIEditorTools.BeginContents();
-				EditorGUILayout.ObjectField("Material", dc.material, typeof(Material), false);
+				EditorGUILayout.ObjectField("Material", dc.baseMaterial, typeof(Material), false);
 
 				int count = 0;
 
 				for (int b = 0; b < UIWidget.list.size; ++b)
 				{
 					UIWidget w = UIWidget.list[b];
-					if (w.renderQueue == dc.renderQueue)
+					if (w.drawCall == dc)
 						++count;
 				}
 
-				int initial = NGUITools.GetHierarchy(panel.cachedGameObject).Length + 1;
+				string myPath = NGUITools.GetHierarchy(dc.panel.cachedGameObject);
+				string remove = myPath + "\\";
 				string[] list = new string[count + 1];
 				list[0] = count.ToString();
 				count = 0;
@@ -211,9 +261,10 @@ public class UIPanelInspector : Editor
 				{
 					UIWidget w = UIWidget.list[b];
 					
-					if (w.renderQueue == dc.renderQueue)
+					if (w.drawCall == dc)
 					{
-						list[++count] = count + ". " + NGUITools.GetHierarchy(w.cachedGameObject).Remove(0, initial);
+						string path = NGUITools.GetHierarchy(w.cachedGameObject);
+						list[++count] = count + ". " + (string.Equals(path, myPath) ? w.name : path.Replace(remove, ""));
 					}
 				}
 
@@ -230,26 +281,47 @@ public class UIPanelInspector : Editor
 					{
 						UIWidget w = UIWidget.list[b];
 
-						if (w.renderQueue == dc.renderQueue)
+						if (w.drawCall == dc && ++count == sel)
 						{
-							if (++count == sel)
-							{
-								Selection.activeGameObject = w.gameObject;
-								break;
-							}
+							Selection.activeGameObject = w.gameObject;
+							break;
 						}
 					}
 				}
 
-				EditorGUILayout.LabelField("Triangles", dc.triangles.ToString());
+				GUILayout.BeginHorizontal();
+				EditorGUILayout.LabelField("Render Q", dc.finalRenderQueue.ToString(), GUILayout.Width(120f));
+				bool draw = (Visibility)EditorGUILayout.EnumPopup(dc.isActive ? Visibility.Visible : Visibility.Hidden) == Visibility.Visible;
+				GUILayout.Space(18f);
+				GUILayout.EndHorizontal();
 
-				if (clipping != UIDrawCall.Clipping.None && !dc.isClipped)
+				if (dc.isActive != draw)
+				{
+					dc.isActive = draw;
+					UnityEditor.EditorUtility.SetDirty(dc.panel);
+				}
+
+				GUILayout.BeginHorizontal();
+				EditorGUILayout.LabelField("Triangles", dc.triangles.ToString(), GUILayout.Width(120f));
+
+				if (dc.panel != panel)
+				{
+					if (GUILayout.Button("Select the Panel"))
+					{
+						Selection.activeGameObject = dc.panel.gameObject;
+					}
+					GUILayout.Space(18f);
+				}
+				GUILayout.EndHorizontal();
+
+				if (dc.panel.clipping != UIDrawCall.Clipping.None && !dc.isClipped)
 				{
 					EditorGUILayout.HelpBox("You must switch this material's shader to Unlit/Transparent Colored or Unlit/Premultiplied Colored in order for clipping to work.",
 						MessageType.Warning);
 				}
 
 				NGUIEditorTools.EndContents();
+				GUI.color = Color.white;
 			}
 		}
 	}

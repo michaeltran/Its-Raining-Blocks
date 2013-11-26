@@ -156,7 +156,7 @@ public class UIDraggablePanel : MonoBehaviour
 	/// Whether the panel should be able to move horizontally (contents don't fit).
 	/// </summary>
 
-	public bool shouldMoveHorizontally
+	public virtual bool shouldMoveHorizontally
 	{
 		get
 		{
@@ -170,7 +170,7 @@ public class UIDraggablePanel : MonoBehaviour
 	/// Whether the panel should be able to move vertically (contents don't fit).
 	/// </summary>
 
-	public bool shouldMoveVertically
+	public virtual bool shouldMoveVertically
 	{
 		get
 		{
@@ -184,7 +184,7 @@ public class UIDraggablePanel : MonoBehaviour
 	/// Whether the contents of the panel should actually be draggable depends on whether they currently fit or not.
 	/// </summary>
 
-	bool shouldMove
+	protected virtual bool shouldMove
 	{
 		get
 		{
@@ -249,13 +249,13 @@ public class UIDraggablePanel : MonoBehaviour
 
 			if (horizontalScrollBar != null)
 			{
-				horizontalScrollBar.onChange.Add(new EventDelegate(OnHorizontalBar));
+				EventDelegate.Add(horizontalScrollBar.onChange, OnHorizontalBar);
 				horizontalScrollBar.alpha = ((showScrollBars == ShowCondition.Always) || shouldMoveHorizontally) ? 1f : 0f;
 			}
 
 			if (verticalScrollBar != null)
 			{
-				verticalScrollBar.onChange.Add(new EventDelegate(OnVerticalBar));
+				EventDelegate.Add(verticalScrollBar.onChange, OnVerticalBar);
 				verticalScrollBar.alpha = ((showScrollBars == ShowCondition.Always) || shouldMoveVertically) ? 1f : 0f;
 			}
 		}
@@ -274,7 +274,10 @@ public class UIDraggablePanel : MonoBehaviour
 			if (!instant && dragEffect == DragEffect.MomentumAndSpring)
 			{
 				// Spring back into place
-				SpringPanel.Begin(mPanel.gameObject, mTrans.localPosition + constraint, 13f);
+				Vector3 pos = mTrans.localPosition + constraint;
+				pos.x = Mathf.Round(pos.x);
+				pos.y = Mathf.Round(pos.y);
+				SpringPanel.Begin(mPanel.gameObject, pos, 13f);
 			}
 			else
 			{
@@ -302,7 +305,7 @@ public class UIDraggablePanel : MonoBehaviour
 	/// Update the values of the associated scroll bars.
 	/// </summary>
 
-	public void UpdateScrollbars (bool recalculateBounds)
+	public virtual void UpdateScrollbars (bool recalculateBounds)
 	{
 		if (mPanel == null) return;
 
@@ -372,13 +375,18 @@ public class UIDraggablePanel : MonoBehaviour
 	/// (0, 0) is the top-left corner, (1, 1) is the bottom-right.
 	/// </summary>
 
-	public void SetDragAmount (float x, float y, bool updateScrollbars)
+	public virtual void SetDragAmount (float x, float y, bool updateScrollbars)
 	{
 		DisableSpring();
 
 		Bounds b = bounds;
 		if (b.min.x == b.max.x || b.min.y == b.max.y) return;
+		
 		Vector4 cr = mPanel.clipRange;
+		cr.x = Mathf.Round(cr.x);
+		cr.y = Mathf.Round(cr.y);
+		cr.z = Mathf.Round(cr.z);
+		cr.w = Mathf.Round(cr.w);
 
 		float hx = cr.z * 0.5f;
 		float hy = cr.w * 0.5f;
@@ -398,6 +406,9 @@ public class UIDraggablePanel : MonoBehaviour
 		// Calculate the offset based on the scroll value
 		float ox = Mathf.Lerp(left, right, x);
 		float oy = Mathf.Lerp(top, bottom, y);
+
+		ox = Mathf.Round(ox);
+		oy = Mathf.Round(oy);
 
 		// Update the position
 		if (!updateScrollbars)
@@ -467,8 +478,10 @@ public class UIDraggablePanel : MonoBehaviour
 	/// Move the panel by the specified amount.
 	/// </summary>
 
-	public void MoveRelative (Vector3 relative)
+	public virtual void MoveRelative (Vector3 relative)
 	{
+		relative.x = Mathf.Round(relative.x);
+		relative.y = Mathf.Round(relative.y);
 		mTrans.localPosition += relative;
 		Vector4 cr = mPanel.clipRange;
 		cr.x -= relative.x;
@@ -523,6 +536,19 @@ public class UIDraggablePanel : MonoBehaviour
 
 				// Create the plane to drag along
 				mPlane = new Plane(mTrans.rotation * Vector3.back, mLastPos);
+
+				// Ensure that we're working with whole numbers, keeping everything pixel-perfect
+				Vector4 cr = mPanel.clipRange;
+				cr.x = Mathf.Round(cr.x);
+				cr.y = Mathf.Round(cr.y);
+				cr.z = Mathf.Round(cr.z);
+				cr.w = Mathf.Round(cr.w);
+				mPanel.clipRange = cr;
+
+				Vector3 v = mTrans.localPosition;
+				v.x = Mathf.Round(v.x);
+				v.y = Mathf.Round(v.y);
+				mTrans.localPosition = v;
 			}
 			else
 			{

@@ -7,32 +7,28 @@ public class EnemyStatus : MonoBehaviour {
 	public AudioClip GetHitSound;
 	public AudioClip DeathSound;
 	
-	private float currentHP;
-	private float maxHP;
+	private float _currentHP;
+	private float _maxHp;
 	private float _HPRegeneration;
-	private bool isDead;
+	private bool _isDead;
+	private GameObject _gameOver;
+	private GameObject _vitalBar;
 	
-	private GameObject gameOver;
-	private GameObject vitalBar;
-	
-	// Use this for initialization
 	void Start ()
 	{
-		vitalBar = GameObject.FindGameObjectWithTag ("EnemyVitalBar");
-		gameOver = GameObject.FindGameObjectWithTag ("GameOver");
+		_vitalBar = GameObject.FindGameObjectWithTag ("EnemyVitalBar");
+		_gameOver = GameObject.FindGameObjectWithTag ("GameOver");
 		
-		maxHP = 150f;
-		currentHP = maxHP;
+		_maxHp = 150f;
+		_currentHP = _maxHp;
 		_HPRegeneration = 0.5f;
-		
-		isDead = false;
+		_isDead = false;
 	}
 	
-	// Update is called once per frame
 	void Update ()
 	{
 		CheckAlive();
-		if(!isDead)
+		if(!_isDead) 
 		{
 			HPRegeneration ();
 		}
@@ -40,25 +36,25 @@ public class EnemyStatus : MonoBehaviour {
 	}
 	
 	void HPRegeneration() {
-		if(currentHP < maxHP)
+		if(_currentHP < _maxHp)
 		{
-			currentHP += _HPRegeneration * Time.deltaTime;
+			_currentHP += _HPRegeneration * Time.deltaTime;
 		}
 	}
 	
 	void CalculateVitalBar () {
-		VitalBarBasic vit = (VitalBarBasic)vitalBar.gameObject.GetComponent ("VitalBarBasic");
+		VitalBarBasic vit = (VitalBarBasic)_vitalBar.gameObject.GetComponent ("VitalBarBasic");
 
-		float x = (float)currentHP / (float)maxHP;
+		float x = (float)_currentHP / (float)_maxHp;
 		
 		vit.UpdateDisplay(x);
 	}
 	
 	void CheckAlive()
 	{
-		if(currentHP < 1)
+		if(_currentHP < 1)
 		{
-			isDead = true;
+			_isDead = true;
 			
 			Instantiate(Poof, this.gameObject.transform.position, Quaternion.identity);
 			
@@ -72,10 +68,10 @@ public class EnemyStatus : MonoBehaviour {
 	public void TakeDamage(int damageTaken)
 	{
 		AudioSource.PlayClipAtPoint(GetHitSound, transform.position);
-		currentHP -= damageTaken;
-		if (currentHP < 0)
+		_currentHP -= damageTaken;
+		if (_currentHP < 0)
 		{
-			currentHP = 0;
+			_currentHP = 0;
 		}
 		else{
 			Instantiate(GetHitAnimation, this.gameObject.transform.position, Quaternion.identity);
@@ -84,7 +80,7 @@ public class EnemyStatus : MonoBehaviour {
 	
 	public void ChangeScene()
 	{
-		gameOver.gameObject.SendMessage ("LevelWin");
+		_gameOver.gameObject.SendMessage ("LevelWin");
 	}
 	
 }

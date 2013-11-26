@@ -129,7 +129,7 @@ public class UIAnchor : MonoBehaviour
 		
 		if (wc != null)
 		{
-			Bounds b = wc.CalculateBounds(transform.parent);
+			Bounds b = wc.CalculateBounds(container.transform.parent);
 
 			mRect.x = b.min.x;
 			mRect.y = b.min.y;
@@ -160,7 +160,7 @@ public class UIAnchor : MonoBehaviour
 		}
 		else if (container != null)
 		{
-			Transform root = transform.parent;
+			Transform root = container.transform.parent;
 			Bounds b = (root != null) ? NGUIMath.CalculateRelativeWidgetBounds(root, container.transform) :
 				NGUIMath.CalculateRelativeWidgetBounds(container.transform);
 
@@ -195,8 +195,8 @@ public class UIAnchor : MonoBehaviour
 		float width = mRect.width;
 		float height = mRect.height;
 
-		v.x += relativeOffset.x * width;
-		v.y += relativeOffset.y * height;
+		v.x += pixelOffset.x + relativeOffset.x * width;
+		v.y += pixelOffset.y + relativeOffset.y * height;
 
 		if (useCamera)
 		{
@@ -205,15 +205,13 @@ public class UIAnchor : MonoBehaviour
 				v.x = Mathf.Round(v.x);
 				v.y = Mathf.Round(v.y);
 
-				v.x += pixelOffset.x;
-				v.y += pixelOffset.y;
-
 				if (halfPixelOffset && mNeedsHalfPixelOffset)
 				{
 					v.x -= 0.5f;
 					v.y += 0.5f;
 				}
 			}
+
 			v.z = uiCamera.WorldToScreenPoint(mTrans.position).z;
 			v = uiCamera.ScreenToWorldPoint(v);
 		}
@@ -221,9 +219,6 @@ public class UIAnchor : MonoBehaviour
 		{
 			v.x = Mathf.Round(v.x);
 			v.y = Mathf.Round(v.y);
-
-			v.x += pixelOffset.x;
-			v.y += pixelOffset.y;
 
 			if (pc != null)
 			{
