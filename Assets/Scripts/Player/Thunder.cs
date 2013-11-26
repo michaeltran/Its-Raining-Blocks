@@ -14,10 +14,8 @@ public class Thunder : MonoBehaviour {
 	
 	void OnTriggerEnter (Collider other)
 	{
-		Debug.Log ("Entered: " + other.gameObject.tag);
 		if(other.gameObject.CompareTag ("Enemy") && !_didDamage)
 		{
-			Debug.Log ("entered2");
 			_didDamage = true;
 			other.gameObject.SendMessage ("TakeDamage", 50);
 			Instantiate(Poof, this.gameObject.transform.position, Quaternion.identity);

@@ -29,15 +29,16 @@ public class BombAreaDamage : MonoBehaviour {
 			CheckAreaDamage cad = (CheckAreaDamage) parent.GetComponent ("CheckAreaDamage");
 			if (cad._DidDamage()==false)
 			{
-				other.transform.parent.Behaviour.Monobehaviour.Invoke("InvokeDamage",timeDelay);
-				//other.gameObject.SendMessageUpwards("TakeDamage",damageTaken);
+				//other.transform.parent.Behaviour.Monobehaviour.Invoke("InvokeDamage",timeDelay);
+				other.gameObject.SendMessageUpwards("TakeDamage",damageTaken);
 			}
 		}
 		
 	}
 	void InvokeDamage()
 	{
-		other.gameObject.SendMessageUpwards("TakeDamage",damageTaken);
+		
+		//other.gameObject.SendMessageUpwards("TakeDamage",damageTaken);
 	}
 	
 }
