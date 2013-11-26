@@ -15,6 +15,9 @@ public class SpriteSelector : ScriptableWizard
 {
 	public delegate void Callback (string sprite);
 
+	SerializedObject mObject;
+	SerializedProperty mProperty;
+
 	UIAtlas mAtlas;
 	UISprite mSprite;
 	string mName;
@@ -27,31 +30,6 @@ public class SpriteSelector : ScriptableWizard
 	/// </summary>
 
 	public string spriteName { get { return (mSprite != null) ? mSprite.spriteName : mName; } }
-
-	/// <summary>
-	/// Show the selection wizard.
-	/// </summary>
-
-	public static void Show (UIAtlas atlas, string selectedSprite, Callback callback)
-	{
-		SpriteSelector comp = ScriptableWizard.DisplayWizard<SpriteSelector>("Select a Sprite");
-		comp.mAtlas = atlas;
-		comp.mSprite = null;
-		comp.mName = selectedSprite;
-		comp.mCallback = callback;
-	}
-
-	/// <summary>
-	/// Show the selection wizard.
-	/// </summary>
-
-	public static void Show (UIAtlas atlas, UISprite selectedSprite)
-	{
-		SpriteSelector comp = ScriptableWizard.DisplayWizard<SpriteSelector>("Select a Sprite");
-		comp.mAtlas = atlas;
-		comp.mSprite = selectedSprite;
-		comp.mCallback = null;
-	}
 
 	/// <summary>
 	/// Draw the custom wizard.
@@ -116,7 +94,7 @@ public class SpriteSelector : ScriptableWizard
 
 					for (; offset < sprites.size; ++offset)
 					{
-						UIAtlas.Sprite sprite = mAtlas.GetSprite(sprites[offset]);
+						UISpriteData sprite = mAtlas.GetSprite(sprites[offset]);
 						if (sprite == null) continue;
 
 						// Button comes first
@@ -148,10 +126,8 @@ public class SpriteSelector : ScriptableWizard
 						{
 							// On top of the button we have a checkboard grid
 							NGUIEditorTools.DrawTiledTexture(rect, NGUIEditorTools.backdropTexture);
-	
-							Rect uv = sprite.outer;
-							if (mAtlas.coordinates == UIAtlas.Coordinates.Pixels)
-								uv = NGUIMath.ConvertToTexCoords(uv, tex.width, tex.height);
+							Rect uv = new Rect(sprite.x, sprite.y, sprite.width, sprite.height);
+							uv = NGUIMath.ConvertToTexCoords(uv, tex.width, tex.height);
 	
 							// Calculate the texture's scale that's needed to display the sprite in the clipped area
 							float scaleX = rect.width / uv.width;
@@ -209,5 +185,86 @@ public class SpriteSelector : ScriptableWizard
 			GUILayout.EndScrollView();
 			if (close) Close();
 		}
+	}
+
+	/// <summary>
+	/// Property-based selection result.
+	/// </summary>
+
+	void OnSpriteSelection (string sp)
+	{
+		if (mObject != null && mProperty != null)
+		{
+			mObject.Update();
+			mProperty.stringValue = sp;
+			mObject.ApplyModifiedProperties();
+		}
+	}
+
+	/// <summary>
+	/// Show the selection wizard.
+	/// </summary>
+
+	static public void Show (SerializedObject ob, string fieldName)
+	{
+		if (ob != null)
+		{
+			SerializedProperty prop = ob.FindProperty(fieldName);
+			SerializedProperty atlas = ob.FindProperty("atlas");
+			if (atlas != null) Show(ob, prop, atlas.objectReferenceValue as UIAtlas);
+		}
+	}
+
+	/// <summary>
+	/// Show the selection wizard.
+	/// </summary>
+
+	static public void Show (SerializedObject ob, UIAtlas atlas, string fieldName)
+	{
+		if (ob != null && atlas != null)
+			Show(ob, ob.FindProperty(fieldName), atlas);
+	}
+
+	/// <summary>
+	/// Show the selection wizard.
+	/// </summary>
+
+	static public void Show (SerializedObject ob, SerializedProperty pro, UIAtlas atlas)
+	{
+		if (ob != null && pro != null && atlas != null)
+		{
+			SpriteSelector comp = ScriptableWizard.DisplayWizard<SpriteSelector>("Select a Sprite");
+			comp.mAtlas = atlas;
+			comp.mSprite = null;
+			comp.mObject = ob;
+			comp.mProperty = pro;
+			comp.mName = pro.hasMultipleDifferentValues ? null : pro.stringValue;
+			comp.mCallback = comp.OnSpriteSelection;
+		}
+	}
+
+	/// <summary>
+	/// Show the selection wizard.
+	/// </summary>
+
+	static public void Show (UIAtlas atlas, string selectedSprite, Callback callback)
+	{
+		SpriteSelector comp = ScriptableWizard.DisplayWizard<SpriteSelector>("Select a Sprite");
+		comp.mAtlas = atlas;
+		comp.mSprite = null;
+		comp.mName = selectedSprite;
+		comp.mCallback = callback;
+	}
+
+	/// <summary>
+	/// Show the selection wizard.
+	/// </summary>
+
+	static public void Show (UIAtlas atlas, UISprite selectedSprite)
+	{
+		SpriteSelector comp = ScriptableWizard.DisplayWizard<SpriteSelector>("Select a Sprite");
+		comp.mAtlas = atlas;
+		comp.mSprite = selectedSprite;
+		comp.mCallback = null;
 	}
 }

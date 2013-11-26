@@ -33,7 +33,7 @@ public class UIWidgetContainerEditor : Editor
 	public void OnSceneGUI ()
 	{
 		NGUIEditorTools.HideMoveTool(true);
-		if (Tools.current != Tool.Move) return;
+		if (UnityEditor.Tools.current != Tool.Move) return;
 
 		MonoBehaviour mb = target as MonoBehaviour;
 		if (mb.GetComponent<UIWidget>() != null) return;
@@ -208,12 +208,19 @@ public class UIWidgetContainerEditor : Editor
 							pos.z = Mathf.Round(pos.z);
 							t.localPosition = pos;
 						}
+						else if (mAllowSelection)
+						{
+							// Left-click: Select the topmost widget
+							NGUIEditorTools.SelectWidget(e.mousePosition);
+							e.Use();
+						}
 						e.Use();
 					}
-					else if (e.button == 1 && mAllowSelection)
+					else
 					{
-						if (NGUIEditorTools.SelectWidgetOrContainer(mb.gameObject, e.mousePosition, false))
-							e.Use();
+						// Right-click: Open a context menu listing all widgets underneath
+						NGUIEditorTools.ShowSpriteSelectionMenu(e.mousePosition);
+						e.Use();
 					}
 					mCanDrag = false;
 				}

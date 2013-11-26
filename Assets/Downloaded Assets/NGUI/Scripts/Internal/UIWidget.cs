@@ -10,7 +10,9 @@ using System.Collections.Generic;
 /// Base class for all UI components that should be derived from when creating new widget types.
 /// </summary>
 
-public abstract class UIWidget : MonoBehaviour
+[ExecuteInEditMode]
+[AddComponentMenu("NGUI/UI/Widget")]
+public class UIWidget : MonoBehaviour
 {
 	/// <summary>
 	/// List of all the active widgets currently present in the scene.
@@ -34,10 +36,16 @@ public abstract class UIWidget : MonoBehaviour
 	// Cached and saved values
 	[HideInInspector][SerializeField] protected Color mColor = Color.white;
 	[HideInInspector][SerializeField] protected Pivot mPivot = Pivot.Center;
-	[HideInInspector][SerializeField] protected int mWidth = 0;
-	[HideInInspector][SerializeField] protected int mHeight = 0;
+	[HideInInspector][SerializeField] protected int mWidth = 100;
+	[HideInInspector][SerializeField] protected int mHeight = 100;
 	[HideInInspector][SerializeField] protected int mDepth = 0;
 
+	/// <summary>
+	/// If set to 'true', the box collider's dimensions will be adjusted to always match the widget whenever it resizes.
+	/// </summary>
+
+	public bool autoResizeBoxCollider = false;
+	
 	protected GameObject mGo;
 	protected Transform mTrans;
 	protected UIPanel mPanel;
@@ -52,19 +60,12 @@ public abstract class UIWidget : MonoBehaviour
 	Matrix4x4 mLocalToPanel;
 	bool mVisibleByPanel = true;
 	float mLastAlpha = 0f;
-	int mDrawnIndex = -1;
 
 	/// <summary>
 	/// Internal usage -- draw call that's drawing the widget.
 	/// </summary>
 
-	//public UIDrawCall drawCall { get; set; }
-
-	/// <summary>
-	/// Internal usage -- used by the panel to get and set the order that the widgets are drawn in.
-	/// </summary>
-
-	public int renderQueue { get { return mDrawnIndex; } set { mDrawnIndex = value; } }
+	public UIDrawCall drawCall { get; set; }
 
 	// Widget's generated geometry
 	UIGeometry mGeom = new UIGeometry();
@@ -94,6 +95,7 @@ public abstract class UIWidget : MonoBehaviour
 			if (mWidth != value)
 			{
 				mWidth = value;
+				if (autoResizeBoxCollider) ResizeCollider();
 				MarkAsChanged();
 			}
 		}
@@ -117,6 +119,7 @@ public abstract class UIWidget : MonoBehaviour
 			if (mHeight != value)
 			{
 				mHeight = value;
+				if (autoResizeBoxCollider) ResizeCollider();
 				MarkAsChanged();
 			}
 		}
@@ -192,8 +195,24 @@ public abstract class UIWidget : MonoBehaviour
 			if (mDepth != value)
 			{
 				mDepth = value;
+#if UNITY_EDITOR
+				UnityEditor.EditorUtility.SetDirty(this);
+#endif
 				UIPanel.SetDirty();
 			}
+		}
+	}
+
+	/// <summary>
+	/// Raycast depth order on widgets takes the depth of their panel into consideration.
+	/// This functionality is used to determine the "final" depth of the widget for drawing and raycasts.
+	/// </summary>
+
+	public int raycastDepth
+	{
+		get
+		{
+			return (mPanel != null) ? mDepth + mPanel.depth * 1000 : mDepth;
 		}
 	}
 
@@ -201,7 +220,7 @@ public abstract class UIWidget : MonoBehaviour
 	/// Local space corners of the widget. The order is bottom-left, top-left, top-right, bottom-right.
 	/// </summary>
 
-	public Vector3[] localCorners
+	public virtual Vector3[] localCorners
 	{
 		get
 		{
@@ -238,7 +257,7 @@ public abstract class UIWidget : MonoBehaviour
 	/// World-space corners of the widget. The order is bottom-left, top-left, top-right, bottom-right.
 	/// </summary>
 
-	public Vector3[] worldCorners
+	public virtual Vector3[] worldCorners
 	{
 		get
 		{
@@ -366,50 +385,66 @@ public abstract class UIWidget : MonoBehaviour
 	public Vector2 relativeSize { get { return Vector2.one; } }
 
 	/// <summary>
-	/// Raycast into the screen and return a list of widgets in order from closest to farthest away.
-	/// This is a slow operation and will consider ALL widgets underneath the specified game object.
+	/// Convenience function that returns 'true' if the widget has a box collider.
 	/// </summary>
 
-	static public BetterList<UIWidget> Raycast (GameObject root, Vector2 mousePos)
+	public bool hasBoxCollider
 	{
-		BetterList<UIWidget> list = new BetterList<UIWidget>();
-		UICamera uiCam = UICamera.FindCameraForLayer(root.layer);
-
-		if (uiCam != null)
+		get
 		{
-			Camera cam = uiCam.cachedCamera;
-			UIWidget[] widgets = root.GetComponentsInChildren<UIWidget>();
-
-			for (int i = 0; i < widgets.Length; ++i)
-			{
-				UIWidget w = widgets[i];
-
-				Vector3[] corners = w.worldCorners;
-				if (NGUIMath.DistanceToRectangle(corners, mousePos, cam) == 0f)
-					list.Add(w);
-			}
-
-			list.Sort(delegate(UIWidget w1, UIWidget w2) { return w2.mDepth.CompareTo(w1.mDepth); });
+			BoxCollider box = collider as BoxCollider;
+			return (box != null);
 		}
-		return list;
 	}
 
 	/// <summary>
-	/// Static widget comparison function used for Z-sorting.
+	/// Adjust the widget's collider size to match the widget's dimensions.
+	/// </summary>
+
+	void ResizeCollider ()
+	{
+		if (NGUITools.IsActive(this))
+		{
+			BoxCollider box = collider as BoxCollider;
+			if (box != null) NGUITools.UpdateWidgetCollider(box, true);
+		}
+	}
+
+	/// <summary>
+	/// Static widget comparison function used for depth sorting.
 	/// </summary>
 
 	static public int CompareFunc (UIWidget left, UIWidget right)
 	{
-		if (left.mDepth > right.mDepth) return 1;
-		if (left.mDepth < right.mDepth) return -1;
-		return 0;
+		int val = UIPanel.CompareFunc(left.mPanel, right.mPanel);
+
+		if (val == 0)
+		{
+			if (left.mDepth < right.mDepth) return -1;
+			if (left.mDepth > right.mDepth) return 1;
+
+			Material leftMat = left.material;
+			Material rightMat = right.material;
+
+			if (leftMat == rightMat) return 0;
+			if (leftMat != null) return -1;
+			if (rightMat != null) return 1;
+			return (leftMat.GetInstanceID() < rightMat.GetInstanceID()) ? -1 : 1;
+		}
+		return val;
 	}
 
 	/// <summary>
 	/// Calculate the widget's bounds, optionally making them relative to the specified transform.
 	/// </summary>
 
-	public Bounds CalculateBounds (Transform relativeParent = null)
+	public Bounds CalculateBounds () { return CalculateBounds(null); }
+
+	/// <summary>
+	/// Calculate the widget's bounds, optionally making them relative to the specified transform.
+	/// </summary>
+
+	public Bounds CalculateBounds (Transform relativeParent)
 	{
 		if (relativeParent == null)
 		{
@@ -422,7 +457,7 @@ public abstract class UIWidget : MonoBehaviour
 		{
 			Matrix4x4 toLocal = relativeParent.worldToLocalMatrix;
 			Vector3[] corners = worldCorners;
-			Bounds b = new Bounds(corners[0], Vector3.zero);
+			Bounds b = new Bounds(toLocal.MultiplyPoint3x4(corners[0]), Vector3.zero);
 			for (int j = 1; j < 4; ++j) b.Encapsulate(toLocal.MultiplyPoint3x4(corners[j]));
 			return b;
 		}
@@ -434,14 +469,14 @@ public abstract class UIWidget : MonoBehaviour
 
 	void SetDirty ()
 	{
-		int index = renderQueue;
-
-		if (index == -1)
+		if (drawCall != null)
 		{
-			if (isVisible)
-				UIPanel.SetDirty();
+			drawCall.isDirty = true;
 		}
-		else UIPanel.SetDirty(renderQueue);
+		else if (isVisible && hasVertices)
+		{
+			UIPanel.SetDirty();
+		}
 	}
 
 	/// <summary>
@@ -452,10 +487,30 @@ public abstract class UIWidget : MonoBehaviour
 	{
 		if (mPanel != null)
 		{
-			renderQueue = -1;
+			drawCall = null;
 			mPanel = null;
 			SetDirty();
 		}
+	}
+
+	/// <summary>
+	/// This callback is sent inside the editor notifying us that some property has changed.
+	/// </summary>
+
+	protected virtual void OnValidate()
+	{
+		mChanged = true;
+		
+		// Prior to NGUI 2.7.0 width and height was specified as transform's local scale
+		if (mWidth == 100 && mHeight == 100 && cachedTransform.localScale.magnitude > 8f)
+		{
+			UpgradeFrom265();
+			cachedTransform.localScale = Vector3.one;
+		}
+		
+		if (mWidth < minWidth) mWidth = minWidth;
+		if (mHeight < minHeight) mHeight = minHeight;
+		if (autoResizeBoxCollider) ResizeCollider();
 	}
 
 	/// <summary>
@@ -472,15 +527,17 @@ public abstract class UIWidget : MonoBehaviour
 	public virtual void MarkAsChanged ()
 	{
 		mChanged = true;
-
+#if UNITY_EDITOR
+		UnityEditor.EditorUtility.SetDirty(this);
+#endif
 		// If we're in the editor, update the panel right away so its geometry gets updated.
-		if (mPanel != null && enabled && NGUITools.GetActive(gameObject) && !Application.isPlaying && material != null)
+		if (mPanel != null && enabled && NGUITools.GetActive(gameObject) && !Application.isPlaying)
 		{
 			SetDirty();
 			CheckLayer();
 #if UNITY_EDITOR
 			// Mark the panel as dirty so it gets updated
-			UnityEditor.EditorUtility.SetDirty(mPanel.gameObject);
+			if (material != null) UnityEditor.EditorUtility.SetDirty(mPanel.gameObject);
 #endif
 		}
 	}
@@ -491,7 +548,7 @@ public abstract class UIWidget : MonoBehaviour
 
 	public void CreatePanel ()
 	{
-		if (mPanel == null && enabled && NGUITools.GetActive(gameObject) && material != null)
+		if (mPanel == null && enabled && NGUITools.GetActive(gameObject))
 		{
 			mPanel = UIPanel.Find(cachedTransform, mStarted);
 
@@ -499,7 +556,7 @@ public abstract class UIWidget : MonoBehaviour
 			{
 				CheckLayer();
 				mChanged = true;
-				UIPanel.SetDirty();
+				if (material != null) UIPanel.SetDirty();
 			}
 		}
 	}
@@ -557,7 +614,7 @@ public abstract class UIWidget : MonoBehaviour
 		mPanel = null;
 
 		// Prior to NGUI 2.7.0 width and height was specified as transform's local scale
-		if (mWidth == 0 && mHeight == 0)
+		if (mWidth == 100 && mHeight == 100 && cachedTransform.localScale.magnitude > 8f)
 		{
 			UpgradeFrom265();
 			cachedTransform.localScale = Vector3.one;
@@ -679,7 +736,7 @@ public abstract class UIWidget : MonoBehaviour
 
 	void OnDrawGizmos ()
 	{
-		if (isVisible && mPanel != null)
+		if (isVisible && NGUITools.IsActive(this))
 		{
 			if (UnityEditor.Selection.activeGameObject == gameObject && showHandles) return;
 
@@ -744,7 +801,7 @@ public abstract class UIWidget : MonoBehaviour
 
 	public bool UpdateGeometry (UIPanel p, bool forceVisible)
 	{
-		if (material != null && p != null)
+		if (p != null)
 		{
 			mPanel = p;
 			bool hasMatrix = false;
@@ -817,20 +874,22 @@ public abstract class UIWidget : MonoBehaviour
 			{
 				mChanged = false;
 
-				if (isVisible)
+				if (material != null && isVisible)
 				{
+					bool hadVertices = mGeom.hasVertices;
 					mGeom.Clear();
 					OnFill(mGeom.verts, mGeom.uvs, mGeom.cols);
 
-					// Want to see what's being filled? Uncomment this line.
-					//Debug.Log("Fill " + name + " (" + Time.time + ")");
-
 					if (mGeom.hasVertices)
 					{
+						// Want to see what's being filled? Uncomment this line.
+						//Debug.Log("Fill " + name + " (" + Time.time + ")");
+
 						if (!hasMatrix) mLocalToPanel = p.worldToLocal * cachedTransform.localToWorldMatrix;
 						mGeom.ApplyTransform(mLocalToPanel);
+						return true;
 					}
-					return true;
+					return hadVertices;
 				}
 				else if (mGeom.hasVertices)
 				{
@@ -871,13 +930,13 @@ public abstract class UIWidget : MonoBehaviour
 	/// Minimum allowed width for this widget.
 	/// </summary>
 
-	virtual public int minWidth { get { return 4; } }
+	virtual public int minWidth { get { return 2; } }
 
 	/// <summary>
 	/// Minimum allowed height for this widget.
 	/// </summary>
 
-	virtual public int minHeight { get { return 4; } }
+	virtual public int minHeight { get { return 2; } }
 
 	/// <summary>
 	/// Dimensions of the sprite's border, if any.
