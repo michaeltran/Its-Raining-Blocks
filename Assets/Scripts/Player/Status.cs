@@ -4,6 +4,7 @@ using System.Collections;
 public class Status : MonoBehaviour
 {
 	public AudioClip PlayerDeathSound;
+	public bool GodMode = false;
 	
 	private float currentHP;
 	private float maxHP;
@@ -83,7 +84,7 @@ public class Status : MonoBehaviour
 	
 	void CheckAlive()
 	{
-		if(currentHP < 1)
+		if(currentHP < 1 && GodMode == false)
 		{
 			isDead = true;
 			PlayerDead ();
@@ -120,7 +121,7 @@ public class Status : MonoBehaviour
 	public bool requestMana(int amount)
 	{
 		bool requestFullfilled;
-		if(amount > currentMP)
+		if(amount > currentMP && GodMode == false)
 		{
 			requestFullfilled = false;
 		}

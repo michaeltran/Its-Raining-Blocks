@@ -5,6 +5,8 @@ public class Skills : MonoBehaviour {
 	
 	public GameObject fireBall;
 	public GameObject thunder;
+	public GameObject sidewaysFireBall;
+	public GameObject iceBolt;
 	public AudioClip TimeSlowSound;
 	
 	private float originalTimeScale;
@@ -72,8 +74,33 @@ public class Skills : MonoBehaviour {
 		if(status.requestMana(15))
 		{
 			//Play spell cast animation here.
-			Vector3 startPosition = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y+2.5f, this.gameObject.transform.position.z);
+			Vector3 startPosition = new Vector3(transform.position.x, transform.position.y+2.5f, transform.position.z);
 			Instantiate(fireBall, startPosition, fireBall.transform.rotation);
+		}
+	}
+	#endregion
+
+	#region Sideways FireBall Skill
+	void SidewaysFireBall() {
+		if(status.requestMana (15))
+		{
+			//Play spell cast animation here.
+			RaycastCharacterController rcc = (RaycastCharacterController)this.gameObject.GetComponent ("RaycastCharacterController");
+			Vector3 startPosition = new Vector3(transform.position.x + 2.5f * rcc.CurrentDirection, transform.position.y, transform.position.z);
+			Quaternion rotation = sidewaysFireBall.transform.rotation;
+			rotation.z = rotation.z * rcc.CurrentDirection;
+			Instantiate (sidewaysFireBall, startPosition, rotation);
+		}
+	}
+	#endregion
+	
+	#region Icebolt Skill
+	void IceBolt() {
+		if(status.requestMana (20))
+		{
+			//Play spell cast animation here.
+			Vector3 startPosition = new Vector3(transform.position.x, transform.position.y+2.5f, transform.position.z);
+			Instantiate(iceBolt, startPosition, iceBolt.transform.rotation);
 		}
 	}
 	#endregion

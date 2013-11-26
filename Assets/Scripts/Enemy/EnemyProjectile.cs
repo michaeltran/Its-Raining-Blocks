@@ -22,7 +22,6 @@ public class EnemyProjectile : MonoBehaviour {
 	}
 	
 	void Update() {
-		float step = speed*Time.deltaTime;
 		transform.Translate(-Vector3.up * speed * Time.deltaTime);
 	}
 	

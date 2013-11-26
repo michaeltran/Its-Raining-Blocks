@@ -6,22 +6,22 @@ public class Projectile : MonoBehaviour {
 	public AudioClip Sound;
 	public float speed = 10f;
 	public int damageDealt = 10;
-	public ParticleSystem Poof;
+	public ParticleSystem HitFX;
 	
 	
 	private float _speed;
 	private bool _didDamage;
 
-	// Use this for initialization
 	void Start () {
 		AudioSource.PlayClipAtPoint(Sound, transform.position);
 		_speed = 10f;
 		_didDamage = false;
 	}
 	
-	// Update is called once per frame
 	void Update () {
-		rigidbody.AddForce(Vector3.up*speed);
+		//Old way of moving skills
+		//rigidbody.AddForce(Vector3.up*speed);
+		transform.Translate(-Vector3.up * speed * Time.deltaTime);
 	}
 	
 	void OnTriggerEnter (Collider other)
@@ -30,8 +30,7 @@ public class Projectile : MonoBehaviour {
 		{
 			_didDamage = true;
 			other.gameObject.SendMessage ("TakeDamage", damageDealt);
-			Instantiate(Poof, other.transform.position, Quaternion.identity);
-			//Destroy(this.gameObject);
+			if(HitFX != null) { Instantiate(HitFX, other.transform.position, Quaternion.identity); }
 		}
 	}
 }
