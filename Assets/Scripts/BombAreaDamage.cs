@@ -23,6 +23,7 @@ public class BombAreaDamage : MonoBehaviour {
 		{
 			Destroy(other.gameObject);
 		}
+		StartCoroutine (Delay ());
 		if (other.gameObject.CompareTag ("PlayerCollider"))
 		{
 			GameObject parent= this.transform.parent.gameObject;
@@ -30,7 +31,7 @@ public class BombAreaDamage : MonoBehaviour {
 			if (cad._DidDamage()==false)
 			{
 				//other.transform.parent.Behaviour.Monobehaviour.Invoke("InvokeDamage",timeDelay);
-				StartCoroutine(Delay());
+				//StartCoroutine(Delay());
 				other.gameObject.SendMessageUpwards("TakeDamage",damageTaken);
 				//InvokeDamage(other,timeDelay);
 			}

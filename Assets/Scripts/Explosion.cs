@@ -5,62 +5,17 @@ public class Explosion : MonoBehaviour
 {
 
 	public GameObject bombExplosion;
-	//public GameObject bbExplosion;
-	//public GameObject napalmExplosion;
-	//public GameObject prefabSpawner;
 	Vector3 location;
 	
-	public AudioClip ExplosionSound;
-	public int ExplosionCount=1	;
-	public float timeDelay=0f;
-	// Use this for initialization
-	void Start () 
-	{
-	
-		
-		
-		
-	}
+	//public AudioClip ExplosionSound;
+	//public int ExplosionCount=1;
 	
 	// Update is called once per frame
 	void Update () 
 	{
-	//	checkLandedOnFloor();
-	//	checkLandedOnChar();
+
 		CheckGrounded ();
 	}
-	
-
-/*	void checkLandedOnChar()
-	{
-		RaycastHit[] hits = null;
-		hits = Physics.RaycastAll (new Vector3 (transform.position.x, transform.position.y, transform.position.z), transform.up, 1.3f);
-		
-		if (hits.Length > 0  && hits[0].collider.tag == "Destructable")
-		{
-			// Take DMG from block
-			Instantiate(Poof, this.gameObject.transform.position, Quaternion.identity);
-			Vector3 startPosition = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y+40, this.gameObject.transform.position.z);
-			this.gameObject.transform.position = startPosition;
-		}
-		areaDamage();
-	}*/
-	
-/*	void checkLandedOnFloor()
-	{
-		/*location = this.transform.position;
-		if (Physics.Raycast(location,transform.up, -1))
-		{
-			areaDamage();
-		}
-		RaycastHit[] hits = null;
-		hits = Physics.RaycastAll (new Vector3 (transform.position.x, transform.position.y, transform.position.z), transform.up, 1.3f);
-		
-		if (hits.Length > 0 && CheckGrounded () && (hits[0].collider.tag == "Destructable"||hits[0].collider.tag=="PlayerCollider")) {
-			AudioSource.PlayClipAtPoint (ExplosionSound, transform.position);
-			areaDamage ();
-		}
-	}*/
 	
 	void CheckGrounded ()
 	{
@@ -72,23 +27,20 @@ public class Explosion : MonoBehaviour
 			string colliderTag = hits[0].collider.tag;
 			if(colliderTag == "Destructable" ||colliderTag == "Untagged"||colliderTag=="Player")
 			{
-				areaDamage();
+				AreaDamage();
+				//PlaySound();
 				Destroy (this.gameObject);
 			}
 		}
 	}
-	
-	void InvokeExplosionSound()
-	{
-		AudioSource.PlayClipAtPoint(ExplosionSound, transform.position);
-		//AudioSource.
-		
-	}
-	void areaDamage()
+
+	void AreaDamage()
 	{
 		Instantiate(bombExplosion, this.gameObject.transform.position, Quaternion.identity);	
-		//Destroy(bombExplosion);
-		
+	}
+	
+/*	void PlaySound()
+	{
 		AudioSource.PlayClipAtPoint(ExplosionSound, transform.position);
 		if (ExplosionCount >1)
 		{
@@ -96,25 +48,14 @@ public class Explosion : MonoBehaviour
 			{
 				
 				//AudioSource.PlayClipAtPoint (ExplosionSound, transform.position);
-				Invoke("InvokeExplosionSound",timeDelay);
-				timeDelay+=.25f;
+				Invoke("InvokeExplosionSound",0.5f);
+				//timeDelay+=.25f;
 			}
 		}
-	/*	int rand = Random.Range (1,3); //1- bomb,  2- bunker buster, 3- napalm
-		switch (rand)
-		{
-			case (1):
-			Instantiate (bombExplosion, this.gameObject.transform.position,Quaternion.identity);
-			break;
-			
-			case (2):
-			Instantiate (bbExplosion, this.gameObject.transform.position, Quaternion.identity);
-			break;
-			
-			case (3):
-			Instantiate (napalmExplosion, this.gameObject.transform.position, Quaternion.identity);
-			break;
-		}*/
 	}
-
+	
+	void InvokeExplosionSound()
+	{
+		AudioSource.PlayClipAtPoint(ExplosionSound, transform.position);		
+	}*/
 }
