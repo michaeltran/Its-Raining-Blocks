@@ -30,15 +30,21 @@ public class BombAreaDamage : MonoBehaviour {
 			if (cad._DidDamage()==false)
 			{
 				//other.transform.parent.Behaviour.Monobehaviour.Invoke("InvokeDamage",timeDelay);
+				StartCoroutine(Delay());
 				other.gameObject.SendMessageUpwards("TakeDamage",damageTaken);
+				//InvokeDamage(other,timeDelay);
 			}
 		}
 		
 	}
-	void InvokeDamage()
+/*	void InvokeDamage(Collider other, float time)
+	{	
+		other.gameObject.SendMessageUpwards("TakeDamage",damageTaken);
+	}*/
+	
+	IEnumerator Delay()
 	{
-		
-		//other.gameObject.SendMessageUpwards("TakeDamage",damageTaken);
+		yield return new WaitForSeconds(timeDelay);	
 	}
 	
 }
