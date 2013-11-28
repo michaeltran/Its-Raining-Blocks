@@ -70,6 +70,7 @@ public class Skills : MonoBehaviour {
 	#endregion
 	
 	#region FireBall Skill
+	//This skill shoots a fireball upwards
 	void FireBall() {
 		if(status.requestMana(15))
 		{
@@ -81,6 +82,7 @@ public class Skills : MonoBehaviour {
 	#endregion
 
 	#region Sideways FireBall Skill
+	//This skill shoots a fireball sideways
 	void SidewaysFireBall() {
 		if(status.requestMana (15))
 		{
@@ -95,6 +97,7 @@ public class Skills : MonoBehaviour {
 	#endregion
 	
 	#region Icebolt Skill
+	//This skill shoots a icebolt sideways
 	void IceBolt() {
 		if(status.requestMana (20))
 		{
@@ -106,6 +109,7 @@ public class Skills : MonoBehaviour {
 	#endregion
 	
 	#region Thunder Skill
+	//This skill calls down thunder
 	void Thunder() {
 		if(status.requestMana (30))
 		{

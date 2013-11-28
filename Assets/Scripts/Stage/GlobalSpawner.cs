@@ -8,7 +8,6 @@ using System.Collections.Generic;
 
 public class GlobalSpawner : MonoBehaviour
 {
-	
 	public int numberOfSpawners;
 	public float startTime = 2f;
 	public float rateOfSpawn = 2f; //in seconds
@@ -21,17 +20,14 @@ public class GlobalSpawner : MonoBehaviour
 	private GameObject[] spawners;
 	private Queue<GameObject> objectQueue = new Queue<GameObject>();
 	
-	// Use this for initialization
 	void Start ()
 	{
 		CreateSpawners ();
 		spawners = GameObject.FindGameObjectsWithTag ("Spawner");
 		
 		InvokeRepeating ("SpawnABlock", 2f, 0.3f);
-		//InvokeRepeating ("addHealthPotionToSpawn", 5f, 5f);
-		//InvokeRepeating ("addManaPotionToSpawn", 2.5f, 5f);
 		InvokeRepeating ("addSpecialBlockToSpawn", 2.5f, 5f);
-		InvokeRepeating ("spawnExplosive", 1f, 3f);
+		//InvokeRepeating ("spawnExplosive", 1f, 3f);
 	}
 	void spawnExplosive()
 	{ // 0- Bomb, 1- Bunker Buster, 2-Napalm

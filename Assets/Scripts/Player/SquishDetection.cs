@@ -4,14 +4,12 @@ using System.Collections;
 public class SquishDetection : MonoBehaviour
 {
 	public AudioClip SquishSound;
-	public ParticleSystem Poof;
+	public ParticleSystem SquishPoof;
 	
-	// Update is called once per frame
 	void Update ()
 	{	
 		CheckSquashed ();
 	}
-	
 	
 	void CheckSquashed ()
 	{
@@ -23,22 +21,25 @@ public class SquishDetection : MonoBehaviour
 			AudioSource.PlayClipAtPoint (SquishSound, transform.position);
 			Status status = (Status)this.gameObject.GetComponent ("Status");
 			status.TakeDamage (40);
-			Instantiate(Poof, this.gameObject.transform.position, Quaternion.identity);
+			Instantiate(SquishPoof, this.gameObject.transform.position, Quaternion.identity);
 			Vector3 startPosition = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y+40, this.gameObject.transform.position.z);
 			this.gameObject.transform.position = startPosition;
 		}
 	}
+	
 	bool CheckGrounded ()
 	{
 		RaycastHit[] hits = null;
 		hits = Physics.RaycastAll (new Vector3 (transform.position.x, transform.position.y, transform.position.z), -transform.up, 1.4f);
 		
-		if(hits.Length > 0)
-		{
-			string colliderTag = hits[0].collider.tag;
-			if(colliderTag == "Destructable" || colliderTag == "Untagged")
+		if(hits.Length > 0) {
+			foreach (RaycastHit hit in hits)
 			{
-				return true;
+				string colliderTag = hit.collider.tag;
+				Debug.Log (colliderTag);
+				if(colliderTag == "Destructable" || colliderTag == "StageBorder") {
+					return true;
+				}
 			}
 		}
 		return false;

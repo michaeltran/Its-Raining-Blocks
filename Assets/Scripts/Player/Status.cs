@@ -18,7 +18,6 @@ public class Status : MonoBehaviour
 	private GameObject manaBar;
 	private GameObject gameOver;
 	
-	// Use this for initialization
 	void Start ()
 	{
 		gameOver = GameObject.FindGameObjectWithTag ("GameOver");
@@ -36,12 +35,11 @@ public class Status : MonoBehaviour
 		isDead = false;
 	}
 	
-	// Update is called once per frame
 	void Update ()
 	{
-		CheckAlive();
 		if(!isDead)
 		{
+			CheckAlive();
 			HPRegeneration ();
 			MPRegeneration ();
 		}
@@ -128,6 +126,8 @@ public class Status : MonoBehaviour
 		else
 		{
 			currentMP -= amount;
+			if(currentMP < 0)
+				currentMP = 0;
 			requestFullfilled = true;
 		}
 		return requestFullfilled;
@@ -135,7 +135,7 @@ public class Status : MonoBehaviour
 	
 	void PlayerDead ()
 	{
-		Time.fixedDeltaTime = Time.timeScale * 0.02f;
+		//Time.fixedDeltaTime = Time.timeScale * 0.02f;
 		
 		AudioSource.PlayClipAtPoint (PlayerDeathSound, transform.position);
 		
