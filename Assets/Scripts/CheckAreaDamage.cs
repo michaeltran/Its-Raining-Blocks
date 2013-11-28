@@ -1,18 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CheckAreaDamage : MonoBehaviour {
+public class CheckAreaDamage : MonoBehaviour
+{
+	private bool _didDamage = false;
+	private float _damageTime = 0.01f;
 	
-	private bool didDamage=false;
-	// Use this for initialization
-	
-	public bool _DidDamage()
+	void Start()
 	{
-		if (didDamage==false)	
-		{
-			didDamage=true;
+		Invoke ("SetDidDamageTrue", _damageTime);
+	}
+	
+	public bool GetDidDamage ()
+	{
+		if (_didDamage == false) {
+			_didDamage = true;
 			return false;	
 		}
-		return didDamage;
+		return _didDamage;
+	}
+	
+	void SetDidDamageTrue()
+	{
+		_didDamage = true;	
 	}
 }

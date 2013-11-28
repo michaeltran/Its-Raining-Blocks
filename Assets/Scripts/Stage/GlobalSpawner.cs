@@ -27,7 +27,7 @@ public class GlobalSpawner : MonoBehaviour
 		
 		InvokeRepeating ("SpawnABlock", 2f, 0.3f);
 		InvokeRepeating ("addSpecialBlockToSpawn", 2.5f, 5f);
-		//InvokeRepeating ("spawnExplosive", 1f, 3f);
+		InvokeRepeating ("spawnExplosive", 1f, 10f);
 	}
 	void spawnExplosive()
 	{ // 0- Bomb, 1- Bunker Buster, 2-Napalm
