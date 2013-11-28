@@ -4,7 +4,10 @@ using System.Collections;
 public class PlayerAnimator : MonoBehaviour {
 	
 	public RaycastCharacterController controller;
+	public RaycastCharacterInput characterInput;
 	public tk2dSpriteAnimator playerSprite;
+	public AudioClip JumpSound;
+	
 	
 	private float tSoundEnd;
 	private int currentDirection;
@@ -58,6 +61,7 @@ public class PlayerAnimator : MonoBehaviour {
 	
 	protected void Jump() {
 		playerSprite.Play("jump" + suffix);
+		if(characterInput.jumpButtonHeld) { AudioSource.PlayClipAtPoint (JumpSound, transform.position); }
 		CheckDirection();
 	}
 	

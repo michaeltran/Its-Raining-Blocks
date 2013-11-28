@@ -9,12 +9,15 @@ public class BombAreaDamage : MonoBehaviour
 	void OnTriggerEnter (Collider other)
 	{
 		if (other.gameObject.CompareTag ("Destructable")) {
-			Destroy (other.gameObject);
+			CheckAreaDamage cad = (CheckAreaDamage)transform.parent.GetComponent ("CheckAreaDamage");
+			if(cad._GetDidDamage() == false)
+			{
+				Destroy (other.gameObject);
+			}
 		}
 		StartCoroutine (Delay ());
 		if (other.gameObject.CompareTag ("PlayerCollider")) {
-			GameObject parent = this.transform.parent.gameObject;
-			CheckAreaDamage cad = (CheckAreaDamage)parent.GetComponent ("CheckAreaDamage");
+			CheckAreaDamage cad = (CheckAreaDamage)transform.parent.GetComponent ("CheckAreaDamage");
 			if (cad.GetDidDamage () == false) {
 				//other.transform.parent.Behaviour.Monobehaviour.Invoke("InvokeDamage",timeDelay);
 				//StartCoroutine(Delay());

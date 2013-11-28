@@ -6,48 +6,51 @@ using System.Collections.Generic;
 //If you're pro you can script stages to follow the beat using invokerepeating() and cancelinvoke()
 //If you REALLY want precision use ALOT of invokes
 
-public class GlobalSpawner : MonoBehaviour
+public abstract class GlobalSpawner : MonoBehaviour
 {
-	public int numberOfSpawners;
-	public float startTime = 2f;
-	public float rateOfSpawn = 2f; //in seconds
-	public GameObject prefabSpawner;
-	public GameObject[] specialBlock;
+	public int numberOfSpawners = 21;		// default number of columns per stage is 21
+	public float startTime = 2f;			// time before the first block spawns
+	public float rateOfSpawn = 0.3f;		// time between spawns
+	public GameObject prefabSpawner;		// spawners
+	public GameObject[] specialBlocks;
 	public GameObject[] healthPotions;
 	public GameObject[] manaPotions;
 	public GameObject[] explosives;
-	private bool spawnStuff = true;
-	private GameObject[] spawners;
-	private Queue<GameObject> objectQueue = new Queue<GameObject>();
+	private bool _spawnStuff = true;
+	private GameObject[] _spawners;
+	private Queue<GameObject> _objectQueue = new Queue<GameObject> ();
 	
 	void Start ()
 	{
 		CreateSpawners ();
-		spawners = GameObject.FindGameObjectsWithTag ("Spawner");
-		
-		InvokeRepeating ("SpawnABlock", 2f, 0.3f);
-		InvokeRepeating ("addSpecialBlockToSpawn", 2.5f, 5f);
-		InvokeRepeating ("spawnExplosive", 1f, 10f);
+		_spawners = GameObject.FindGameObjectsWithTag ("Spawner");
+		_Start ();
 	}
-	void spawnExplosive()
-	{ // 0- Bomb, 1- Bunker Buster, 2-Napalm
-		int random = Random.Range(0,3);
-		addToQueue (explosives[random]);	
+	
+	abstract public void _Start ();
+	
+	void addExplosiveToSpawn ()
+	{ 
+		int randomIndex = Random.Range (0, explosives.Length);
+		addToQueue (explosives [randomIndex]);	
 	}
+
 	void addSpecialBlockToSpawn ()
 	{
-		int randomIndex = Random.Range (0, specialBlock.Length);
-		addToQueue (specialBlock[randomIndex]);
+		int randomIndex = Random.Range (0, specialBlocks.Length);
+		addToQueue (specialBlocks [randomIndex]);
 	}
 	
 	void addHealthPotionToSpawn ()
 	{
-		addToQueue (healthPotions[0]);
+		int randomIndex = Random.Range (0, healthPotions.Length);
+		addToQueue (healthPotions [randomIndex]);
 	}
 	
 	void addManaPotionToSpawn ()
 	{
-		addToQueue (manaPotions[0]);
+		int randomIndex = Random.Range (0, manaPotions.Length);
+		addToQueue (manaPotions [0]);
 	}
 	
 	void CreateSpawners ()
@@ -61,17 +64,16 @@ public class GlobalSpawner : MonoBehaviour
 	
 	void addToQueue (GameObject theObject)
 	{
-		objectQueue.Enqueue (theObject);
+		_objectQueue.Enqueue (theObject);
 	}
 	
 	void SpawnABlock ()
 	{
-		if (spawnStuff)
-		{
-			int randomIndex = Random.Range (0, spawners.Length);
-			BlockSpawner other = (BlockSpawner)spawners [randomIndex].GetComponent (typeof(BlockSpawner));
-			if (objectQueue.Count > 0) {
-				other.LaunchBlock (objectQueue.Dequeue());
+		if (_spawnStuff) {
+			int randomIndex = Random.Range (0, _spawners.Length);
+			BlockSpawner other = (BlockSpawner)_spawners [randomIndex].GetComponent (typeof(BlockSpawner));
+			if (_objectQueue.Count > 0) {
+				other.LaunchBlock (_objectQueue.Dequeue ());
 			} else {
 				other.LaunchBlock ();
 			}
@@ -80,6 +82,6 @@ public class GlobalSpawner : MonoBehaviour
 	
 	void setSpawnStuff (bool temp)
 	{
-		spawnStuff = temp;
+		_spawnStuff = temp;
 	}
 }

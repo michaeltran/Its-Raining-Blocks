@@ -20,6 +20,11 @@ public class CheckAreaDamage : MonoBehaviour
 		return _didDamage;
 	}
 	
+	public bool _GetDidDamage()
+	{
+		return _didDamage;
+	}
+	
 	void SetDidDamageTrue()
 	{
 		_didDamage = true;	
