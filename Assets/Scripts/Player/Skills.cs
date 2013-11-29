@@ -3,20 +3,34 @@ using System.Collections;
 
 public class Skills : MonoBehaviour
 {
+	#region Public Variables
 	public GameObject fireBall;
 	public GameObject thunder;
 	public GameObject sidewaysFireBall;
 	public GameObject iceBolt;
 	public AudioClip TimeSlowSound;
 	public tk2dSpriteAnimator playerSprite;
+	#endregion
+	#region Private Variables
 	private float _originalTimeScale;
 	private float _originalFixedDeltaTime;
-	private float _slowMotionSpeed = 0.25f;
 	private Status _status;
 	private GrayscaleEffect _grayscaleEffect;
 	private GameObject _camera;
 	private tk2dSpriteAnimationClip _lastPlayedClip;
 	private RaycastCharacterController _rcc;
+	#endregion
+	#region Skill Variables
+	private float _slowMotionSpeed = 0.5f;
+	private float _slowMotionTime = 1f;
+	#endregion
+	#region Skill Costs
+	private int _timeSlowCost = 5;
+	private int _upwardsFireballCost = 15;
+	private int _sidewaysFireballCost = 5;
+	private int _iceBoltCost = 5;
+	private int _thunderCost = 20;
+	#endregion
 
 	void Start ()
 	{
@@ -52,13 +66,13 @@ public class Skills : MonoBehaviour
 	//This skill slows down time.
 	void TimeSlowStart ()
 	{
-		if (_status.requestMana (25)) {
+		if (_status.requestMana (_timeSlowCost)) {
 			PlayDefaultSpellCastAnimation();
 			AudioSource.PlayClipAtPoint (TimeSlowSound, transform.position);
 			_grayscaleEffect.effectAmount = 1;
 			Time.timeScale = _slowMotionSpeed;
 			Time.fixedDeltaTime = Time.timeScale * 0.02f;
-			Invoke ("TimeSlowEnd", 2f);
+			Invoke ("TimeSlowEnd", _slowMotionTime);
 		}
 	}
 
@@ -74,7 +88,7 @@ public class Skills : MonoBehaviour
 	//This skill shoots a fireball upwards
 	void FireBall ()
 	{
-		if (_status.requestMana (15)) {
+		if (_status.requestMana (_upwardsFireballCost)) {
 			PlayDefaultSpellCastAnimation();
 			Vector3 startPosition = new Vector3 (transform.position.x, transform.position.y + 2.5f, transform.position.z);
 			Instantiate (fireBall, startPosition, fireBall.transform.rotation);
@@ -86,7 +100,7 @@ public class Skills : MonoBehaviour
 	//This skill shoots a fireball sideways
 	void SidewaysFireBall ()
 	{
-		if (_status.requestMana (15)) {
+		if (_status.requestMana (_sidewaysFireballCost)) {
 			PlayDefaultSpellCastAnimation();
 			Vector3 startPosition = new Vector3 (transform.position.x + 2.5f * _rcc.CurrentDirection, transform.position.y, transform.position.z);
 			Quaternion rotation = sidewaysFireBall.transform.rotation;
@@ -100,7 +114,7 @@ public class Skills : MonoBehaviour
 	//This skill shoots a icebolt sideways
 	void IceBolt ()
 	{
-		if (_status.requestMana (20)) {
+		if (_status.requestMana (_iceBoltCost)) {
 			PlayDefaultSpellCastAnimation();
 			Vector3 startPosition = new Vector3 (transform.position.x, transform.position.y + 2.5f, transform.position.z);
 			Instantiate (iceBolt, startPosition, iceBolt.transform.rotation);
@@ -112,7 +126,7 @@ public class Skills : MonoBehaviour
 	//This skill calls down thunder
 	void Thunder ()
 	{
-		if (_status.requestMana (30)) {
+		if (_status.requestMana (_thunderCost)) {
 			PlayDefaultSpellCastAnimation();
 			Vector3 startPosition = new Vector3 (this.gameObject.transform.position.x, thunder.transform.position.y, this.gameObject.transform.position.z);
 			Instantiate (thunder, startPosition, thunder.transform.rotation);

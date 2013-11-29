@@ -31,26 +31,38 @@ public abstract class GlobalSpawner : MonoBehaviour
 	
 	void addExplosiveToSpawn ()
 	{ 
-		int randomIndex = Random.Range (0, explosives.Length);
-		addToQueue (explosives [randomIndex]);	
+		if(explosives.Length > 0)
+		{
+			int randomIndex = Random.Range (0, explosives.Length);
+			addToQueue (explosives [randomIndex]);	
+		}
 	}
 
 	void addSpecialBlockToSpawn ()
 	{
-		int randomIndex = Random.Range (0, specialBlocks.Length);
-		addToQueue (specialBlocks [randomIndex]);
+		if(specialBlocks.Length > 0)
+		{
+			int randomIndex = Random.Range (0, specialBlocks.Length);
+			addToQueue (specialBlocks [randomIndex]);
+		}
 	}
 	
 	void addHealthPotionToSpawn ()
 	{
-		int randomIndex = Random.Range (0, healthPotions.Length);
-		addToQueue (healthPotions [randomIndex]);
+		if(healthPotions.Length > 0)
+		{
+			int randomIndex = Random.Range (0, healthPotions.Length);
+			addToQueue (healthPotions [randomIndex]);
+		}
 	}
 	
 	void addManaPotionToSpawn ()
 	{
-		int randomIndex = Random.Range (0, manaPotions.Length);
-		addToQueue (manaPotions [0]);
+		if(manaPotions.Length > 0)
+		{
+			int randomIndex = Random.Range (0, manaPotions.Length);
+			addToQueue (manaPotions [randomIndex]);
+		}
 	}
 	
 	void CreateSpawners ()
