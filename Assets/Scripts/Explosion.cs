@@ -1,19 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Explosion : MonoBehaviour 
+public class Explosion : MonoBehaviour
 {
-
 	public GameObject bombExplosion;
 	Vector3 location;
 	
 	//public AudioClip ExplosionSound;
 	//public int ExplosionCount=1;
-	
-	// Update is called once per frame
-	void Update () 
-	{
 
+	void Update ()
+	{
 		CheckGrounded ();
 	}
 	
@@ -22,21 +19,29 @@ public class Explosion : MonoBehaviour
 		RaycastHit[] hits = null;
 		hits = Physics.RaycastAll (new Vector3 (transform.position.x, transform.position.y, transform.position.z), -transform.up, 1.4f);
 		
-		if(hits.Length > 0)
-		{
-			string colliderTag = hits[0].collider.tag;
-			if(colliderTag == "Destructable" ||colliderTag == "Untagged"||colliderTag=="Player")
-			{
-				AreaDamage();
+		if (hits.Length > 0) {
+			if (DetectColliderTag (hits)) {
+				AreaDamage ();
 				//PlaySound();
 				Destroy (this.gameObject);
 			}
 		}
 	}
-
-	void AreaDamage()
+	
+	bool DetectColliderTag (RaycastHit[] hits)
 	{
-		Instantiate(bombExplosion, this.gameObject.transform.position, Quaternion.identity);	
+		foreach(RaycastHit hit in hits)
+		{
+			string colliderTag = hit.collider.tag;
+			if (colliderTag == "Destructable" || colliderTag == "StageBorder" || colliderTag == "Player")
+				return true;
+		}
+		return false;
+	}
+	
+	void AreaDamage ()
+	{
+		Instantiate (bombExplosion, this.gameObject.transform.position, Quaternion.identity);	
 	}
 	
 /*	void PlaySound()

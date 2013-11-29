@@ -18,7 +18,7 @@ public class RowDetector : MonoBehaviour
 		if (other.gameObject.CompareTag ("Destructable")) {
 			_objectsInTrigger.Add (other.gameObject);
 		
-			if (_objectsInTrigger.Count > 19) {
+			if (_objectsInTrigger.Count > 20) {
 				foreach (GameObject obj in _objectsInTrigger) {
 					Vector3 target = new Vector3(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z+20);
 					obj.transform.position = target;

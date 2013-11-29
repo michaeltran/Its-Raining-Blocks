@@ -6,6 +6,7 @@ public class EnemyStatus : MonoBehaviour {
 	public ParticleSystem GetHitAnimation;
 	public AudioClip GetHitSound;
 	public AudioClip DeathSound;
+	public float setHP = 150f;
 	
 	private float _currentHP;
 	private float _maxHp;
@@ -19,7 +20,7 @@ public class EnemyStatus : MonoBehaviour {
 		_vitalBar = GameObject.FindGameObjectWithTag ("EnemyVitalBar");
 		_gameOver = GameObject.FindGameObjectWithTag ("GameOver");
 		
-		_maxHp = 150f;
+		_maxHp = setHP;
 		_currentHP = _maxHp;
 		_HPRegeneration = 0.5f;
 		_isDead = false;

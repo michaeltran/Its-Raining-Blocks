@@ -4,9 +4,10 @@ using System.Collections;
 public class CheckAreaDamage : MonoBehaviour
 {
 	private bool _didDamage = false;
+	private bool _canDestroy = true;
 	private float _damageTime = 0.01f;
 	
-	void Start()
+	void Start ()
 	{
 		Invoke ("SetDidDamageTrue", _damageTime);
 	}
@@ -20,13 +21,14 @@ public class CheckAreaDamage : MonoBehaviour
 		return _didDamage;
 	}
 	
-	public bool _GetDidDamage()
+	public bool GetCanDestroy ()
 	{
-		return _didDamage;
+		return _canDestroy;
 	}
 	
-	void SetDidDamageTrue()
+	void SetDidDamageTrue ()
 	{
-		_didDamage = true;	
+		_didDamage = true;
+		_canDestroy = false;
 	}
 }

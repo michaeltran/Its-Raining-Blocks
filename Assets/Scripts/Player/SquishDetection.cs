@@ -29,9 +29,12 @@ public class SquishDetection : MonoBehaviour
 			// Take DMG from block
 			AudioSource.PlayClipAtPoint (SquishSound, transform.position);
 			_status.TakeDamage (40);
-			Instantiate (SquishPoof, this.gameObject.transform.position, Quaternion.identity);
-			Vector3 startPosition = new Vector3 (this.gameObject.transform.position.x, this.gameObject.transform.position.y + 40, this.gameObject.transform.position.z);
-			this.gameObject.transform.position = startPosition;
+			
+			Vector3 poofPosition = new Vector3 (transform.position.x, transform.position.y, -9);
+			Instantiate (SquishPoof, poofPosition, Quaternion.identity);
+			
+			Vector3 startPosition = new Vector3 (transform.position.x, transform.position.y + 40, transform.position.z);
+			transform.position = startPosition;
 		}
 	}
 	
