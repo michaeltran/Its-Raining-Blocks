@@ -19,10 +19,15 @@ public abstract class SpecialBlock : MonoBehaviour {
 				hits = Physics.RaycastAll (new Vector3 (transform.position.x - 1f + 1f * i, transform.position.y, transform.position.z), -transform.up, 1.3f);
 				if (hits.Length > 0 && checkColliderTag(hits)) { 
 					_bumped = true;
-					Invoke ("DestroyObject", 0.3f);
+					Invoke ("CallSkillDestruction", 0.3f);
 				}
 			}
 		}
+	}
+	
+	void CallSkillDestruction ()
+	{
+		SendMessage ("PlaySkillDestructionFX");
 	}
 	
 	bool checkColliderTag (RaycastHit[] hits)

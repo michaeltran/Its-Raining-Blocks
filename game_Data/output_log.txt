@@ -17,23 +17,31 @@ Platform assembly: D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_D
 Loading D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
 Platform assembly: D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\HOTween.dll (this message is harmless)
 Loading D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\HOTween.dll into Unity Child Domain
-- Completed reload, in  0.043 seconds
+- Completed reload, in  0.041 seconds
 desktop: 1600x900 60Hz; virtual: 3200x900 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 Platform assembly: D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\System.dll (this message is harmless)
-Play Clicked.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-UnloadTime: 1.236023 ms
+UnloadTime: 1.304692 ms
 Tilemap HHTileMap is still in edit mode. Please fix.Building overhead will be significant.
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
 Unloading 4 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
-Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 2774.
-Total: 2.107925 ms (FindLiveObjects: 0.078004 ms CreateObjectMapping: 0.028912 ms MarkObjects: 1.043271 ms  DeleteObjects: 0.583978 ms)
+Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 2907.
+Total: 2.428980 ms (FindLiveObjects: 0.090352 ms CreateObjectMapping: 0.023792 ms MarkObjects: 1.213436 ms  DeleteObjects: 0.724628 ms)
+
+UnloadTime: 3.296968 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 1660 unused Assets to reduce memory usage. Loaded Objects now: 783.
+Total: 6.151208 ms (FindLiveObjects: 0.043068 ms CreateObjectMapping: 0.022889 ms MarkObjects: 0.439113 ms  DeleteObjects: 5.399474 ms)
+
+UnloadTime: 1.185728 ms
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 850.
+Total: 2.086845 ms (FindLiveObjects: 0.058428 ms CreateObjectMapping: 0.032828 ms MarkObjects: 1.043271 ms  DeleteObjects: 0.389721 ms)
 

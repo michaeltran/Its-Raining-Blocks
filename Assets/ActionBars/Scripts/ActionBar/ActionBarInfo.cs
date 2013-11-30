@@ -53,12 +53,18 @@ public class ActionBarInfo
 	[SerializeField]
 	public float CooldownAmount;
 	
-	public void OnSelected()
+	public bool OnSelected()
 	{
-		if(Target != null)
+		if(Target.CompareTag("Player"))
+		{
+			Skills skills = Target.GetComponent<Skills>();
+			return skills.PickSkill(Function);
+		}
+		else if(Target != null)
 		{
 			Target.SendMessage(Function, Target);// SendMessageOptions.DontRequireReceiver);
 		}
+		return true;
 	}
 	
 
