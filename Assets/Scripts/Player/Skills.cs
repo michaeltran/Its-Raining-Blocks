@@ -37,7 +37,7 @@ public class Skills : MonoBehaviour
 	private int _upwardsFireballCost = 15;
 	private int _sidewaysFireballCost = 5;
 	private int _iceBoltCost = 5;
-	private int _thunderCost = 50;
+	private int _thunderCost = 25;
 	#endregion
 
 	void Start ()

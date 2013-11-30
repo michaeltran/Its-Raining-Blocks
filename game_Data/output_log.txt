@@ -17,19 +17,51 @@ Platform assembly: D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_D
 Loading D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
 Platform assembly: D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\HOTween.dll (this message is harmless)
 Loading D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\HOTween.dll into Unity Child Domain
-- Completed reload, in  0.045 seconds
+- Completed reload, in  0.078 seconds
 desktop: 1600x900 60Hz; virtual: 3200x900 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 Platform assembly: D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\System.dll (this message is harmless)
-UnloadTime: 2.132925 ms
+UnloadTime: 18.045231 ms
 Tilemap HHTileMap is still in edit mode. Please fix.Building overhead will be significant.
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
 Unloading 4 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
-Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 2850.
-Total: 2.056426 ms (FindLiveObjects: 0.085232 ms CreateObjectMapping: 0.024696 ms MarkObjects: 1.108325 ms  DeleteObjects: 0.516516 ms)
+Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 2882.
+Total: 3.255707 ms (FindLiveObjects: 0.470134 ms CreateObjectMapping: 0.038249 ms MarkObjects: 1.629660 ms  DeleteObjects: 0.660477 ms)
+
+UnloadTime: 13.416766 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 1639 unused Assets to reduce memory usage. Loaded Objects now: 700.
+Total: 12.976148 ms (FindLiveObjects: 0.175886 ms CreateObjectMapping: 0.081016 ms MarkObjects: 1.656465 ms  DeleteObjects: 10.611015 ms)
+
+UnloadTime: 0.624638 ms
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 850.
+Total: 3.772223 ms (FindLiveObjects: 0.021684 ms CreateObjectMapping: 0.012950 ms MarkObjects: 0.506878 ms  DeleteObjects: 2.986456 ms)
+
+UnloadTime: 0.937258 ms
+Tilemap HHTileMap is still in edit mode. Please fix.Building overhead will be significant.
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 35 unused Assets to reduce memory usage. Loaded Objects now: 2883.
+Total: 2.103108 ms (FindLiveObjects: 0.067463 ms CreateObjectMapping: 0.029515 ms MarkObjects: 1.117963 ms  DeleteObjects: 0.612289 ms)
+
+UnloadTime: 11.813007 ms
+Tilemap HHTileMap is still in edit mode. Please fix.Building overhead will be significant.
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2974.
+Total: 2.637996 ms (FindLiveObjects: 0.122277 ms CreateObjectMapping: 0.069872 ms MarkObjects: 1.938365 ms  DeleteObjects: 0.060235 ms)
 
