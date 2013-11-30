@@ -3,24 +3,24 @@ using System.Collections;
 
 public class GameOver : MonoBehaviour
 {
-	public float resetAfterDeathTime = 2.5f;
-	public float transitionToResultTime = 2.5f;
-	private Vector3 originalPosition;
-	private Vector3 hidingPosition;
-	private GameObject globalSpawner;
+	public float resetAfterDeathTime = 5f;
+	public float transitionToResultTime = 5f;
+	private Vector3 _originalPosition;
+	private Vector3 _hidingPosition;
+	private GameObject _globalSpawner;
+	private tk2dTextMesh textMesh;
 	
 	void Start ()
 	{
-		globalSpawner = GameObject.FindGameObjectWithTag ("GlobalSpawner");
-		originalPosition = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
-		hidingPosition = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z + 20);
-		this.gameObject.transform.position = hidingPosition;
+		_globalSpawner = GameObject.FindGameObjectWithTag ("GlobalSpawner");
+		textMesh = GetComponent<tk2dTextMesh>();
+		textMesh.text = "";
 	}
 	
 	public void LevelReset ()
 	{
-		this.gameObject.transform.position = originalPosition;
-		globalSpawner.gameObject.SendMessage ("setSpawnStuff", false);
+		textMesh.text = "Game Over Man, Game Over";
+		_globalSpawner.gameObject.SendMessage ("setSpawnStuff", false);
 		Invoke ("DoReset", resetAfterDeathTime);
 	}
 	
@@ -31,7 +31,8 @@ public class GameOver : MonoBehaviour
 	
 	public void LevelWin ()
 	{
-		globalSpawner.gameObject.SendMessage ("setSpawnStuff", false);
+		textMesh.text = "Victory is Ours";
+		_globalSpawner.gameObject.SendMessage ("setSpawnStuff", false);
 		Invoke ("DoWin", transitionToResultTime);
 	}
 	

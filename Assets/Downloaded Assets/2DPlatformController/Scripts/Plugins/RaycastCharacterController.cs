@@ -113,6 +113,7 @@ public class RaycastCharacterController : MonoBehaviour {
 	private float currentDrag = 0.0f;
 	private bool startedClimbing = false;
 	private float fallThroughTimer = 0.0f;
+	private int _lastKnownDirection = 1;
 	
 	private bool isLedgeHanging = false;
 	private LedgeHangingState ledgeHangState;
@@ -299,12 +300,28 @@ public class RaycastCharacterController : MonoBehaviour {
 				if (ledgeHangDirection == RC_Direction.RIGHT) return 1;
 				if (ledgeHangDirection == RC_Direction.LEFT) return -1;
 			}
-			if (characterInput.x > 0.0f) return 1;
-			if (characterInput.x < 0.0f) return -1;
-			if (velocity.x > 0.0f) return 1;
-			if (velocity.x < 0.0f) return -1;
+			if (characterInput.x > 0.0f) 
+			{
+				_lastKnownDirection = 1;
+				return _lastKnownDirection;
+			}
+			if (characterInput.x < 0.0f) 
+			{
+				_lastKnownDirection = -1;
+				return _lastKnownDirection;
+			}
+			if (velocity.x > 0.0f) 
+			{
+				_lastKnownDirection = 1;
+				return _lastKnownDirection;
+			}
+			if (velocity.x < 0.0f) 
+			{
+				_lastKnownDirection = -1;
+				return _lastKnownDirection;
+			}
 			
-			return 0;
+			return _lastKnownDirection;
 		}
 	}
 	

@@ -68,7 +68,8 @@ public class hoMove : MonoBehaviour
     }
 
     //cache all waypoint position references of requested path
-    private Transform[] waypoints;
+	[HideInInspector]
+    public Transform[] waypoints;
     [HideInInspector]
     //location indicator
     public int currentPoint = 0;

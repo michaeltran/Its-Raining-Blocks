@@ -1,133 +1,81 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Status : MonoBehaviour
+public class Status : AbstractStatus
 {
 	public AudioClip PlayerDeathSound;
 	public bool GodMode = false;
 	
-	private float currentHP;
-	private float maxHP;
-	private float _HPRegeneration;
-	private float currentMP;
-	private float maxMP;
-	private float _MPRegeneration;
-	private bool isDead;
-	
-	private GameObject vitalBar;
-	private GameObject manaBar;
-	private GameObject gameOver;
-	
-	// Use this for initialization
 	void Start ()
 	{
-		gameOver = GameObject.FindGameObjectWithTag ("GameOver");
-		vitalBar = GameObject.FindGameObjectWithTag ("VitalBar");
-		manaBar = GameObject.FindGameObjectWithTag ("ManaBar");
+		_gameOver = GameObject.FindGameObjectWithTag ("GameOver");
+		_vitalBar = GameObject.FindGameObjectWithTag ("VitalBar");
+		_manaBar = GameObject.FindGameObjectWithTag ("ManaBar");
+		_vitalBarBasic = (VitalBarBasic)_vitalBar.gameObject.GetComponent ("VitalBarBasic");
+		_manaBarBasic = (ManaBarBasic)_manaBar.gameObject.GetComponent ("ManaBarBasic");
 		
-		maxHP = 100f;
-		currentHP = maxHP;
+		_maxHP = 100f;
+		_currentHP = _maxHP;
 		_HPRegeneration = 0.5f;
 		
-		maxMP = 100f;
-		currentMP = maxMP;
+		_maxMP = 100f;
+		_currentMP = _maxMP;
 		_MPRegeneration = 1f;
-		
-		isDead = false;
 	}
 	
-	// Update is called once per frame
 	void Update ()
 	{
-		CheckAlive();
-		if(!isDead)
-		{
+		if (!_isDead) {
+			CheckAlive ();
 			HPRegeneration ();
 			MPRegeneration ();
 		}
-		CalculateVitalBar();
-		CalculateManaBar();
+		CalculateVitalBar ();
+		CalculateManaBar ();
 		
 	}
 	
-	void HPRegeneration() {
-		if(currentHP < maxHP)
-		{
-			currentHP += _HPRegeneration * Time.deltaTime;
-		}
-	}
-	
-	void MPRegeneration() {
-		if(currentMP < maxMP)
-		{
-			currentMP += _MPRegeneration * Time.deltaTime;
-		}
-	}
-	
-	void CalculateVitalBar () {
-		VitalBarBasic vit = (VitalBarBasic)vitalBar.gameObject.GetComponent ("VitalBarBasic");
-
-		float x = (float)currentHP / (float)maxHP;
-		string str = (int)currentHP + "/" + maxHP;
-		
-		vit.UpdateDisplay(x, str);
-	}
-	
-	void CalculateManaBar() {
-		ManaBarBasic mana = (ManaBarBasic)manaBar.gameObject.GetComponent ("ManaBarBasic");
-		
-		float x = (float)currentMP / (float)maxMP;
-		string str = (int)currentMP + "/" + maxMP;
-		
-		mana.UpdateDisplay(x, str);
-	}
-	
-	void CheckAlive()
+	void CheckAlive ()
 	{
-		if(currentHP < 1 && GodMode == false)
-		{
-			isDead = true;
+		if (_currentHP < 1 && GodMode == false) {
+			_isDead = true;
 			PlayerDead ();
 		}
 	}
 	
-	public void TakeDamage(int damageTaken)
+	public void TakeDamage (int damageTaken)
 	{
-		currentHP -= damageTaken;
-		if (currentHP < 0)
-		{
-			currentHP = 0;
+		_currentHP -= damageTaken;
+		if (_currentHP < 0) {
+			_currentHP = 0;
 		}
 	}
 	
-	public void Heal(int amountHealed)
+	public void Heal (int amountHealed)
 	{
-		currentHP += amountHealed;
-		if (currentHP > maxHP)
-		{
-			currentHP = maxHP;
+		_currentHP += amountHealed;
+		if (_currentHP > _maxHP) {
+			_currentHP = _maxHP;
 		}
 	}
 	
-	public void HealMana(int amountHealed)
+	public void HealMana (int amountHealed)
 	{
-		currentMP += amountHealed;
-		if (currentMP > maxMP)
-		{
-			currentMP = maxMP;
+		_currentMP += amountHealed;
+		if (_currentMP > _maxMP) {
+			_currentMP = _maxMP;
 		}
 	}
 	
-	public bool requestMana(int amount)
+	public bool requestMana (int amount)
 	{
 		bool requestFullfilled;
-		if(amount > currentMP && GodMode == false)
-		{
+		if (amount > _currentMP && GodMode == false) {
 			requestFullfilled = false;
-		}
-		else
-		{
-			currentMP -= amount;
+		} else {
+			_currentMP -= amount;
+			if (_currentMP < 0)
+				_currentMP = 0;
 			requestFullfilled = true;
 		}
 		return requestFullfilled;
@@ -135,14 +83,11 @@ public class Status : MonoBehaviour
 	
 	void PlayerDead ()
 	{
-		Time.fixedDeltaTime = Time.timeScale * 0.02f;
-		
 		AudioSource.PlayClipAtPoint (PlayerDeathSound, transform.position);
 		
-		GameOver gg = (GameOver)gameOver.GetComponent ("GameOver");
-		gg.LevelReset ();
+		_gameOver.gameObject.SendMessage ("LevelReset");
 		
-		Vector3 target = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + 20);
-		this.transform.position = target;
+		Vector3 target = new Vector3 (transform.position.x, transform.position.y, transform.position.z + 20);
+		transform.position = target;
 	}
 }

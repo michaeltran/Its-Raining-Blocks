@@ -4,48 +4,75 @@ using System.Collections;
 public class SquishDetection : MonoBehaviour
 {
 	public AudioClip SquishSound;
-	public ParticleSystem Poof;
+	public ParticleSystem SquishPoof;
 	
-	// Update is called once per frame
+	private RaycastCharacterController _rcc;
+	private Status _status;
+	
+	void Start ()
+	{
+		_rcc = (RaycastCharacterController)this.gameObject.GetComponent ("RaycastCharacterController");
+		_status = (Status)this.gameObject.GetComponent ("Status");
+	}
+	
 	void Update ()
 	{	
 		CheckSquashed ();
 	}
 	
-	
 	void CheckSquashed ()
 	{
 		RaycastHit[] hits = null;
-		hits = Physics.RaycastAll (new Vector3 (transform.position.x, transform.position.y, transform.position.z), transform.up, 1.3f);
+		hits = Physics.RaycastAll (new Vector3 (transform.position.x, transform.position.y, transform.position.z), transform.up, 1.4f);
 		
-		if (hits.Length > 0 && CheckGrounded () && hits[0].collider.tag == "Destructable") {
+		if (hits.Length > 0 && _rcc.IsGrounded (0) && hits [0].collider.tag == "Destructable") {
 			// Take DMG from block
 			AudioSource.PlayClipAtPoint (SquishSound, transform.position);
-			Status status = (Status)this.gameObject.GetComponent ("Status");
-			status.TakeDamage (40);
-			Instantiate(Poof, this.gameObject.transform.position, Quaternion.identity);
-			Vector3 startPosition = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y+40, this.gameObject.transform.position.z);
-			this.gameObject.transform.position = startPosition;
+			_status.TakeDamage (40);
+			
+			Vector3 poofPosition = new Vector3 (transform.position.x, transform.position.y, -9);
+			Instantiate (SquishPoof, poofPosition, Quaternion.identity);
+			
+			Vector3 startPosition = new Vector3 (transform.position.x, transform.position.y + 40, transform.position.z);
+			transform.position = startPosition;
 		}
 	}
 	
-	bool CheckGrounded ()
+	bool CheckHits (RaycastHit[] hits)
 	{
-		RaycastHit[] hits = null;
-		hits = Physics.RaycastAll (new Vector3 (transform.position.x, transform.position.y, transform.position.z), -transform.up, 1.4f);
-		
-		if(hits.Length > 0)
+		foreach(RaycastHit hit in hits)
 		{
-			string colliderTag = hits[0].collider.tag;
-			if(colliderTag == "Destructable" || colliderTag == "Untagged")
-			{
-				return true;
-			}
+			if(hit.collider.tag == "Destructable") { return true; }
 		}
 		return false;
 	}
 	
+	#region OLD CODE
 	/*
+	 * OLD - FOR REGULAR MOVEMENT
+	bool CheckGrounded ()
+	{
+		Debug.Log ("checking grounded");
+		RaycastHit[] hits = null;
+		hits = Physics.RaycastAll (new Vector3 (transform.position.x, transform.position.y, transform.position.z), -transform.up, 1.4f);
+		
+		if(hits.Length > 0) {
+			foreach (RaycastHit hit in hits)
+			{
+				string colliderTag = hit.collider.tag;
+				Debug.Log (colliderTag);
+				if(colliderTag == "Destructable" || colliderTag == "StageBorder") {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	*/
+	
+	
+	/*
+	 * OLD - FOR CHARACTER CONTROLLER BASED MOVEMENT
 	void CheckSquashed ()
 	{
 		RaycastHit[] hits = null;
@@ -62,4 +89,5 @@ public class SquishDetection : MonoBehaviour
 		}
 	}
 	*/
+	#endregion
 }

@@ -27,7 +27,6 @@ public class EnemyProjectile : MonoBehaviour {
 	
     void OnTriggerEnter (Collider other)
     {
-        // If the colliding gameobject is the player...
         if(other.gameObject.tag == "PlayerCollider" && _didDamage == false)
         {
 			_didDamage = true;

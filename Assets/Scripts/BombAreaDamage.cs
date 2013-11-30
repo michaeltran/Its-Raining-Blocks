@@ -1,31 +1,29 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BombAreaDamage : MonoBehaviour {
-
-
-	public int damage=0;
-	private CharacterController cont;
-	// Use this for initialization
-	void Start () {
-	}
+public class BombAreaDamage : MonoBehaviour
+{
+	public int damageTaken;
+	private CheckAreaDamage cad;
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-	
-	void OnTriggerEnter(Collider other)
+	void Start ()
 	{
-		if (other.gameObject.CompareTag ("Destructable"))
-		{
-			Destroy(other);
+		cad = (CheckAreaDamage)transform.parent.GetComponent ("CheckAreaDamage");
+	}
+	
+	void OnTriggerEnter (Collider other)
+	{
+		if (other.gameObject.CompareTag ("Destructable")) {
+			if (cad.GetCanDestroy ()) {
+				Destroy (other.gameObject);
+			}
 		}
-		if (other.gameObject.CompareTag ("Player"))
-		{
-			other.gameObject.SendMessage("TakeDamage",damage);
+		if (other.gameObject.CompareTag ("PlayerCollider")) {
+			if (cad.GetDidDamage () == false) {
+				other.gameObject.SendMessageUpwards ("TakeDamage", damageTaken);
+			}
 		}
-		
-		
 	}
 }
+
+

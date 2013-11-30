@@ -4,19 +4,22 @@ using System.Collections.Generic;
 
 public class RowDetector : MonoBehaviour
 {
+	private List<GameObject> _objectsInTrigger = new List<GameObject> ();
 	
-	private int objects;
-	private List<GameObject> objectsInTrigger = new List<GameObject> ();
+	void DetectDeletedObjects()
+	{
+		_objectsInTrigger.RemoveAll (item => item == null);
+	}
 	
 	void OnTriggerEnter (Collider other)
 	{
-		objects++;
+		DetectDeletedObjects();
 		
 		if (other.gameObject.CompareTag ("Destructable")) {
-			objectsInTrigger.Add (other.gameObject);
+			_objectsInTrigger.Add (other.gameObject);
 		
-			if (objectsInTrigger.Count > 19) {
-				foreach (GameObject obj in objectsInTrigger) {
+			if (_objectsInTrigger.Count > 20) {
+				foreach (GameObject obj in _objectsInTrigger) {
 					Vector3 target = new Vector3(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z+20);
 					obj.transform.position = target;
 					GarbageCollection gc = (GarbageCollection) obj.GetComponent (typeof(GarbageCollection));
@@ -30,8 +33,7 @@ public class RowDetector : MonoBehaviour
 	void OnTriggerExit (Collider other)
 	{
 		if (other.gameObject.CompareTag ("Destructable")) {
-			objects--;
-			objectsInTrigger.Remove (other.gameObject);
+			_objectsInTrigger.Remove (other.gameObject);
 		}
 	}
 }
