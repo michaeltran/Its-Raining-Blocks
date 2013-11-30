@@ -18,6 +18,7 @@ public class Skills : MonoBehaviour
 	private GrayscaleEffect _grayscaleEffect;
 	private GameObject _camera;
 	private tk2dSpriteAnimationClip _lastPlayedClip;
+	private System.Action<tk2dSpriteAnimator, tk2dSpriteAnimationClip> _AnimationCompleted;
 	private RaycastCharacterController _rcc;
 	#endregion
 	#region Skill Variables
@@ -29,7 +30,7 @@ public class Skills : MonoBehaviour
 	private int _upwardsFireballCost = 15;
 	private int _sidewaysFireballCost = 5;
 	private int _iceBoltCost = 5;
-	private int _thunderCost = 20;
+	private int _thunderCost = 50;
 	#endregion
 
 	void Start ()
@@ -37,6 +38,7 @@ public class Skills : MonoBehaviour
 		_originalTimeScale = Time.timeScale;
 		_originalFixedDeltaTime = Time.fixedDeltaTime;
 		
+		_AnimationCompleted = playerSprite.AnimationCompleted;
 		_status = (Status)this.gameObject.GetComponent<Status> ();
 		_camera = GameObject.FindGameObjectWithTag ("MainCamera");
 		_grayscaleEffect = (GrayscaleEffect)_camera.gameObject.GetComponent<GrayscaleEffect> ();
@@ -134,6 +136,12 @@ public class Skills : MonoBehaviour
 	}
 	#endregion
 	
+	#region Magic Shield Skill
+	void MagicShield ()
+	{
+	}
+	#endregion
+	
 	#region Animations
 	void PlayDefaultSpellCastAnimation ()
 	{
@@ -145,6 +153,7 @@ public class Skills : MonoBehaviour
 	void SpellCastCompleteDelegate (tk2dSpriteAnimator sprite, tk2dSpriteAnimationClip clip)
 	{
 		playerSprite.Play (_lastPlayedClip);
+		playerSprite.AnimationCompleted = _AnimationCompleted;
 	}
 	#endregion
 }

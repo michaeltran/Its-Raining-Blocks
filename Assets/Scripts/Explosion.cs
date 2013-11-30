@@ -33,7 +33,7 @@ public class Explosion : MonoBehaviour
 		foreach(RaycastHit hit in hits)
 		{
 			string colliderTag = hit.collider.tag;
-			if (colliderTag == "Destructable" || colliderTag == "StageBorder" || colliderTag == "Player")
+			if (colliderTag == "Destructable" || colliderTag == "StageBorder" || colliderTag == "Player" || colliderTag == "PlayerCollider")
 				return true;
 		}
 		return false;

@@ -1,87 +1,75 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyStatus : MonoBehaviour {
-	public ParticleSystem Poof;
-	public ParticleSystem GetHitAnimation;
-	public AudioClip GetHitSound;
-	public AudioClip DeathSound;
+public class EnemyStatus : AbstractStatus
+{
+	public ParticleSystem deathFX;
+	public ParticleSystem getHitAnimation;
+	public AudioClip getHitSound;
+	public AudioClip deathSound;
 	public float setHP = 150f;
+	private bool _invincible = false;
 	
-	private float _currentHP;
-	private float _maxHp;
-	private float _HPRegeneration;
-	private bool _isDead;
-	private GameObject _gameOver;
-	private GameObject _vitalBar;
+	public bool _Invincible {
+		get { return _invincible; }
+		set { _invincible = value; }
+	}
 	
 	void Start ()
 	{
 		_vitalBar = GameObject.FindGameObjectWithTag ("EnemyVitalBar");
 		_gameOver = GameObject.FindGameObjectWithTag ("GameOver");
+		_vitalBarBasic = (VitalBarBasic)_vitalBar.gameObject.GetComponent ("VitalBarBasic");
 		
-		_maxHp = setHP;
-		_currentHP = _maxHp;
+		_maxHP = setHP;
+		_currentHP = _maxHP;
 		_HPRegeneration = 0.5f;
-		_isDead = false;
 	}
 	
 	void Update ()
 	{
-		CheckAlive();
-		if(!_isDead) 
-		{
+		CheckAlive ();
+		if (!_isDead) {
 			HPRegeneration ();
 		}
-		CalculateVitalBar();
+		CalculateVitalBar ();
 	}
 	
-	void HPRegeneration() {
-		if(_currentHP < _maxHp)
-		{
-			_currentHP += _HPRegeneration * Time.deltaTime;
-		}
-	}
-	
-	void CalculateVitalBar () {
-		VitalBarBasic vit = (VitalBarBasic)_vitalBar.gameObject.GetComponent ("VitalBarBasic");
-
-		float x = (float)_currentHP / (float)_maxHp;
-		
-		vit.UpdateDisplay(x);
-	}
-	
-	void CheckAlive()
+	void CalculateVitalBar ()
 	{
-		if(_currentHP < 1)
-		{
+		float x = (float)_currentHP / (float)_maxHP;
+		_vitalBarBasic.UpdateDisplay (x);
+	}
+	
+	void CheckAlive ()
+	{
+		if (_currentHP < 1) {
 			_isDead = true;
 			
-			Instantiate(Poof, this.gameObject.transform.position, Quaternion.identity);
+			Instantiate (deathFX, transform.position, Quaternion.identity);
 			
-			AudioSource.PlayClipAtPoint (DeathSound, transform.position);
+			AudioSource.PlayClipAtPoint (deathSound, transform.position);
 			
 			ChangeScene ();
-			Destroy(this.gameObject);
+			Destroy (this.gameObject);
 		}
 	}
 	
-	public void TakeDamage(int damageTaken)
+	public void TakeDamage (int damageTaken)
 	{
-		AudioSource.PlayClipAtPoint(GetHitSound, transform.position);
-		_currentHP -= damageTaken;
-		if (_currentHP < 0)
-		{
-			_currentHP = 0;
-		}
-		else{
-			Instantiate(GetHitAnimation, this.gameObject.transform.position, Quaternion.identity);
-		}
+		if (_invincible == false) {
+			AudioSource.PlayClipAtPoint (getHitSound, transform.position);
+			_currentHP -= damageTaken;
+			if (_currentHP < 0) {
+				_currentHP = 0;
+			} else {
+				Instantiate (getHitAnimation, transform.position, Quaternion.identity);
+			}
+		} 
 	}
 	
-	public void ChangeScene()
+	public void ChangeScene ()
 	{
 		_gameOver.gameObject.SendMessage ("LevelWin");
 	}
-	
 }
