@@ -272,33 +272,36 @@ public class ActionBarButton : MonoBehaviour
 					//Tells which Info was clicked
 					Info.isClicked = true; 
 					//Call the primary select function (Activates the spell/item, User defines what happens there)
-					Info.OnSelected(); 
-					NGUITools.PlaySound(ActionBarSettings.Instance.ButtonClickSound_Success);
-					if(Info.Stackable == true)
+					if(Info.OnSelected())
 					{
-						//Reduce Stack of item by 1
-						Info.Stack--;
 						
-						foreach( ActionBarButton mButtons in ActionBarSettings.Instance.Buttons)
+						NGUITools.PlaySound(ActionBarSettings.Instance.ButtonClickSound_Success);
+						if(Info.Stackable == true)
 						{
-							if(mButtons != null)
+							//Reduce Stack of item by 1
+							Info.Stack--;
+							
+							foreach( ActionBarButton mButtons in ActionBarSettings.Instance.Buttons)
 							{
-								if(mButtons.Info != null)
+								if(mButtons != null)
 								{
-									if(mButtons.Info.Icon.Equals(Info.Icon))
+									if(mButtons.Info != null)
 									{
-										if(Info.ActivateAbility == true) //If skill is an activatable skill (not passive)
+										if(mButtons.Info.Icon.Equals(Info.Icon))
 										{
-											StartCoroutine(mButtons.Info.StartCooldown());
+											if(Info.ActivateAbility == true) //If skill is an activatable skill (not passive)
+											{
+												StartCoroutine(mButtons.Info.StartCooldown());
+											}
 										}
 									}
 								}
 							}
 						}
-					}
-					if(Info.ActivateAbility == true)//If skill is an activatable skill (not passive)
-					{
-						StartCoroutine(Info.StartCooldown()); //Starts cooldown for all Buttons in the set
+						if(Info.ActivateAbility == true)//If skill is an activatable skill (not passive)
+						{
+							StartCoroutine(Info.StartCooldown()); //Starts cooldown for all Buttons in the set
+						}
 					}
 				}
 			else
