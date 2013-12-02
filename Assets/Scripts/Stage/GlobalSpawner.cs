@@ -11,7 +11,7 @@ public abstract class GlobalSpawner : MonoBehaviour
 	public int numberOfSpawners = 21;		// default number of columns per stage is 21
 	public float startTime = 2f;			// time before the first block spawns
 	public float rateOfSpawn = 0.3f;		// time between spawns
-	public GameObject prefabSpawner;		// spawners
+	public GameObject prefabSpawner;		// spawner objects
 	public GameObject[] specialBlocks;
 	public GameObject[] healthPotions;
 	public GameObject[] manaPotions;
@@ -74,7 +74,7 @@ public abstract class GlobalSpawner : MonoBehaviour
 		}
 	}
 	
-	void addToQueue (GameObject theObject)
+	protected void addToQueue (GameObject theObject)
 	{
 		_objectQueue.Enqueue (theObject);
 	}

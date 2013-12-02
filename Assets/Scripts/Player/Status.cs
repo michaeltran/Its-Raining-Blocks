@@ -1,22 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Status : MonoBehaviour
+public class Status : AbstractStatus
 {
 	public AudioClip PlayerDeathSound;
 	public bool GodMode = false;
-	private float _currentHP;
-	private float _maxHP;
-	private float _HPRegeneration;
-	private float _currentMP;
-	private float _maxMP;
-	private float _MPRegeneration;
-	private bool _isDead;
-	private GameObject _vitalBar;
-	private GameObject _manaBar;
-	private GameObject _gameOver;
-	private VitalBarBasic _vitalBarBasic;
-	private ManaBarBasic _manaBarBasic;
 	
 	void Start ()
 	{
@@ -33,8 +21,6 @@ public class Status : MonoBehaviour
 		_maxMP = 100f;
 		_currentMP = _maxMP;
 		_MPRegeneration = 1f;
-		
-		_isDead = false;
 	}
 	
 	void Update ()
@@ -47,36 +33,6 @@ public class Status : MonoBehaviour
 		CalculateVitalBar ();
 		CalculateManaBar ();
 		
-	}
-	
-	void HPRegeneration ()
-	{
-		if (_currentHP < _maxHP) {
-			_currentHP += _HPRegeneration * Time.deltaTime;
-		}
-	}
-	
-	void MPRegeneration ()
-	{
-		if (_currentMP < _maxMP) {
-			_currentMP += _MPRegeneration * Time.deltaTime;
-		}
-	}
-	
-	void CalculateVitalBar ()
-	{
-		float x = (float)_currentHP / (float)_maxHP;
-		string str = (int)_currentHP + "/" + _maxHP;
-		
-		_vitalBarBasic.UpdateDisplay (x, str);
-	}
-	
-	void CalculateManaBar ()
-	{
-		float x = (float)_currentMP / (float)_maxMP;
-		string str = (int)_currentMP + "/" + _maxMP;
-		
-		_manaBarBasic.UpdateDisplay (x, str);
 	}
 	
 	void CheckAlive ()

@@ -1,33 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class QuestionBlock : MonoBehaviour
+public class QuestionBlock : SpecialBlock
 {
-	public tk2dSpriteAnimator sprite;
 	public GameObject healthPotion;
 	public GameObject manaPotion;
-	private bool _bumped = false;
-	
-	void Update ()
-	{
-		CheckBump ();	
-	}
-	
-	void CheckBump ()
-	{
-		if (_bumped == false) {
-			RaycastHit[] hits = null;
-			hits = Physics.RaycastAll (new Vector3 (transform.position.x, transform.position.y, transform.position.z), -transform.up, 1.3f);
-			if (hits.Length > 0 && hits [0].collider.tag == "PlayerCollider") { 
-				_bumped = true;
-				// REMEMBER TO CHECK GROUNDED LATA
-				// DISABLE GRAVITY HERE
-				//sprite.Play ("question_block_bump");
-
-				Invoke ("DestroyObject", 0.3f);
-			}
-		}
-	}
 	
 	void DestroyObject ()
 	{
