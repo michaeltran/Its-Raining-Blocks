@@ -1,11 +1,11 @@
-Initialize engine version: 4.2.1f4 (4d30acc925c2)
+Initialize engine version: 4.3.2f1 (0517a5ae8669)
 GfxDevice: creating device client; threaded=1
 Direct3D:
-    Version:  Direct3D 9.0c [nvd3dum.dll 9.18.13.2049]
+    Version:  Direct3D 9.0c [nvd3dum.dll 9.18.13.3221]
     Renderer: NVIDIA GeForce GTX 660 
     Vendor:   NVIDIA
-    VRAM:     1994 MB (via DXGI)
-    Caps:     Shader=30 DepthRT=1 NativeDepth=1 NativeShadow=1 DF16=0 DF24=0 INTZ=1 RAWZ=0 NULL=1 RESZ=0 SlowINTZ=0
+    VRAM:     1989 MB (via DXGI)
+    Caps:     Shader=30 DepthRT=1 NativeDepth=1 NativeShadow=1 DF16=0 INTZ=1 RAWZ=0 NULL=1 RESZ=0 SlowINTZ=0
 Begin MonoManager ReloadAssembly
 Platform assembly: D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\UnityEngine.dll (this message is harmless)
 Loading D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\UnityEngine.dll into Unity Child Domain
@@ -17,19 +17,29 @@ Platform assembly: D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_D
 Loading D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
 Platform assembly: D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\HOTween.dll (this message is harmless)
 Loading D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\HOTween.dll into Unity Child Domain
-- Completed reload, in  0.037 seconds
+- Completed reload, in  0.039 seconds
 desktop: 1600x900 60Hz; virtual: 3200x900 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 Platform assembly: D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\System.dll (this message is harmless)
-UnloadTime: 2.185630 ms
-Tilemap HHTileMap is still in edit mode. Please fix.Building overhead will be significant.
+Level 'HauntedHouse' (-1) couldn't be loaded because it has not been added to the build settings.
+To add a level to the build settings use the menu File->Build Settings...
  
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+(Filename:  Line: 292)
 
-Unloading 4 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+Level 'HauntedHouse' (-1) couldn't be loaded because it has not been added to the build settings.
+To add a level to the build settings use the menu File->Build Settings...
+ 
+(Filename:  Line: 292)
 
-Unloading 36 unused Assets to reduce memory usage. Loaded Objects now: 2883.
-Total: 1.910055 ms (FindLiveObjects: 0.101194 ms CreateObjectMapping: 0.044875 ms MarkObjects: 1.104410 ms  DeleteObjects: 0.418935 ms)
+Level 'HauntedHouse' (-1) couldn't be loaded because it has not been added to the build settings.
+To add a level to the build settings use the menu File->Build Settings...
+ 
+(Filename:  Line: 292)
+
+Level 'HauntedHouse' (-1) couldn't be loaded because it has not been added to the build settings.
+To add a level to the build settings use the menu File->Build Settings...
+ 
+(Filename:  Line: 292)
 
