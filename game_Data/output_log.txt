@@ -17,29 +17,9 @@ Platform assembly: D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_D
 Loading D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
 Platform assembly: D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\HOTween.dll (this message is harmless)
 Loading D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\HOTween.dll into Unity Child Domain
-- Completed reload, in  0.039 seconds
+- Completed reload, in  0.050 seconds
 desktop: 1600x900 60Hz; virtual: 3200x900 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 Platform assembly: D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\System.dll (this message is harmless)
-Level 'HauntedHouse' (-1) couldn't be loaded because it has not been added to the build settings.
-To add a level to the build settings use the menu File->Build Settings...
- 
-(Filename:  Line: 292)
-
-Level 'HauntedHouse' (-1) couldn't be loaded because it has not been added to the build settings.
-To add a level to the build settings use the menu File->Build Settings...
- 
-(Filename:  Line: 292)
-
-Level 'HauntedHouse' (-1) couldn't be loaded because it has not been added to the build settings.
-To add a level to the build settings use the menu File->Build Settings...
- 
-(Filename:  Line: 292)
-
-Level 'HauntedHouse' (-1) couldn't be loaded because it has not been added to the build settings.
-To add a level to the build settings use the menu File->Build Settings...
- 
-(Filename:  Line: 292)
-

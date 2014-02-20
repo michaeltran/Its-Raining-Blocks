@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MadLevelManager;
 
 public class PlayClickEventReciever : MonoBehaviour {
 
 	void OnClick()
 	{
-		Application.LoadLevel ("HauntedHouse");
+		MadLevel.LoadNext();
 	}
 }
