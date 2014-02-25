@@ -13,7 +13,7 @@ public class StageSelectController : MonoBehaviour {
 	public MadSprite skillTreeButton;
 
 	void Start() {
-		backToMenuButton.onMouseDown += backToMenuButton.onTap = (sprite) => {MadLevel.LoadLevelByName ("Main Menu");};
+		backToMenuButton.onMouseDown += backToMenuButton.onTap = (sprite) => {MadLevel.LoadFirst();};
 		skillTreeButton.onMouseDown += skillTreeButton.onTap = (sprite) => {MadLevel.LoadLevelByName ("Skill Tree");};
 	}
 }

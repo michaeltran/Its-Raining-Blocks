@@ -6,6 +6,6 @@ public class PlayClickEventReciever : MonoBehaviour {
 
 	void OnClick()
 	{
-		MadLevel.LoadNext();
+		MadLevel.LoadNext(MadLevel.Type.Other);
 	}
 }
