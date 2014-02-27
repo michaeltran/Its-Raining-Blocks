@@ -1,0 +1,15 @@
+Fires a firebolt directly infront of Kaze.
+
+Any destructable blocks that collide with the firebolt will instantly shatter.
+
+Does no damage to the enemy.
+
+Protip: Reducing the number of blocks on a stage is advantageous.
+
+[42ff2e]Damage: 0[-]
+[267dff]Mana Cost: 10[-]
+[ff3232]Cooldown: 5s[-]
+
+
+
+

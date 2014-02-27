@@ -17,9 +17,37 @@ Platform assembly: D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_D
 Loading D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
 Platform assembly: D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\HOTween.dll (this message is harmless)
 Loading D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\HOTween.dll into Unity Child Domain
-- Completed reload, in  0.050 seconds
+- Completed reload, in  0.040 seconds
 desktop: 1600x900 60Hz; virtual: 3200x900 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 Platform assembly: D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\System.dll (this message is harmless)
+Mad Level Manager: This was first scene opened. Assuming that this was 'Main Menu' level. http://goo.gl/9sDjSi
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+UnloadTime: 17.762083 ms
+Level Main Menu is of wrong type. Won't look at it.
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Cannot find icon for level: Main Menu
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 45 unused Assets to reduce memory usage. Loaded Objects now: 776.
+Total: 1.392632 ms (FindLiveObjects: 0.036140 ms CreateObjectMapping: 0.015359 ms MarkObjects: 0.316534 ms  DeleteObjects: 0.569822 ms)
+
+UnloadTime: 0.802329 ms
+Tilemap HHTileMap is still in edit mode. Please fix.Building overhead will be significant.
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 2890.
+Total: 2.922901 ms (FindLiveObjects: 0.117156 ms CreateObjectMapping: 0.039453 ms MarkObjects: 1.997090 ms  DeleteObjects: 0.274069 ms)
+

@@ -1,0 +1,13 @@
+<talents>
+	<talent>
+		<id>1</id>
+		<name>Sideways Firebolt</name>
+		<cost>5</cost>
+	</talent>
+	<talent>
+		<id>2</id>
+		<name>Sideways Firebolt DMG</name>
+		<requirement>1</requirement>
+		<cost>10</cost>
+	</talent>
+</talents>
