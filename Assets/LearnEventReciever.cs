@@ -2,16 +2,32 @@
 using System.Collections;
 
 public class LearnEventReciever : MonoBehaviour {
-	public int currentId = 0;
-	private TalentTree talentTree;
+	public string currentId = "";
+	private TalentTree _talentTree;
+	private UIButton _uiButton;
 
 	void Start() {
-		talentTree = GameObject.Find("Controller").GetComponent<TalentTree>();
-		if(talentTree == null)
-			Debug.Log("Unable to find TalentTree in Controller");
+		_uiButton = this.gameObject.GetComponent<UIButton>();
+		_talentTree = GameObject.Find("Controller").GetComponent<TalentTree>();
+		if(_talentTree == null)
+			Debug.Log("Controller-TalentTree not found.");
+	}
+
+	void Update() {
+		if(_talentTree.isLearnt(currentId) == true 
+		   && _uiButton.isEnabled == true)
+			_uiButton.isEnabled = false;
+		else if (_talentTree.isLearnt(currentId) == false 
+		         && _talentTree.checkPreRequisites(currentId) == true 
+		         && _uiButton.isEnabled == false)
+			_uiButton.isEnabled = true;
+		else if (_talentTree.isLearnt(currentId) == false 
+		         && _talentTree.checkPreRequisites(currentId) == false 
+		         && _uiButton.isEnabled == true)
+			_uiButton.isEnabled = false;
 	}
 
 	void OnClick() {
-		talentTree.getTalent(currentId);
+		_talentTree.learnTalent(currentId);
 	}
 }

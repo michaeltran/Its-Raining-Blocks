@@ -1,0 +1,11 @@
+Fires a sideways firebolt and an upwards firebolt.
+
+Any destructable blocks that collide with the firebolt will instantly shatter.
+
+Deals moderate amount of damage.
+
+Protip: -
+
+[42ff2e]Base Damage: 50[-]
+[267dff]Mana Cost: 30[-]
+[ff3232]Cooldown: 10s[-]

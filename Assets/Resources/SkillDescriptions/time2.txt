@@ -1,0 +1,3 @@
+"If I just had more time to decide..."
+
+Increases the amount of time spent in "Slow Time" mode.

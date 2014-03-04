@@ -1,0 +1,11 @@
+Use magic to manipulate the flow of time. 
+
+Kaze enters "Slow Time" mode.
+
+Slows enemies, blocks, projectiles, everything!
+
+Protip: Use this spell when you're in a bind.
+
+[42ff2e]Base Damage: -[-]
+[267dff]Mana Cost: 10[-]
+[ff3232]Cooldown: 15s[-]

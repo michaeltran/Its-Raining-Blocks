@@ -1,0 +1,3 @@
+"Man I wish this firebolt did MORE damage..."
+
+Increases the amount of damage upwards firebolts do.

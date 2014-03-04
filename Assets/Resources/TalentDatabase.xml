@@ -1,0 +1,141 @@
+<talents>
+	<!-- Jump -->
+	<talent>
+		<id>jump1</id>
+		<name>Jump Height</name>
+		<cost>1</cost>
+	</talent>
+	<talent>
+		<id>jump2</id>
+		<name>Double Jump</name>
+		<requirement>jump1</requirement>
+		<cost>2</cost>
+	</talent>
+	<talent>
+		<id>jump3</id>
+		<name>Spin Jump</name>
+		<requirement>jump2</requirement>
+		<cost>3</cost>
+	</talent>
+
+	<!-- Time -->
+	<talent>
+		<id>time1</id>
+		<name>Slow Time</name>
+		<cost>1</cost>
+	</talent>
+	<talent>
+		<id>time2</id>
+		<name>Time Duration Increase</name>
+		<requirement>time1</requirement>
+		<cost>2</cost>
+	</talent>
+	<talent>
+		<id>time3</id>
+		<name>Slow Percentage</name>
+		<requirement>time2</requirement>
+		<cost>3</cost>
+	</talent>
+
+	<!-- Firebolt -->
+	<talent>
+		<id>firebolt1-1</id>
+		<name>Upwards Firebolt</name>
+		<cost>1</cost>
+	</talent>
+	<talent>
+		<id>firebolt1-2</id>
+		<name>Sideways Firebolt</name>
+		<cost>1</cost>
+	</talent>
+	<talent>
+		<id>firebolt2-1</id>
+		<name>Upwards Firebolt DMG</name>
+		<requirement>firebolt1-1</requirement>
+		<cost>2</cost>
+	</talent>
+	<talent>
+		<id>firebolt2-2</id>
+		<name>Sideways Firebolt DMG</name>
+		<requirement>firebolt1-2</requirement>
+		<cost>2</cost>
+	</talent>
+	<talent>
+		<id>firebolt3-1</id>
+		<name>Upwards Firebolt Size</name>
+		<requirement>firebolt2-1</requirement>
+		<cost>3</cost>
+	</talent>
+	<talent>
+		<id>firebolt3-2</id>
+		<name>Sideways Firebolt Size</name>
+		<requirement>firebolt2-2</requirement>
+		<cost>3</cost>
+	</talent>
+	<talent>
+		<id>firebolt3-3</id>
+		<name>Both Sides</name>
+		<requirement>firebolt3-1</requirement>
+		<requirement>firebolt3-2</requirement>
+		<cost>3</cost>
+	</talent>
+	<talent>
+		<id>firebolt4-1</id>
+		<name>Double Upwards Firebolt</name>
+		<requirement>firebolt3-1</requirement>
+		<cost>4</cost>
+	</talent>
+	<talent>
+		<id>firebolt4-2</id>
+		<name>Double Sideways Firebolt</name>
+		<requirement>firebolt3-2</requirement>
+		<cost>4</cost>
+	</talent>
+
+	<!-- Lightning -->
+	<talent>
+		<id>lightning1</id>
+		<name>Lightningbolt</name>
+		<cost>1</cost>
+	</talent>
+	<talent>
+		<id>lightning2</id>
+		<name>Lightningbolt DMG</name>
+		<requirement>lightning1</requirement>
+		<cost>2</cost>
+	</talent>
+	<talent>
+		<id>lightning3</id>
+		<name>Triple Lightningbolt</name>
+		<requirement>lightning2</requirement>
+		<cost>3</cost>
+	</talent>
+	<talent>
+		<id>lightning4</id>
+		<name>Sideways Lightningbolt</name>
+		<requirement>lightning3</requirement>
+		<cost>3</cost>
+	</talent>
+</talents>
+
+
+<!--
+	<talent>
+		<id></id>
+		<name></name>
+		<requirement></requirement>
+		<cost></cost>
+	</talent>
+
+	<talent>
+		<id>1</id>
+		<name>Sideways Firebolt</name>
+		<cost>5</cost>
+	</talent>
+	<talent>
+		<id>2</id>
+		<name>Sideways Firebolt DMG</name>
+		<requirement>1</requirement>
+		<cost>10</cost>
+	</talent>
+	-->

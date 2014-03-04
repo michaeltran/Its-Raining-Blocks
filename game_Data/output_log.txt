@@ -17,7 +17,7 @@ Platform assembly: D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_D
 Loading D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
 Platform assembly: D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\HOTween.dll (this message is harmless)
 Loading D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\HOTween.dll into Unity Child Domain
-- Completed reload, in  0.040 seconds
+- Completed reload, in  0.037 seconds
 desktop: 1600x900 60Hz; virtual: 3200x900 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
@@ -27,7 +27,7 @@ Mad Level Manager: This was first scene opened. Assuming that this was 'Main Men
  
 (Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
 
-UnloadTime: 17.762083 ms
+UnloadTime: 11.772047 ms
 Level Main Menu is of wrong type. Won't look at it.
  
 (Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
@@ -38,16 +38,37 @@ Cannot find icon for level: Main Menu
 
 Unloading 4 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
-Unloading 45 unused Assets to reduce memory usage. Loaded Objects now: 776.
-Total: 1.392632 ms (FindLiveObjects: 0.036140 ms CreateObjectMapping: 0.015359 ms MarkObjects: 0.316534 ms  DeleteObjects: 0.569822 ms)
+Unloading 45 unused Assets to reduce memory usage. Loaded Objects now: 762.
+Total: 1.827533 ms (FindLiveObjects: 0.043971 ms CreateObjectMapping: 0.018974 ms MarkObjects: 0.405382 ms  DeleteObjects: 0.802331 ms)
 
-UnloadTime: 0.802329 ms
+UnloadTime: 0.768599 ms
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 11 unused Assets to reduce memory usage. Loaded Objects now: 1241.
+Total: 8.708188 ms (FindLiveObjects: 0.035237 ms CreateObjectMapping: 0.014456 ms MarkObjects: 0.611687 ms  DeleteObjects: 7.750149 ms)
+
+Platform assembly: D:\Users\Michael Tran\Documents\Git\its-raining-blocks\game_Data\Managed\System.Xml.dll (this message is harmless)
+UnloadTime: 2.672932 ms
+Level Skill Tree is of wrong type. Won't look at it.
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Cannot find icon for level: Skill Tree
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 22 unused Assets to reduce memory usage. Loaded Objects now: 770.
+Total: 4.412221 ms (FindLiveObjects: 0.060837 ms CreateObjectMapping: 0.028912 ms MarkObjects: 0.652346 ms  DeleteObjects: 2.938569 ms)
+
+UnloadTime: 0.503565 ms
 Tilemap HHTileMap is still in edit mode. Please fix.Building overhead will be significant.
  
 (Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
 
 Unloading 4 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
-Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 2890.
-Total: 2.922901 ms (FindLiveObjects: 0.117156 ms CreateObjectMapping: 0.039453 ms MarkObjects: 1.997090 ms  DeleteObjects: 0.274069 ms)
+Unloading 20 unused Assets to reduce memory usage. Loaded Objects now: 2893.
+Total: 1.938064 ms (FindLiveObjects: 0.085232 ms CreateObjectMapping: 0.029214 ms MarkObjects: 1.328485 ms  DeleteObjects: 0.170164 ms)
 

@@ -1,0 +1,3 @@
+Because jumping regularly is too mainstream.
+
+Allows Kaze to do a spin jump.

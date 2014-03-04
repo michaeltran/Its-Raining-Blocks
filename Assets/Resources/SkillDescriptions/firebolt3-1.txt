@@ -1,0 +1,3 @@
+"I suck at aiming this firebolt..."
+
+Increases the size of upwards firebolts.

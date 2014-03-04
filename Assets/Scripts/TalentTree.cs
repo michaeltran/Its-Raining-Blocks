@@ -7,63 +7,65 @@ using System.Xml;
 public class TalentTree : MonoBehaviour {
 	public int talentPoints = 0;
 	public int maxTalentPoints = 99;
-	private bool hasPoints = false;
-	private int talentPointsSpent = 0;
-	private List<Talent> _talentList = new List<Talent> ();
-	private TextAsset asset;
 
-	private UILabel APLabel;
+	private bool _hasPoints = false;
+	private int _talentPointsSpent = 0;
+	private List<Talent> _talentList = new List<Talent> ();
+	private UILabel _APLabel;
 
 	void Start() {
-		APLabel = GameObject.Find ("APLabel").GetComponent<UILabel>();
-
-		getXML ();
+		_APLabel = GameObject.Find ("APLabel").GetComponent<UILabel>();
+		loadDatabaseXML ();
 	}
 
 	void Update() {
 		if (talentPoints >= 1) 
-			hasPoints = true;
+			_hasPoints = true;
 		else 
-			hasPoints = false;
+			_hasPoints = false;
 		setAPLabel ();
 	}
 
 	void setAPLabel () {
-		APLabel.text = "Available Points: " + talentPoints;
+		_APLabel.text = "Available Points: " + talentPoints;
 	}
 
-	public void getTalent(int id) {
+	public bool isLearnt(string id) {
+		Talent talent = getTalent(id);
+		return talent.isUnlocked;
+	}
+
+	public int getCost(string id) {
+		Talent talent = getTalent(id);
+		return talent.cost;
+	}
+
+	public Talent getTalent(string id) {
 		Talent talent = _talentList.Find (x => x.id == id);
-		if(talent.isUnlocked != true)
+		if(talent == null)
+			Debug.Log("No talent found with the id: " + id);
+		return talent;
+	}
+
+	public void learnTalent(string id) {
+		Talent talent = getTalent(id);
+		if(talent.isUnlocked != true && checkPreRequisites(id) == true && talentPoints >= talent.cost)
 		{
-			if(checkPreRequisites(id) == true)
-			{
-				if(talentPoints >= talent.cost)
-				{
-					talentPoints -= talent.cost;
-					talent.isUnlocked = true;
-				}
-			}
+			talentPoints -= talent.cost;
+			talent.isUnlocked = true;
 		}
 	}
 
-	public string getTalentName(int id) {
-		Talent talent = _talentList.Find (x => x.id == id);
-		if(talent == null)
-			Debug.Log ("No talent found with the id: " + id);
+	public string getTalentName(string id) {
+		Talent talent = getTalent(id);
 		return talent.name;
 	}
 
 	// Returns true if all pre-req's found, false if not
-	public bool checkPreRequisites(int id) {
-		//Get the talent in question
-		Talent talent = _talentList.Find (x => x.id == id);
-		if(talent == null) {
-			Debug.Log ("No talent found with the id: " + id);
-			return false;
-		}
+	public bool checkPreRequisites(string id) {
+		Talent talent = getTalent(id);
 		//Now get the talents required and check if they are unlocked
-		foreach(int reqId in talent.requirement)
+		foreach(string reqId in talent.requirement)
 		{
 			Talent preReqTalent = _talentList.Find (x => x.id == reqId);
 			if(preReqTalent == null)
@@ -79,22 +81,22 @@ public class TalentTree : MonoBehaviour {
 		return true;
 	}
 	
-	public void addTalent(int id, string name, List<int> requirement, int cost) {
+	public void addTalent(string id, string name, List<string> requirement, int cost) {
 		Talent talent = new Talent(id, name, requirement, cost);
 		_talentList.Add(talent);
 	}
 
-	void getXML() {
-		asset = (TextAsset)Resources.Load ("sample", typeof(TextAsset));
+	void loadDatabaseXML() {
+		TextAsset _textAsset = (TextAsset)Resources.Load ("TalentDatabase", typeof(TextAsset));
 		XmlDocument xmlDoc = new XmlDocument();
-		xmlDoc.LoadXml (asset.text);
+		xmlDoc.LoadXml (_textAsset.text);
 		XmlNodeList talentList = xmlDoc.GetElementsByTagName ("talent");
 		
 		foreach(XmlNode talentInfo in talentList)
 		{
-			int id = 0;
+			string id = "";
 			string name = "";
-			List<int> requirement = new List<int> ();
+			List<string> requirement = new List<string> ();
 			int cost = 0;
 			
 			XmlNodeList talentContent = talentInfo.ChildNodes;
@@ -103,7 +105,7 @@ public class TalentTree : MonoBehaviour {
 				
 				if(talentItems.Name == "id")
 				{
-					id = int.Parse (talentItems.InnerText);
+					id = talentItems.InnerText;
 				}
 				if(talentItems.Name == "name")
 				{
@@ -111,7 +113,7 @@ public class TalentTree : MonoBehaviour {
 				}
 				if(talentItems.Name == "requirement")
 				{
-					requirement.Add (int.Parse (talentItems.InnerText));
+					requirement.Add (talentItems.InnerText);
 				}
 				if(talentItems.Name == "cost")
 				{
@@ -126,13 +128,13 @@ public class TalentTree : MonoBehaviour {
 
 
 public class Talent {
-	public int id {get; set;}
+	public string id {get; set;}
 	public string name {get; set;}
 	public bool isUnlocked {get; set;}
-	public List<int> requirement;
+	public List<string> requirement;
 	public int cost{get; set;}
 
-	public Talent(int id, string name, List<int> requirement, int cost)
+	public Talent(string id, string name, List<string> requirement, int cost)
 	{
 		this.id = id;
 		this.name = name;

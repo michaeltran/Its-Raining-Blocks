@@ -1,0 +1,3 @@
+"Man I wish this firebolt DID damage..."
+
+Causes sideways firebolts to do moderate damage.
