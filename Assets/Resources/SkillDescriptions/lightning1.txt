@@ -1,0 +1,9 @@
+A bolt of lightning strikes the ground beneath Kaze.
+
+Destroys blocks and damages foes.
+
+Protip: The cooldown of lightning is very high, make it count when you use it.
+
+[42ff2e]Base Damage: 25[-]
+[267dff]Mana Cost: 10[-]
+[ff3232]Cooldown: 25s[-]

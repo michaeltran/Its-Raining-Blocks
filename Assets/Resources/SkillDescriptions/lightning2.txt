@@ -1,0 +1,3 @@
+"Man i wish i could do more deeps..."
+
+Increases the amount of damage lightning bolts deals.

@@ -1,4 +1,5 @@
 <talents>
+	<!-- Active Talents -->
 	<!-- Jump -->
 	<talent>
 		<id>jump1</id>
@@ -114,28 +115,106 @@
 		<id>lightning4</id>
 		<name>Sideways Lightningbolt</name>
 		<requirement>lightning3</requirement>
+		<cost>4</cost>
+	</talent>
+
+	<!-- Ice -->
+	<talent>
+		<id>ice1</id>
+		<name>Ice Bolt</name>
+		<cost>1</cost>
+	</talent>
+	<talent>
+		<id>ice2</id>
+		<name>Ice Duration</name>
+		<requirement>ice1</requirement>
+		<cost>2</cost>
+	</talent>
+	<talent>
+		<id>ice3</id>
+		<name>Increase Ice Size</name>
+		<requirement>ice2</requirement>
 		<cost>3</cost>
 	</talent>
+	<talent>
+		<id>ice4</id>
+		<name>Double Ice</name>
+		<requirement>ice3</requirement>
+		<cost>4</cost>
+	</talent>
+
+	<!-- Passive Talents -->
+	<!-- HP -->
+	<talent>
+		<id>hp1-1</id>
+		<name>Health Increase I</name>
+		<cost>1</cost>
+	</talent>
+	<talent>
+		<id>hp2-1</id>
+		<name>Health Increase II</name>
+		<requirement>hp1-1</requirement>
+		<cost>2</cost>
+	</talent>
+	<talent>
+		<id>hp3-1</id>
+		<name>Health Increase III</name>
+		<requirement>hp2-1</requirement>
+		<cost>3</cost>
+	</talent>
+	<talent>
+		<id>hp2-2</id>
+		<name>Health Regeneration I</name>
+		<requirement>hp2-1</requirement>
+		<cost>2</cost>
+	</talent>
+	<talent>
+		<id>hp3-2</id>
+		<name>Health Regeneration II</name>
+		<requirement>hp2-2</requirement>
+		<cost>3</cost>
+	</talent>
+	<talent>
+		<id>hp4-2</id>
+		<name>Health Regeneration III</name>
+		<requirement>hp3-2</requirement>
+		<cost>4</cost>
+	</talent>
+
+	<!-- MP -->
+	<talent>
+		<id>mp1-1</id>
+		<name>Mana Increase I</name>
+		<cost>1</cost>
+	</talent>
+	<talent>
+		<id>mp2-1</id>
+		<name>Mana Increase II</name>
+		<requirement>mp1-1</requirement>
+		<cost>2</cost>
+	</talent>
+	<talent>
+		<id>mp3-1</id>
+		<name>Mana Increase III</name>
+		<requirement>mp2-1</requirement>
+		<cost>3</cost>
+	</talent>
+	<talent>
+		<id>mp2-2</id>
+		<name>Mana Regeneration I</name>
+		<requirement>mp2-1</requirement>
+		<cost>2</cost>
+	</talent>
+	<talent>
+		<id>mp3-2</id>
+		<name>Mana Regeneration II</name>
+		<requirement>mp2-2</requirement>
+		<cost>3</cost>
+	</talent>
+	<talent>
+		<id>mp4-2</id>
+		<name>Mana Regeneration III</name>
+		<requirement>mp3-2</requirement>
+		<cost>4</cost>
+	</talent>
 </talents>
-
-
-<!--
-	<talent>
-		<id></id>
-		<name></name>
-		<requirement></requirement>
-		<cost></cost>
-	</talent>
-
-	<talent>
-		<id>1</id>
-		<name>Sideways Firebolt</name>
-		<cost>5</cost>
-	</talent>
-	<talent>
-		<id>2</id>
-		<name>Sideways Firebolt DMG</name>
-		<requirement>1</requirement>
-		<cost>10</cost>
-	</talent>
-	-->

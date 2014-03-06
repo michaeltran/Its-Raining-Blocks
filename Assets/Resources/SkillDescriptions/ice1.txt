@@ -1,0 +1,8 @@
+Hurls a shard of ice above Kaze.
+
+Any enemy hit will be frozen for a duration.
+
+[42ff2e]Base Damage: 0[-]
+[2e9aff]Duration: 5s[-]
+[267dff]Mana Cost: 10[-]
+[ff3232]Cooldown: 15s[-]

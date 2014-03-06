@@ -1,0 +1,1 @@
+Increases Maximum Mana by x.
