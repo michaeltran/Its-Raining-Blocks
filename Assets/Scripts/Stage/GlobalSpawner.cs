@@ -16,9 +16,9 @@ public abstract class GlobalSpawner : MonoBehaviour
 	public GameObject[] healthPotions;
 	public GameObject[] manaPotions;
 	public GameObject[] explosives;
-	private bool _spawnStuff = true;
-	private GameObject[] _spawners;
-	private Queue<GameObject> _objectQueue = new Queue<GameObject> ();
+	protected bool _spawnStuff = true;
+	protected GameObject[] _spawners;
+	protected Queue<GameObject> _objectQueue = new Queue<GameObject> ();
 	
 	void Start ()
 	{
@@ -73,13 +73,13 @@ public abstract class GlobalSpawner : MonoBehaviour
 			position.x += 2.5f;
 		}
 	}
-	
+
 	protected void addToQueue (GameObject theObject)
 	{
 		_objectQueue.Enqueue (theObject);
 	}
 	
-	void SpawnABlock ()
+	public virtual void SpawnABlock ()
 	{
 		if (_spawnStuff) {
 			int randomIndex = Random.Range (0, _spawners.Length);
