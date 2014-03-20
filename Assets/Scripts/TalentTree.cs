@@ -3,19 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
+using System.Xml.Serialization;
+using System.IO;
 
 public class TalentTree : MonoBehaviour {
 	public int talentPoints = 0;
 	public int maxTalentPoints = 99;
 
+	private string filePath = "DataFiles/test/test.xml";
 	private bool _hasPoints = false;
 	private int _talentPointsSpent = 0;
-	private List<Talent> _talentList = new List<Talent> ();
+	private TalentCollection _tc = new TalentCollection();
 	private UILabel _APLabel;
 
 	void Start() {
 		_APLabel = GameObject.Find ("APLabel").GetComponent<UILabel>();
-		loadDatabaseXML ();
+		if(System.IO.File.Exists(Path.Combine(Application.dataPath, filePath))) {
+			_tc = TalentCollection.Load (Path.Combine (Application.dataPath, filePath));
+		}
+		else {
+			loadDatabaseXML ();
+		}
 	}
 
 	void Update() {
@@ -41,7 +49,7 @@ public class TalentTree : MonoBehaviour {
 	}
 
 	public Talent getTalent(string id) {
-		Talent talent = _talentList.Find (x => x.id == id);
+		Talent talent = _tc._talentList.Find (x => x.id == id);
 		if(talent == null)
 			Debug.Log("No talent found with the id: " + id);
 		return talent;
@@ -53,6 +61,7 @@ public class TalentTree : MonoBehaviour {
 		{
 			talentPoints -= talent.cost;
 			talent.isUnlocked = true;
+			_tc.Save (Path.Combine(Application.dataPath, filePath));
 		}
 	}
 
@@ -67,7 +76,7 @@ public class TalentTree : MonoBehaviour {
 		//Now get the talents required and check if they are unlocked
 		foreach(string reqId in talent.requirement)
 		{
-			Talent preReqTalent = _talentList.Find (x => x.id == reqId);
+			Talent preReqTalent = _tc._talentList.Find (x => x.id == reqId);
 			if(preReqTalent == null)
 			{
 				Debug.Log ("No pre-requisite talent found with the id: " + id);
@@ -83,7 +92,7 @@ public class TalentTree : MonoBehaviour {
 	
 	public void addTalent(string id, string name, List<string> requirement, int cost) {
 		Talent talent = new Talent(id, name, requirement, cost);
-		_talentList.Add(talent);
+		_tc._talentList.Add(talent);
 	}
 
 	void loadDatabaseXML() {
@@ -122,24 +131,5 @@ public class TalentTree : MonoBehaviour {
 			}
 			addTalent (id, name, requirement, cost);
 		}
-	}
-}
-
-
-
-public class Talent {
-	public string id {get; set;}
-	public string name {get; set;}
-	public bool isUnlocked {get; set;}
-	public List<string> requirement;
-	public int cost{get; set;}
-
-	public Talent(string id, string name, List<string> requirement, int cost)
-	{
-		this.id = id;
-		this.name = name;
-		this.isUnlocked = false;
-		this.requirement = requirement;
-		this.cost = cost;
 	}
 }
