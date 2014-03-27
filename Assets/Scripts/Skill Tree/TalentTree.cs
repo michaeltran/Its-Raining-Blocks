@@ -9,20 +9,18 @@ using System.IO;
 public class TalentTree : MonoBehaviour {
 	public int talentPoints = 0;
 	public int maxTalentPoints = 99;
-
-	private string filePath = "DataFiles/test/test.xml";
+	
 	private bool _hasPoints = false;
 	private int _talentPointsSpent = 0;
-	private TalentCollection _tc = new TalentCollection();
+	//private TalentCollection _tc = new TalentCollection();
 	private UILabel _APLabel;
 
 	void Start() {
 		_APLabel = GameObject.Find ("APLabel").GetComponent<UILabel>();
-		if(System.IO.File.Exists(Path.Combine(Application.dataPath, filePath))) {
-			_tc = TalentCollection.Load (Path.Combine (Application.dataPath, filePath));
-		}
-		else {
-			loadDatabaseXML ();
+		if(PlayerData.Instance.data.tc == null)
+		{
+			PlayerData.Instance.data.tc = new TalentCollection();
+			loadDatabaseXML();
 		}
 	}
 
@@ -49,7 +47,7 @@ public class TalentTree : MonoBehaviour {
 	}
 
 	public Talent getTalent(string id) {
-		Talent talent = _tc._talentList.Find (x => x.id == id);
+		Talent talent = PlayerData.Instance.data.tc._talentList.Find (x => x.id == id);
 		if(talent == null)
 			Debug.Log("No talent found with the id: " + id);
 		return talent;
@@ -61,7 +59,7 @@ public class TalentTree : MonoBehaviour {
 		{
 			talentPoints -= talent.cost;
 			talent.isUnlocked = true;
-			_tc.Save (Path.Combine(Application.dataPath, filePath));
+			PlayerData.Instance.Save();
 		}
 	}
 
@@ -76,7 +74,7 @@ public class TalentTree : MonoBehaviour {
 		//Now get the talents required and check if they are unlocked
 		foreach(string reqId in talent.requirement)
 		{
-			Talent preReqTalent = _tc._talentList.Find (x => x.id == reqId);
+			Talent preReqTalent = PlayerData.Instance.data.tc._talentList.Find (x => x.id == reqId);
 			if(preReqTalent == null)
 			{
 				Debug.Log ("No pre-requisite talent found with the id: " + id);
@@ -92,7 +90,7 @@ public class TalentTree : MonoBehaviour {
 	
 	public void addTalent(string id, string name, List<string> requirement, int cost) {
 		Talent talent = new Talent(id, name, requirement, cost);
-		_tc._talentList.Add(talent);
+		PlayerData.Instance.data.tc._talentList.Add(talent);
 	}
 
 	void loadDatabaseXML() {

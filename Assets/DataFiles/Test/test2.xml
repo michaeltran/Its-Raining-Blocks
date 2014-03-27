@@ -1,8 +1,309 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <PlayerData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <myGlobalVar>whatev's</myGlobalVar>
-  <talentPoints>100</talentPoints>
+  <talentPoints>50</talentPoints>
   <tc>
-    <Talents />
+    <Talents>
+      <Talent>
+        <requirement />
+        <id>jump1</id>
+        <name>Jump Height</name>
+        <cost>1</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>jump1</string>
+        </requirement>
+        <id>jump2</id>
+        <name>Double Jump</name>
+        <cost>2</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>jump2</string>
+        </requirement>
+        <id>jump3</id>
+        <name>Spin Jump</name>
+        <cost>3</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement />
+        <id>time1</id>
+        <name>Slow Time</name>
+        <cost>1</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>time1</string>
+        </requirement>
+        <id>time2</id>
+        <name>Time Duration Increase</name>
+        <cost>2</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>time2</string>
+        </requirement>
+        <id>time3</id>
+        <name>Slow Percentage</name>
+        <cost>3</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement />
+        <id>firebolt1-1</id>
+        <name>Upwards Firebolt</name>
+        <cost>1</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement />
+        <id>firebolt1-2</id>
+        <name>Sideways Firebolt</name>
+        <cost>1</cost>
+        <isUnlocked>true</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>firebolt1-1</string>
+        </requirement>
+        <id>firebolt2-1</id>
+        <name>Upwards Firebolt DMG</name>
+        <cost>2</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>firebolt1-2</string>
+        </requirement>
+        <id>firebolt2-2</id>
+        <name>Sideways Firebolt DMG</name>
+        <cost>2</cost>
+        <isUnlocked>true</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>firebolt2-1</string>
+        </requirement>
+        <id>firebolt3-1</id>
+        <name>Upwards Firebolt Size</name>
+        <cost>3</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>firebolt2-2</string>
+        </requirement>
+        <id>firebolt3-2</id>
+        <name>Sideways Firebolt Size</name>
+        <cost>3</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>firebolt3-1</string>
+          <string>firebolt3-2</string>
+        </requirement>
+        <id>firebolt3-3</id>
+        <name>Both Sides</name>
+        <cost>3</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>firebolt3-1</string>
+        </requirement>
+        <id>firebolt4-1</id>
+        <name>Double Upwards Firebolt</name>
+        <cost>4</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>firebolt3-2</string>
+        </requirement>
+        <id>firebolt4-2</id>
+        <name>Double Sideways Firebolt</name>
+        <cost>4</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement />
+        <id>lightning1</id>
+        <name>Lightningbolt</name>
+        <cost>1</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>lightning1</string>
+        </requirement>
+        <id>lightning2</id>
+        <name>Lightningbolt DMG</name>
+        <cost>2</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>lightning2</string>
+        </requirement>
+        <id>lightning3</id>
+        <name>Triple Lightningbolt</name>
+        <cost>3</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>lightning3</string>
+        </requirement>
+        <id>lightning4</id>
+        <name>Sideways Lightningbolt</name>
+        <cost>4</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement />
+        <id>ice1</id>
+        <name>Ice Bolt</name>
+        <cost>1</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>ice1</string>
+        </requirement>
+        <id>ice2</id>
+        <name>Ice Duration</name>
+        <cost>2</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>ice2</string>
+        </requirement>
+        <id>ice3</id>
+        <name>Increase Ice Size</name>
+        <cost>3</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>ice3</string>
+        </requirement>
+        <id>ice4</id>
+        <name>Double Ice</name>
+        <cost>4</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement />
+        <id>hp1-1</id>
+        <name>Health Increase I</name>
+        <cost>1</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>hp1-1</string>
+        </requirement>
+        <id>hp2-1</id>
+        <name>Health Increase II</name>
+        <cost>2</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>hp2-1</string>
+        </requirement>
+        <id>hp3-1</id>
+        <name>Health Increase III</name>
+        <cost>3</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>hp2-1</string>
+        </requirement>
+        <id>hp2-2</id>
+        <name>Health Regeneration I</name>
+        <cost>2</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>hp2-2</string>
+        </requirement>
+        <id>hp3-2</id>
+        <name>Health Regeneration II</name>
+        <cost>3</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>hp3-2</string>
+        </requirement>
+        <id>hp4-2</id>
+        <name>Health Regeneration III</name>
+        <cost>4</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement />
+        <id>mp1-1</id>
+        <name>Mana Increase I</name>
+        <cost>1</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>mp1-1</string>
+        </requirement>
+        <id>mp2-1</id>
+        <name>Mana Increase II</name>
+        <cost>2</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>mp2-1</string>
+        </requirement>
+        <id>mp3-1</id>
+        <name>Mana Increase III</name>
+        <cost>3</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>mp2-1</string>
+        </requirement>
+        <id>mp2-2</id>
+        <name>Mana Regeneration I</name>
+        <cost>2</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>mp2-2</string>
+        </requirement>
+        <id>mp3-2</id>
+        <name>Mana Regeneration II</name>
+        <cost>3</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+      <Talent>
+        <requirement>
+          <string>mp3-2</string>
+        </requirement>
+        <id>mp4-2</id>
+        <name>Mana Regeneration III</name>
+        <cost>4</cost>
+        <isUnlocked>false</isUnlocked>
+      </Talent>
+    </Talents>
   </tc>
 </PlayerData>

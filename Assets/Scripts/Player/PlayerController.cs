@@ -7,51 +7,9 @@ using System.Xml.Serialization;
 using System.IO;
 
 public class PlayerController : MonoBehaviour {
-	private string filePath = "DataFiles/test/test2.xml";
-
 	void Awake() {
 		//PlayerData.Instance.Save (Path.Combine(Application.dataPath, filePath));
 		//PlayerData.Instance.Load (Path.Combine (Application.dataPath, filePath));
 		Debug.Log(PlayerData.Instance.data.talentPoints);
 	}
-}
-
-public class PlayerData : Singleton<PlayerData> {
-	public _PlayerData data = new _PlayerData();
-	private string filePath = "DataFiles/test/test2.xml";
-
-	protected PlayerData () {
-		Load (Path.Combine (Application.dataPath, filePath));
-	}
-
-	public void Save()
-	{
-		string path = Path.Combine (Application.dataPath, filePath);
-		Save (path);
-	}
-
-	public void Save(string path)
-	{
-		var serializer = new XmlSerializer(typeof(_PlayerData));
-		using(var stream = new FileStream(path, FileMode.Create))
-		{
-			serializer.Serialize(stream, data);
-		}
-	}
-	
-	public void Load(string path)
-	{
-		var serializer = new XmlSerializer(typeof(_PlayerData));
-		using(var stream = new FileStream(path, FileMode.Open))
-		{
-			data = serializer.Deserialize(stream) as _PlayerData;
-		}
-	}
-}
-
-[XmlRoot("PlayerData")]
-public class _PlayerData {
-	public string myGlobalVar = "whatev's";
-	public int talentPoints = 50;
-	public TalentCollection tc = new TalentCollection();
 }
