@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MadLevelManager;
 
 public class GameOver : MonoBehaviour
 {
@@ -38,7 +39,7 @@ public class GameOver : MonoBehaviour
 	
 	void DoWin()
 	{
-		Application.LoadLevel ("Results");
+		MadLevel.LoadLevelByName("Results");
 	}
 	
 }

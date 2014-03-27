@@ -7,12 +7,9 @@ using System.Xml.Serialization;
 using System.IO;
 
 public class TalentTree : MonoBehaviour {
-	public int talentPoints = 0;
-	public int maxTalentPoints = 99;
-	
+	private int maxTalentPoints = 99;
 	private bool _hasPoints = false;
 	private int _talentPointsSpent = 0;
-	//private TalentCollection _tc = new TalentCollection();
 	private UILabel _APLabel;
 
 	void Start() {
@@ -25,7 +22,7 @@ public class TalentTree : MonoBehaviour {
 	}
 
 	void Update() {
-		if (talentPoints >= 1) 
+		if (PlayerData.Instance.data.talentPoints >= 1) 
 			_hasPoints = true;
 		else 
 			_hasPoints = false;
@@ -33,7 +30,7 @@ public class TalentTree : MonoBehaviour {
 	}
 
 	void setAPLabel () {
-		_APLabel.text = "Available Points: " + talentPoints;
+		_APLabel.text = "Available Points: " + PlayerData.Instance.data.talentPoints;
 	}
 
 	public bool isLearnt(string id) {
@@ -55,9 +52,9 @@ public class TalentTree : MonoBehaviour {
 
 	public void learnTalent(string id) {
 		Talent talent = getTalent(id);
-		if(talent.isUnlocked != true && checkPreRequisites(id) == true && talentPoints >= talent.cost)
+		if(talent.isUnlocked != true && checkPreRequisites(id) == true && PlayerData.Instance.data.talentPoints >= talent.cost)
 		{
-			talentPoints -= talent.cost;
+			PlayerData.Instance.data.talentPoints -= talent.cost;
 			talent.isUnlocked = true;
 			PlayerData.Instance.Save();
 		}

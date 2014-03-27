@@ -11,8 +11,12 @@ public class PlayerData : Singleton<PlayerData> {
 	private string filePath = "DataFiles/test/test2.xml";
 	
 	protected PlayerData () {
-
-		Load (Path.Combine (Application.dataPath, filePath));
+		if(System.IO.File.Exists(Path.Combine(Application.dataPath, filePath))) {
+			Load (Path.Combine (Application.dataPath, filePath));
+		}
+		else {
+			Save();
+		}
 	}
 	
 	public void Save() {
@@ -39,7 +43,6 @@ public class PlayerData : Singleton<PlayerData> {
 
 [XmlRoot("PlayerData")]
 public class _PlayerData {
-	public string myGlobalVar = "whatev's";
-	public int talentPoints = 50;
+	public int talentPoints = 10;
 	public TalentCollection tc = null;
 }
