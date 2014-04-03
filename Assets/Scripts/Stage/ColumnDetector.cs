@@ -2,16 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class ColumnDetector : MonoBehaviour
+public class ColumnDetector : AbstractDetector
 {
-	private List<GameObject> _objectsInTrigger = new List<GameObject> ();
-	
-	void DetectDeletedObjects()
-	{
-		_objectsInTrigger.RemoveAll (item => item == null);
-	}
-	
-	void OnTriggerEnter (Collider other)
+	protected void OnTriggerEnter (Collider other)
 	{
 		DetectDeletedObjects ();
 
@@ -19,7 +12,6 @@ public class ColumnDetector : MonoBehaviour
 			_objectsInTrigger.Add (other.gameObject);
 		
 			if (_objectsInTrigger.Count > 10) {
-				
 				for(int i = 0; i < _objectsInTrigger.Count/2; i++)
 				{
 					GameObject obj = _objectsInTrigger[i];
@@ -29,13 +21,6 @@ public class ColumnDetector : MonoBehaviour
 					gc.DestroyObject ();
 				}
 			}
-		}
-	}
-	
-	void OnTriggerExit (Collider other)
-	{
-		if (other.gameObject.CompareTag ("Destructable")) {
-			_objectsInTrigger.Remove (other.gameObject);
 		}
 	}
 }

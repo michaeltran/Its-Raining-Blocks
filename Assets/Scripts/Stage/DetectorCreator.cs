@@ -6,15 +6,9 @@ public class DetectorCreator : MonoBehaviour {
 	public int numberOfDetectors;
 	
 	public GameObject prefabColumnDetector;
-	
-	// Use this for initialization
+
 	void Start () {
 		CreateDetectors ();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 	
 	void CreateDetectors()

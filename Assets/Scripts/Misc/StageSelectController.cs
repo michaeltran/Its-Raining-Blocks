@@ -11,10 +11,14 @@ using MadLevelManager;
 public class StageSelectController : MonoBehaviour {
 	public MadSprite backToMenuButton;
 	public MadSprite skillTreeButton;
+	private MadText _ASPText;
 
 	void Start() {
+		_ASPText = skillTreeButton.transform.FindChild("ASP/text").GetComponent<MadText>();
 		backToMenuButton.onMouseDown += backToMenuButton.onTap = (sprite) => {MadLevel.LoadFirst();};
 		skillTreeButton.onMouseDown += skillTreeButton.onTap = (sprite) => {MadLevel.LoadLevelByName ("Skill Tree");};
+
+		_ASPText.text = PlayerData.Instance.data.talentPoints.ToString();
 	}
 }
 

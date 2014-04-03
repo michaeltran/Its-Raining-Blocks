@@ -2,16 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class RowDetector : MonoBehaviour
+public class RowDetector : AbstractDetector
 {
-	private List<GameObject> _objectsInTrigger = new List<GameObject> ();
-	
-	void DetectDeletedObjects()
-	{
-		_objectsInTrigger.RemoveAll (item => item == null);
-	}
-	
-	void OnTriggerEnter (Collider other)
+	protected void OnTriggerEnter (Collider other)
 	{
 		DetectDeletedObjects();
 		
@@ -27,13 +20,6 @@ public class RowDetector : MonoBehaviour
 				}
 			
 			}
-		}
-	}
-	
-	void OnTriggerExit (Collider other)
-	{
-		if (other.gameObject.CompareTag ("Destructable")) {
-			_objectsInTrigger.Remove (other.gameObject);
 		}
 	}
 }

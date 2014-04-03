@@ -25,8 +25,9 @@ public class ScoreController : MonoBehaviour {
 
 	public float calculateScore() {
 		float theScore = 0f;
-		theScore += (currentTime - startTime);
-		return theScore*10;
+		theScore += 1000;
+		theScore -= (currentTime - startTime)*10;
+		return theScore;
 	}
 
 	public float getTimeElapsed() {
