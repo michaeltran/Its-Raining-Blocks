@@ -15,12 +15,64 @@ public class Status : AbstractStatus
 		_manaBarBasic = (ManaBarBasic)_manaBar.gameObject.GetComponent ("ManaBarBasic");
 		
 		_maxHP = 100f;
+		getMaxHP();
+		Debug.Log(_maxHP);
 		_currentHP = _maxHP;
 		_HPRegeneration = 0.5f;
 		
 		_maxMP = 100f;
+		getMaxMP ();
+		Debug.Log (_maxMP);
 		_currentMP = _maxMP;
 		_MPRegeneration = 1f;
+		getHPRegeneration();
+		getMPRegeneration();
+	}
+
+	bool getTalentIsUnlocked(string id)
+	{
+		Talent talent = PlayerData.Instance.data.tc._talentList.Find (x => x.id == id);
+		return talent.isUnlocked;
+	}
+
+	void getMaxHP()
+	{
+		if(getTalentIsUnlocked("hp1-1"))
+			_maxHP += 25f;
+		if(getTalentIsUnlocked("hp2-1"))
+			_maxHP += 25f;
+		if(getTalentIsUnlocked("hp3-1"))
+			_maxHP += 25f;
+	}
+
+	void getMaxMP()
+	{
+		if(getTalentIsUnlocked("mp1-1"))
+			_maxMP += 25f;
+		if(getTalentIsUnlocked("mp2-1"))
+			_maxMP += 25f;
+		if(getTalentIsUnlocked("mp3-1"))
+			_maxMP += 25f;
+	}
+
+	void getHPRegeneration()
+	{
+		if(getTalentIsUnlocked("hp2-2"))
+			_HPRegeneration += 0.5f;
+		if(getTalentIsUnlocked("hp3-2"))
+			_HPRegeneration += 0.5f; 
+		if(getTalentIsUnlocked("hp4-2"))
+			_HPRegeneration += 0.5f;
+	}
+
+	void getMPRegeneration()
+	{
+		if(getTalentIsUnlocked("mp2-2"))
+			_MPRegeneration += 0.5f;
+		if(getTalentIsUnlocked("mp3-2"))
+			_MPRegeneration += 0.5f; 
+		if(getTalentIsUnlocked("mp4-2"))
+			_MPRegeneration += 0.5f;
 	}
 	
 	void Update ()

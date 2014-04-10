@@ -8,10 +8,13 @@ public class GameOver : MonoBehaviour
 	public float resetAfterDeathTime = 5f;
 	public float transitionToResultTime = 5f;
 	public tk2dSpriteAnimator playerSprite;
+	public GameObject fireworks;
+	public AudioClip victoryMusic;
 	private Vector3 _originalPosition;
 	private Vector3 _hidingPosition;
 	private GameObject _globalSpawner;
 	private tk2dTextMesh textMesh;
+	private bool playVictoryAnimation = false;
 	
 	void Start ()
 	{
@@ -66,8 +69,13 @@ public class GameOver : MonoBehaviour
 		setDisableControls();
 		PlayerAnimator playerAnimator = playerSprite.gameObject.GetComponent<PlayerAnimator>();
 		playerAnimator.enabled = false;
-		playerSprite.Play ("victory-pose");
+		playVictoryAnimation = true;
 
+		AudioSource audioSource = GameObject.Find ("Background Music").GetComponent<AudioSource>();
+		audioSource.clip = victoryMusic;
+		audioSource.Play();
+
+		Instantiate(fireworks);
 
 		Invoke ("DoWin", transitionToResultTime);
 	}
@@ -75,6 +83,16 @@ public class GameOver : MonoBehaviour
 	void DoWin()
 	{
 		MadLevel.LoadLevelByName("Results");
+	}
+
+	void PlayVictoryAnimation ()
+	{
+		playerSprite.Play ("victory-pose");
+	}
+
+	void Update() {
+		if(playVictoryAnimation == true)
+			PlayVictoryAnimation();
 	}
 	
 }

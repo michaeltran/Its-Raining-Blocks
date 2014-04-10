@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <PlayerData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <talentPoints>8</talentPoints>
+  <talentPoints>1</talentPoints>
   <tc>
     <Talents>
       <Talent>
@@ -204,7 +204,7 @@
         <id>hp1-1</id>
         <name>Health Increase I</name>
         <cost>1</cost>
-        <isUnlocked>false</isUnlocked>
+        <isUnlocked>true</isUnlocked>
       </Talent>
       <Talent>
         <requirement>
@@ -213,7 +213,7 @@
         <id>hp2-1</id>
         <name>Health Increase II</name>
         <cost>2</cost>
-        <isUnlocked>false</isUnlocked>
+        <isUnlocked>true</isUnlocked>
       </Talent>
       <Talent>
         <requirement>
@@ -231,7 +231,7 @@
         <id>hp2-2</id>
         <name>Health Regeneration I</name>
         <cost>2</cost>
-        <isUnlocked>false</isUnlocked>
+        <isUnlocked>true</isUnlocked>
       </Talent>
       <Talent>
         <requirement>
@@ -240,7 +240,7 @@
         <id>hp3-2</id>
         <name>Health Regeneration II</name>
         <cost>3</cost>
-        <isUnlocked>false</isUnlocked>
+        <isUnlocked>true</isUnlocked>
       </Talent>
       <Talent>
         <requirement>
@@ -249,14 +249,14 @@
         <id>hp4-2</id>
         <name>Health Regeneration III</name>
         <cost>4</cost>
-        <isUnlocked>false</isUnlocked>
+        <isUnlocked>true</isUnlocked>
       </Talent>
       <Talent>
         <requirement />
         <id>mp1-1</id>
         <name>Mana Increase I</name>
         <cost>1</cost>
-        <isUnlocked>false</isUnlocked>
+        <isUnlocked>true</isUnlocked>
       </Talent>
       <Talent>
         <requirement>
@@ -265,7 +265,7 @@
         <id>mp2-1</id>
         <name>Mana Increase II</name>
         <cost>2</cost>
-        <isUnlocked>false</isUnlocked>
+        <isUnlocked>true</isUnlocked>
       </Talent>
       <Talent>
         <requirement>
@@ -283,7 +283,7 @@
         <id>mp2-2</id>
         <name>Mana Regeneration I</name>
         <cost>2</cost>
-        <isUnlocked>false</isUnlocked>
+        <isUnlocked>true</isUnlocked>
       </Talent>
       <Talent>
         <requirement>
@@ -292,7 +292,7 @@
         <id>mp3-2</id>
         <name>Mana Regeneration II</name>
         <cost>3</cost>
-        <isUnlocked>false</isUnlocked>
+        <isUnlocked>true</isUnlocked>
       </Talent>
       <Talent>
         <requirement>

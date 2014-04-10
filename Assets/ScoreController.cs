@@ -3,7 +3,7 @@ using System.Collections;
 using MadLevelManager;
 
 public class ScoreController : MonoBehaviour {
-	public string stageName = "Haunted House";
+	public string stageName = "Stage Name Here";
 	private string levelName;
 	private float startTime = 0f;
 	private float currentTime = 0f;
@@ -14,7 +14,6 @@ public class ScoreController : MonoBehaviour {
 		levelName = MadLevel.currentLevelName;
 		startTime = Time.time;
 		DontDestroyOnLoad(transform.gameObject);
-		Debug.Log(startTime);
 	}
 
 	void Update() {
