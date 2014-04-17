@@ -3,6 +3,7 @@ using System.Collections;
 
 public class AbnormalEffects : MonoBehaviour
 {
+	public bool shieldBlockExists = false;
 	private bool _isFrozen = false;
 	private GameObject _invincibilityAura;
 	private GameObject _frozenAura;
@@ -39,15 +40,19 @@ public class AbnormalEffects : MonoBehaviour
 	
 	void DetectEnemyShieldBlock ()
 	{
-		if(GameObject.Find("EnemyShieldBlock") != null || GameObject.Find ("EnemyShieldBlock(Clone)") != null)
-		{
-			_enemyStatus._Invincible = true;
-			_invincibilityAura.SetActive(true);
-		}	
-		else
-		{
-			_enemyStatus._Invincible = false;
-			_invincibilityAura.SetActive(false);
+		if(shieldBlockExists == true) {
+			if(GameObject.Find("EnemyShieldBlock") != null || GameObject.Find ("EnemyShieldBlock(Clone)") != null) {
+				setInvincibility(true);
+			}	
+			else {
+				setInvincibility(false);
+			}
 		}
+	}
+
+	public void setInvincibility(bool value) {
+		_enemyStatus._Invincible = value;
+		if(_invincibilityAura != null)
+			_invincibilityAura.SetActive(value);
 	}
 }

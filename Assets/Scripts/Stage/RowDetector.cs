@@ -13,10 +13,13 @@ public class RowDetector : AbstractDetector
 		
 			if (_objectsInTrigger.Count > 20) {
 				foreach (GameObject obj in _objectsInTrigger) {
+					Destroy (obj);
+					/*
 					Vector3 target = new Vector3(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z+20);
 					obj.transform.position = target;
 					GarbageCollection gc = (GarbageCollection) obj.GetComponent (typeof(GarbageCollection));
 					gc.DestroyObject();
+					*/
 				}
 			
 			}
