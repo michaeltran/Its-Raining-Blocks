@@ -19,13 +19,13 @@ public class SquishDetection : MonoBehaviour
 	{	
 		CheckSquashed ();
 	}
-	
+
 	void CheckSquashed ()
 	{
 		RaycastHit[] hits = null;
 		hits = Physics.RaycastAll (new Vector3 (transform.position.x, transform.position.y, transform.position.z), transform.up, 1.4f);
 		
-		if (hits.Length > 0 && _rcc.IsGrounded (0) && hits [0].collider.tag == "Destructable") {
+		if (hits.Length > 0 && _rcc.IsGrounded (0.1f) && hits [0].collider.tag == "Destructable") {
 			// Take DMG from block
 			AudioSource.PlayClipAtPoint (SquishSound, transform.position);
 			_status.TakeDamage (40);

@@ -7,10 +7,10 @@ public class LaboratorySwitchController : MonoBehaviour {
 	private tk2dSprite _sprite;
 	private float startTime = 0f;
 	private float currentTime = 0f;
-	private int _offID;
-	private int _onID;
-	[HideInInspector] public bool isOff = false;
-	private bool isDisabled = false;
+	[HideInInspector]public int _offID;
+	[HideInInspector]public int _onID;
+	[HideInInspector]public bool isOff = false;
+	[HideInInspector]public bool isDisabled = false;
 
 	public void setDisabled(bool set) {
 		isDisabled = set;
@@ -44,14 +44,14 @@ public class LaboratorySwitchController : MonoBehaviour {
 		}
 	}
 
-	void changeSprite(int id) {
+	public void changeSprite(int id) {
 		_sprite.spriteId = id;
 	}
 
 	void startTimer() {
 		startTime = Time.time;
 		currentTime = Time.time;
-		parentPipe.setUp (Color.red,Color.green,timeToReset);
+		parentPipe.setUp (Color.red, Color.green, timeToReset);
 	}
 
 	void endTimer() {

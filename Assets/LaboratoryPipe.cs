@@ -4,6 +4,7 @@ using System.Collections;
 public class LaboratoryPipe : MonoBehaviour {
 	public LaboratorySwitchController[] switches;
 	public GameObject[] tesla;
+	[HideInInspector]public bool dontCheckPulled = false;
 	private tk2dSprite sprite;
 	private float speed = 0.1f;
 	private Color currentColor = Color.green;
@@ -15,7 +16,8 @@ public class LaboratoryPipe : MonoBehaviour {
 	}
 
 	void Update () {
-		checkIfSwitchesPulled();
+		if(dontCheckPulled == false)
+			checkIfSwitchesPulled();
 		if(change == true)
 			sprite.color = Color.Lerp (sprite.color, targetColor, Time.deltaTime*speed);
 	}
@@ -46,6 +48,16 @@ public class LaboratoryPipe : MonoBehaviour {
 		}
 		sprite.color = currentColor;
 		targetColor = currentColor;
+		disableTesla();
+	}
+
+	public void enableTesla() {
+		foreach(GameObject obj in tesla) {
+			obj.SetActive(true);
+		}
+	}
+
+	public void disableTesla() {
 		foreach(GameObject obj in tesla) {
 			obj.SetActive(false);
 		}
