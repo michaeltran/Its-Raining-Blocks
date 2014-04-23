@@ -51,7 +51,7 @@ public class LaboratorySwitchController : MonoBehaviour {
 	void startTimer() {
 		startTime = Time.time;
 		currentTime = Time.time;
-		parentPipe.setUp (Color.red, Color.green, timeToReset);
+		parentPipe.setUp (Color.red, parentPipe.originalColor, timeToReset);
 	}
 
 	void endTimer() {

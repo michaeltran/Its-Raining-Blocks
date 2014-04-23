@@ -38,10 +38,7 @@ public class GameOver : MonoBehaviour
 		explosiveArray = GameObject.FindGameObjectsWithTag("Explosive");
 
 		foreach(GameObject obj in destructableArray) {
-			Vector3 target = new Vector3(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z + 20);
-			obj.transform.position = target;
-			GarbageCollection gc = (GarbageCollection)obj.GetComponent (typeof(GarbageCollection));
-			gc.DestroyObject ();
+			Destroy (obj);
 		}
 
 		foreach(GameObject obj in explosiveArray) {
@@ -57,6 +54,10 @@ public class GameOver : MonoBehaviour
 	
 	void DoReset()
 	{
+		GameObject backgroundMusic = GameObject.Find("Background Music");
+		if(backgroundMusic != null) {
+			Destroy(backgroundMusic);
+		}
 		Application.LoadLevel(Application.loadedLevel);
 	}
 	

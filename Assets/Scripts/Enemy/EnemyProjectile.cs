@@ -5,6 +5,7 @@ public class EnemyProjectile : MonoBehaviour {
 
 	public float speed;
 	public AudioClip HitSound;
+	public ParticleSystem fx;
 	
 	private GameObject _target;
 	private Transform Target;
@@ -29,6 +30,9 @@ public class EnemyProjectile : MonoBehaviour {
     {
         if(other.gameObject.tag == "PlayerCollider" && _didDamage == false)
         {
+			if(fx != null) {
+				Instantiate(fx, transform.position, transform.rotation);
+			}
 			_didDamage = true;
 			AudioSource.PlayClipAtPoint(HitSound, transform.position);
 			GameObject target = other.transform.parent.gameObject;

@@ -48,13 +48,13 @@ public class ResultsController : MonoBehaviour {
 		star1.spriteName = "star1";
 		MarkLevelCompleted();
 
-		if(scoreController.calculateScore() >= 500) {
+		if(scoreController.calculateScore() >= 200) {
 			_EarnStar("star_2");
 			star2.spriteName = "star1";
 			MarkLevelCompleted();
 		}
 
-		if(scoreController.calculateScore() >= 900) {
+		if(scoreController.calculateScore() >= 600) {
 			_EarnStar("star_3");
 			star3.spriteName = "star1";
 			MarkLevelCompleted();

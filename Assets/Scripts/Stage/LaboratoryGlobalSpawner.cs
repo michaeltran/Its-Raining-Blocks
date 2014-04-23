@@ -6,6 +6,8 @@ public class LaboratoryGlobalSpawner : GlobalSpawner {
 	override public void _Start()
 	{
 		InvokeRepeating ("SpawnABlock", startTime, rateOfSpawn);
+		InvokeRepeating ("addSpecialBlockToSpawn", 2.5f, 5f);
+		InvokeRepeating ("addExplosiveToSpawn", 5f, 10f);
 	}
 	
 	override public void SpawnABlock ()

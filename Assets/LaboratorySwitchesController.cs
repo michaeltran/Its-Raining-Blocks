@@ -42,7 +42,8 @@ public class LaboratorySwitchesController : MonoBehaviour {
 		startTimer = true;
 		startTime = Time.time;
 		foreach(LaboratorySwitchController _switch in switches) {
-			_switch.parentPipe.setUp (Color.red, Color.green, timeToReset);
+			_switch.parentPipe.checkIfSwitchesPulled();
+			_switch.parentPipe.setUp (Color.red, _switch.parentPipe.originalColor, timeToReset);
 			_switch.parentPipe.dontCheckPulled = true;
 		}
 	}

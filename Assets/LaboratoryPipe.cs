@@ -9,10 +9,12 @@ public class LaboratoryPipe : MonoBehaviour {
 	private float speed = 0.1f;
 	private Color currentColor = Color.green;
 	private Color targetColor = Color.red;
+	[HideInInspector]public Color originalColor;
 	private bool change = false;
 
 	void Start () {
 		sprite = GetComponent<tk2dSprite>();
+		originalColor = sprite.color;
 	}
 
 	void Update () {
@@ -26,11 +28,11 @@ public class LaboratoryPipe : MonoBehaviour {
 		currentColor = start;
 		sprite.color = currentColor;
 		targetColor = end;
-		speed = 1f/time;
+		speed = 2f/time;
 		change = true;
 	}
 
-	void checkIfSwitchesPulled() {
+	public void checkIfSwitchesPulled() {
 		int numberOff = 0;
 		foreach(LaboratorySwitchController _switch in switches) {
 			if(_switch.isOff == true) {
@@ -54,11 +56,14 @@ public class LaboratoryPipe : MonoBehaviour {
 	public void enableTesla() {
 		foreach(GameObject obj in tesla) {
 			obj.SetActive(true);
+			obj.GetComponent<hoMove>().Resume();
+			obj.GetComponent<hoMove>().moveToPath = true;
 		}
 	}
 
 	public void disableTesla() {
 		foreach(GameObject obj in tesla) {
+			obj.GetComponent<hoMove>().Pause ();
 			obj.SetActive(false);
 		}
 	}
