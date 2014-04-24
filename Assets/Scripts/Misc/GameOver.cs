@@ -10,6 +10,10 @@ public class GameOver : MonoBehaviour
 	public tk2dSpriteAnimator playerSprite;
 	public GameObject fireworks;
 	public AudioClip victoryMusic;
+
+	public UISprite gameOverSprite;
+	public UISprite victorySprite;
+
 	private Vector3 _originalPosition;
 	private Vector3 _hidingPosition;
 	private GameObject _globalSpawner;
@@ -21,11 +25,15 @@ public class GameOver : MonoBehaviour
 		_globalSpawner = GameObject.FindGameObjectWithTag ("GlobalSpawner");
 		textMesh = GetComponent<tk2dTextMesh>();
 		textMesh.text = "";
+
+		gameOverSprite.enabled = false;
+		victorySprite.enabled = false;
 	}
 	
 	public void LevelReset ()
 	{
-		textMesh.text = "Game Over Man, Game Over";
+		//textMesh.text = "Game Over Man, Game Over";
+		gameOverSprite.enabled = true;
 		_globalSpawner.gameObject.SendMessage ("setSpawnStuff", false);
 		Invoke ("DoReset", resetAfterDeathTime);
 	}
@@ -63,7 +71,8 @@ public class GameOver : MonoBehaviour
 	
 	public void LevelWin ()
 	{
-		textMesh.text = "Victory is Ours";
+		//textMesh.text = "Victory is Ours";
+		victorySprite.enabled = true;
 		_globalSpawner.gameObject.SendMessage ("setSpawnStuff", false);
 
 		purgeScene();
