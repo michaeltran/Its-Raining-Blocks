@@ -8,9 +8,8 @@ public class Pause : MonoBehaviour
 	{
 		get
 		{
-			if (_instance == null)
-			{
-				_instance= new GameObject("Pause").AddComponent<Pause>();
+			if (_instance == null) {
+				_instance = new GameObject("Pause").AddComponent<Pause>();
 			}
 			return _instance;
 		}
@@ -18,8 +17,7 @@ public class Pause : MonoBehaviour
 
 	private void Awake()
 	{
-		if (_instance != null)
-		{
+		if (_instance != null) {
 			GameObject.Destroy(gameObject);
 		} else {	
 			DontDestroyOnLoad(gameObject);

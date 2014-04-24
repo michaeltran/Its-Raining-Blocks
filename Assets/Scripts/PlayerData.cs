@@ -8,11 +8,13 @@ using System.IO;
 
 public class PlayerData : Singleton<PlayerData> {
 	public _PlayerData data = new _PlayerData();
-	private string filePath = "DataFiles/test/test2.xml";
+	private string filePath = "playerdata.xml";
 	
 	protected PlayerData () {
-		if(System.IO.File.Exists(Path.Combine(Application.dataPath, filePath))) {
-			Load (Path.Combine (Application.dataPath, filePath));
+		Debug.Log(Application.streamingAssetsPath);
+		if(System.IO.File.Exists(Path.Combine(Application.streamingAssetsPath, filePath))) {
+			Debug.Log ("loadin");
+			Load (Path.Combine (Application.streamingAssetsPath, filePath));
 		}
 		else {
 			Save();
@@ -20,7 +22,8 @@ public class PlayerData : Singleton<PlayerData> {
 	}
 	
 	public void Save() {
-		string path = Path.Combine (Application.dataPath, filePath);
+		string path = Path.Combine (Application.streamingAssetsPath, filePath);
+		System.IO.Directory.CreateDirectory(Application.streamingAssetsPath);
 		Save (path);
 	}
 	

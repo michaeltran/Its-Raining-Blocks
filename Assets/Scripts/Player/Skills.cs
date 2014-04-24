@@ -40,8 +40,15 @@ public class Skills : MonoBehaviour
 	private int _thunderCost = 25;
 	#endregion
 
+	private GameObject pausedLogo;
+	private UISprite pausedLogoSprite;
+
 	void Start ()
 	{
+		pausedLogo = GameObject.FindGameObjectWithTag("Pause");
+		pausedLogoSprite = GameObject.FindGameObjectWithTag("Pause").GetComponent<UISprite>();
+		enablePauseLogo(false);
+
 		_originalTimeScale = Time.timeScale;
 		_originalFixedDeltaTime = Time.fixedDeltaTime;
 		
@@ -88,10 +95,19 @@ public class Skills : MonoBehaviour
 	{
 		Pause.Instance.IsPaused = !Pause.Instance.IsPaused;
 		if (Pause.Instance.IsPaused) {
+			enablePauseLogo(true);
 			_status.GodMode = !_status.GodMode;
 			Time.timeScale = 0f;
 		} else {
+			enablePauseLogo (false);
 			Time.timeScale = _originalTimeScale;
+		}
+	}
+
+	void enablePauseLogo (bool value) {
+		if(pausedLogoSprite != null) {
+			pausedLogoSprite.color = new Color(Random.Range(0.0f,1.0f),Random.Range(0.0f,1.0f), Random.Range(0.0f,1.0f));
+			pausedLogoSprite.enabled = value;
 		}
 	}
 	#endregion

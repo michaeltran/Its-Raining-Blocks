@@ -16,13 +16,11 @@ public class Status : AbstractStatus
 		
 		_maxHP = 100f;
 		getMaxHP();
-		Debug.Log(_maxHP);
 		_currentHP = _maxHP;
 		_HPRegeneration = 0.5f;
 		
 		_maxMP = 100f;
 		getMaxMP ();
-		Debug.Log (_maxMP);
 		_currentMP = _maxMP;
 		_MPRegeneration = 1f;
 		getHPRegeneration();

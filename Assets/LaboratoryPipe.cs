@@ -55,16 +55,18 @@ public class LaboratoryPipe : MonoBehaviour {
 
 	public void enableTesla() {
 		foreach(GameObject obj in tesla) {
-			obj.SetActive(true);
+			//obj.SetActive(true);
+			obj.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z - 100);
 			obj.GetComponent<hoMove>().Resume();
-			obj.GetComponent<hoMove>().moveToPath = true;
+			//obj.GetComponent<hoMove>().moveToPath = true;
 		}
 	}
 
 	public void disableTesla() {
 		foreach(GameObject obj in tesla) {
+			obj.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z + 100);
 			obj.GetComponent<hoMove>().Pause ();
-			obj.SetActive(false);
+			//obj.SetActive(false);
 		}
 	}
 }
