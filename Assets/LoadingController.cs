@@ -2,18 +2,19 @@
 using System.Collections;
 
 public class LoadingController : MonoBehaviour {
+	public GameObject objectsToDisable;
 	private UISprite loadingLogoSprite;
 	
-	void Start() {
+	void Start() { 
 		loadingLogoSprite = GetComponent<UISprite>();
-		//enableLoadingLogo(false);
+		enableLoadingLogo(false);
 	}
 	
 	void Update() {
 		if(Application.isLoadingLevel) {
 			enableLoadingLogo(true);
 		} else {
-			enableLoadingLogo(true);
+			enableLoadingLogo(false);
 		}
 	}
 	

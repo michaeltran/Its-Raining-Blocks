@@ -13,7 +13,6 @@ public class PlayerData : Singleton<PlayerData> {
 	protected PlayerData () {
 		Debug.Log(Application.streamingAssetsPath);
 		if(System.IO.File.Exists(Path.Combine(Application.streamingAssetsPath, filePath))) {
-			Debug.Log ("loadin");
 			Load (Path.Combine (Application.streamingAssetsPath, filePath));
 		}
 		else {
