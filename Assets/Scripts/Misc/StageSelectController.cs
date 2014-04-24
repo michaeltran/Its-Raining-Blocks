@@ -14,6 +14,7 @@ public class StageSelectController : MonoBehaviour {
 	public MadSprite nextWorld;
 	public MadSprite previousWorld;
 	public GameObject[] stages;
+	public GameObject[] stagesLabel;
 	private MadText _ASPText;
 
 	void Start() {
@@ -27,12 +28,16 @@ public class StageSelectController : MonoBehaviour {
 
 	void setHauntedHouseWorld() {
 		stages[0].SetActive(true);
+		stagesLabel[0].SetActive(true);
 		stages[1].SetActive(false);
+		stagesLabel[1].SetActive(false);
 	}
 
 	void setLaboratoryWorld() {
 		stages[0].SetActive(false);
+		stagesLabel[0].SetActive(false);
 		stages[1].SetActive(true);
+		stagesLabel[1].SetActive(true);
 	}
 }
 

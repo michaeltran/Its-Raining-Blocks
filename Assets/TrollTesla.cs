@@ -3,7 +3,7 @@ using System.Collections;
 
 public class TrollTesla : MonoBehaviour {
 	public float maxSpeed = 30f;
-	public float changeTime = 5f;
+	public float changeTime = 1f;
 	private hoMove homove;
 
 	void Start () {
@@ -13,8 +13,9 @@ public class TrollTesla : MonoBehaviour {
 
 	void trollSpeed() {
 		if(homove != null) {
-			float random = Random.Range(0f, maxSpeed);
-			homove.speed = random;
+			float random = Random.Range(1f, maxSpeed);
+			//homove.speed = random;
+			homove.ChangeSpeed(random);
 		}
 	}
 }
