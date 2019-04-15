@@ -1,0 +1,127 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+	margin: 0px;
+	padding: 0px;
+	background-color: #0f111c;
+	font-family: Arial, Helvetica, sans-serif;
+}
+#outside_container {
+	background: url(images/background_slice.jpg) repeat-x #000000;
+}
+#container {
+	background: url(images/background_main.jpg) no-repeat;
+	min-height: 800px;
+	width: 1000px;
+	position: relative;
+}
+#logo {
+	position: absolute;
+	top: 58px;
+	left: 51px;
+}
+#panel {
+	position: absolute;
+	top: 325px;
+	left: 130px;
+}
+ul#menu {
+	margin: 0px;
+	padding: 0px;
+	position: absolute;
+	top: 245px;
+	left: 75px;
+}
+ul#right_menu {
+	margin: 0px;
+	padding: 0px;
+	position: absolute;
+	top: 245px;
+	right: 122px;
+}
+ul#menu li, ul#right_menu li {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+	margin-right: 10px;
+	font-size: 9px;
+	text-transform: uppercase;
+	display: inline;
+}
+ul#menu li a, ul#right_menu li a {
+	text-decoration:none;
+	color:#bd92b2;
+}
+ul#menu li a:hover, ul#right_menu li a:hover {
+	text-decoration:none;
+	color:#ffffff;
+}
+#content {
+	padding-top:500px;
+	padding-left:85px;
+	width:815px;
+	color:#674f5d;
+	font-size:13px;
+	line-height:20px;
+}
+.column1 {float:left; width:230px; margin-right:30px;}
+.column2 {float:left; width:230px; margin-right:30px;}
+.column3 {float:left; width:270px;}
+#content h2 {
+	font-family:Georgia, "Times New Roman", Times, serif;
+	color:#dbaa70;
+	margin:0px 0px 20px 0px;
+	font-weight:normal;
+}
+ul.work {
+	margin:0px; padding:0px;
+}
+ul.work li {
+	list-style:none;
+	margin:0px; padding:0px;
+	clear:both;
+}
+ul.work li a {
+	color:#e0b882;
+	display:block;
+	padding:5px 10px 5px 10px;
+	text-decoration:none;
+	font-size:10px;
+}
+ul.work li a img {
+	float:left;
+	margin-right:20px;
+	margin-bottom:20px;	
+}
+ul.work li a h4 {
+	color:#674f5d;
+	margin:0px;
+	font-weight:normal;
+	font-size:13px;
+}
+ul.work li a:hover, ul.work li a:hover h4 { color:#ffffff; }
+#footer {
+	border-top: 1px solid #282828;
+	padding: 30px 50px 80px 50px;
+	color: #674f5d;
+	font-size: 9px;
+	line-height: 14px;
+}
+#footer img {
+	float: left;
+	margin-right: 10px;
+}
+#footer span {
+	display: block;
+	float: left;
+	width: 250px;
+}
+#footer a {
+	color: #9e8292;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+#footer a:hover {
+	color: #ffffff;
+}
