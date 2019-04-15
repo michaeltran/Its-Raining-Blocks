@@ -12,10 +12,6 @@ An evil wizard has brought down death and destruction upon the world in the form
 
 ---
 
-## Run
-
-To launch the game, run `game.exe`. Enjoy!
-
 ## Development
 
 ### Requirements
@@ -31,3 +27,7 @@ Open the root directory as a project in Unity. All used assets are included with
 ### Description
 
 This game was developed in Unity 3D using 2Dtoolkit. Nowadays Unity 2D exists, which makes this project somewhat obsolete for studying or building off of. However I'm proud of the video game I created and I hope you find something useful in here!
+
+## Run
+
+To launch the game, run `game.exe`. Enjoy!
