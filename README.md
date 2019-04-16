@@ -12,6 +12,12 @@ An evil wizard has brought down death and destruction upon the world in the form
 
 ---
 
+## Game Download
+
+Download for the full version of the game here: https://github.com/michaeltran/Its-Raining-Blocks/releases
+
+---
+
 ## Development
 
 ### Requirements
