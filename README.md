@@ -1,4 +1,4 @@
-# It's Raining Blocks!
+# ![Logo](https://github.com/michaeltran/Its-Raining-Blocks/blob/master/docs/images/logo.jpg)
 
 **Created By**: Michael Tran
 
@@ -37,3 +37,5 @@ This game was developed in Unity 3D using 2Dtoolkit. Nowadays Unity 2D exists, w
 ## Run
 
 To launch the game, run `game.exe`. Enjoy!
+
+![Logo](https://github.com/michaeltran/Its-Raining-Blocks/blob/master/docs/images/top_logo.png)
